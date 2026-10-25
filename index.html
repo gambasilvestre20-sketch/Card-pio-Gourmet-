@@ -14,6 +14,7 @@
   --text:#593b49;
   --muted:#987b88;
   --cream:#fff8fa;
+  --neon:#bd55ff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:20px}
@@ -218,6 +219,81 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
   padding:13px;border-radius:13px;background:#fff4f8;
   color:var(--text);font-size:.86rem;line-height:1.6
 }
+
+/* Escolha de categoria no final da página */
+.category-choice-section{
+  padding:38px 18px 52px;
+  background:
+    radial-gradient(ellipse at 50% 0%,#efd8ff70,transparent 65%),
+    linear-gradient(180deg,#fff8fb,#fff5fb);
+}
+.category-choice-wrap{max-width:760px;margin:auto}
+.category-choice-heading{text-align:center;margin-bottom:24px}
+.category-choice-heading h2{
+  font-size:clamp(1.55rem,5.5vw,2.15rem);
+  margin-bottom:9px;line-height:1.2
+}
+.category-choice-heading p{color:var(--muted);line-height:1.6}
+.category-choices{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:center;gap:16px;padding:12px 5px 20px
+}
+.category-choice{
+  position:relative;display:block;width:100%;min-width:0;
+  aspect-ratio:3/4.2;overflow:hidden;
+  padding:0;border:2px solid transparent;border-radius:22px;
+  background:#fff;isolation:isolate;
+  box-shadow:0 8px 24px #5d304018;
+  transform:scale(.94);
+  filter:grayscale(.78) brightness(.88);
+  opacity:.84;
+  transition:
+    transform .28s ease,
+    filter .28s ease,
+    opacity .28s ease,
+    border-color .28s ease,
+    box-shadow .28s ease;
+}
+.category-choice img{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:block;object-fit:cover;
+  transition:transform .35s ease;
+}
+.category-choice::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,transparent 45%,#1d1028bb 100%);
+  opacity:.8;pointer-events:none
+}
+.category-choice-label{
+  position:absolute;z-index:2;left:7px;right:7px;bottom:16px;
+  color:#fff;font-weight:900;line-height:1.2;
+  font-size:clamp(.85rem,3.5vw,1.15rem);
+  text-align:center;text-shadow:0 2px 9px #1b0b28aa
+}
+.category-choice-label small{
+  display:block;margin-top:7px;font-size:.7rem;
+  font-weight:700;letter-spacing:.7px;opacity:.92
+}
+.category-choice.active{
+  transform:scale(1);
+  filter:none;opacity:1;
+  border-color:#c35aff;
+  box-shadow:
+    0 0 0 2px #a72eff55,
+    0 0 12px #bd55ffdd,
+    0 0 28px #bd55ff88,
+    0 12px 28px #5d30402a;
+}
+.category-choice.active img{transform:scale(1.025)}
+.category-choice:focus-visible{
+  outline:3px solid #8f20d5;outline-offset:5px
+}
+.category-choice:active{transform:scale(.97)}
+.category-choice-hint{
+  text-align:center;font-size:.82rem;line-height:1.5;
+  color:var(--muted);margin-top:4px
+}
+
 footer{
   text-align:center;padding:32px 18px 90px;
   color:var(--muted);font-size:.86rem;line-height:1.9
@@ -233,8 +309,14 @@ footer strong{color:var(--dark);font-size:1rem}
   .products{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
   .product{padding:20px 15px}
   .cart-panel{padding:25px}
+  .category-choices{gap:24px}
+  .category-choice{aspect-ratio:3/4}
+  .category-choice-label{font-size:1.2rem}
 }
-@media(min-width:900px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:900px){
+  .products{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .category-choice{max-width:270px;justify-self:center}
+}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
@@ -348,6 +430,45 @@ footer strong{color:var(--dark);font-size:1rem}
       </div>
     </div>
   </section>
+
+  <!-- Escolha das categorias no final da página -->
+  <section class="category-choice-section" id="escolher-categoria">
+    <div class="category-choice-wrap">
+      <div class="category-choice-heading">
+        <div class="eyebrow">Escolha seu estilo</div>
+        <h2>Qual geladinho combina com você? 💜</h2>
+        <p>Toque em uma das opções para ver os sabores daquela categoria.</p>
+      </div>
+
+      <div class="category-choices">
+        <button class="category-choice active" type="button"
+          data-choice="tradicionais" aria-pressed="true">
+          <img
+            src="./SaveClip.App_625053558_18080439110349849_5098441813790298616_n.jpg.webp"
+            alt="Geladinhos tradicionais com abacaxi"
+            loading="lazy">
+          <span class="category-choice-label">
+            🍍 Tradicionais
+            <small>R$ 5,00 cada</small>
+          </span>
+        </button>
+
+        <button class="category-choice" type="button"
+          data-choice="especiais" aria-pressed="false">
+          <img
+            src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp"
+            alt="Geladinhos especiais de Chocomalte"
+            loading="lazy">
+          <span class="category-choice-label">
+            🍫 Especiais
+            <small>Preço a consultar</small>
+          </span>
+        </button>
+      </div>
+
+      <p class="category-choice-hint">A opção selecionada fica maior e ganha um contorno neon roxo ✨</p>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -407,109 +528,4 @@ function showToast(message) {
 function playPop() {
   if (!entered) return;
   try {
-    $("popSound").currentTime = 0;
-    const p = $("popSound").play();
-    if (p) p.catch(()=>{});
-  } catch (_) {}
-}
-
-function renderProducts() {
-  const shown = products.filter(p => currentCategory === "todos" || p.category === currentCategory);
-  $("products").innerHTML = shown.map(p => `
-    <article class="product">
-      <div class="product-illustration" aria-hidden="true">${p.emoji}</div>
-      <h3>${p.name}</h3>
-      <p class="product-description">${p.description}</p>
-      <div class="price">${p.price === null ? "A consultar" : money(p.price)}
-        ${p.price !== null ? "<small>por unidade</small>" : ""}
-      </div>
-      <button class="add-button" type="button" data-add="${p.id}">+ Adicionar</button>
-    </article>
-  `).join("");
-}
-
-function addToCart(id) {
-  const product = products.find(p=>p.id===id);
-  if (!product) return;
-  const item = cart.get(id);
-  if (item) item.quantity++;
-  else cart.set(id,{product,quantity:1});
-  playPop();
-  renderCart();
-  showToast(`${product.name} adicionado à sacolinha! 💗`);
-}
-
-function changeQuantity(id,amount) {
-  const item=cart.get(id);
-  if(!item)return;
-  item.quantity+=amount;
-  if(item.quantity<=0)cart.delete(id);
-  playPop();
-  renderCart();
-}
-
-function renderCart() {
-  const entries=Array.from(cart.entries());
-  const qty=entries.reduce((s,[,i])=>s+i.quantity,0);
-  const total=entries.reduce((s,[,i])=>s+(i.product.price===null?0:i.product.price*i.quantity),0);
-  const hasUnpriced=entries.some(([,i])=>i.product.price===null);
-
-  $("cartCount").textContent=qty;
-  $("summaryQuantity").textContent=`${qty} ${qty===1?"unidade":"unidades"}`;
-  $("summaryTotal").textContent=money(total);
-  $("priceNotice").textContent=hasUnpriced
-    ?"O total não inclui os geladinhos especiais, pois os preços precisam ser confirmados pelo WhatsApp."
-    :"Total dos itens com preço definido.";
-  $("emptyCart").classList.toggle("hidden",entries.length>0);
-  $("cartItems").classList.toggle("hidden",entries.length===0);
-  $("checkoutButton").disabled=entries.length===0;
-
-  $("cartItems").innerHTML=entries.map(([id,item])=>{
-    const unit=item.product.price===null?"Preço a consultar":`${money(item.product.price)} cada`;
-    const line=item.product.price===null?"A consultar":money(item.product.price*item.quantity);
-    return `
-      <div class="cart-item">
-        <div><h3>${item.product.emoji} ${item.product.name}</h3><small>${unit} · ${line}</small></div>
-        <div class="quantity">
-          <button type="button" data-change="${id}" data-amount="-1" aria-label="Diminuir">−</button>
-          <strong>${item.quantity}</strong>
-          <button type="button" data-change="${id}" data-amount="1" aria-label="Aumentar">+</button>
-        </div>
-      </div>`;
-  }).join("");
-}
-
-document.querySelectorAll("[data-category]").forEach(button=>{
-  button.addEventListener("click",()=>{
-    currentCategory=button.dataset.category;
-    document.querySelectorAll("[data-category]").forEach(b=>b.classList.toggle("active",b===button));
-    renderProducts();
-  });
-});
-
-$("products").addEventListener("click",event=>{
-  const button=event.target.closest("[data-add]");
-  if(button)addToCart(button.dataset.add);
-});
-
-$("cartItems").addEventListener("click",event=>{
-  const button=event.target.closest("[data-change]");
-  if(button)changeQuantity(button.dataset.change,Number(button.dataset.amount));
-});
-
-$("checkoutButton").addEventListener("click",()=>{
-  if(cart.size===0)return;
-  $("checkout").classList.remove("hidden");
-  $("checkout").scrollIntoView({behavior:"smooth",block:"start"});
-});
-
-$("backToCart").addEventListener("click",()=>$("carrinho").scrollIntoView({behavior:"smooth"}));
-
-$("clearCartButton").addEventListener("click",()=>{
-  if(cart.size===0){showToast("Sua sacolinha já está vazia. 💗");return;}
-  cart.clear();renderCart();showToast("Sacolinha esvaziada.");
-});
-
-$("deliveryType").addEventListener("change",event=>{
-  $("customerAddress").required=event.target.value==="Entrega";
-  $("cus
+    $(
