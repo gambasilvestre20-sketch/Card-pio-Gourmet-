@@ -4,500 +4,666 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#fff0f6">
-<title>Geladinho das Meninas 🍧</title>
+<meta name="theme-color" content="#fff1f5">
+<title>Geladinho das Meninas 🍓</title>
 
 <style>
 :root {
-  --rosa: #f5a4c5;
-  --rosa-escuro: #d95f91;
-  --rosa-claro: #fff0f6;
-  --roxo: #8d6bb5;
-  --texto: #633e57;
-  --branco: #ffffff;
+  --pink: #ed719d;
+  --pink-dark: #c84979;
+  --pink-light: #fff0f5;
+  --cream: #fffaf7;
+  --text: #593b49;
+  --muted: #987b88;
+  --white: #ffffff;
+  --shadow: 0 12px 35px #b95b7c18;
 }
 
 * {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 15px;
+  scroll-padding-top: 20px;
 }
 
 body {
-  margin: 0;
-  background: var(--rosa-claro);
-  color: var(--texto);
   font-family: "Trebuchet MS", Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 15%, #ffe5ee 0, transparent 40%),
+    linear-gradient(180deg, #fff8fa, #fffdfb 55%, #fff0f5);
   overflow-x: hidden;
 }
 
-button, input, select, textarea {
+button, input, textarea, select {
   font: inherit;
 }
 
 button {
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button:focus-visible,
 input:focus-visible,
+textarea:focus-visible,
 select:focus-visible {
-  outline: 3px solid var(--roxo);
+  outline: 3px solid #ed719d88;
   outline-offset: 3px;
 }
 
-/* ENTRADA: LOGO QUE SOBE E DESAPARECE */
+.hidden {
+  display: none !important;
+}
 
-#entrada {
-  min-height: 100svh;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ABERTURA COM FOTO E LOGO */
+
+.hero {
   position: relative;
+  min-height: 100svh;
+  isolation: isolate;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 15% 20%, #ffe0ed 0, transparent 28%),
-    radial-gradient(circle at 85% 80%, #f6d9ff 0, transparent 30%),
-    var(--rosa-claro);
-}
-
-.logo-area {
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  will-change: transform, opacity;
+  justify-content: center;
+  background: #5c3d40;
 }
 
-#logo {
-  display: block;
-  width: min(82vw, 410px);
-  max-height: 72svh;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 15px #bd77952b);
-}
-
-.dica-deslize {
+.hero-photo {
   position: absolute;
-  bottom: 24px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: #bd7094;
-  font-size: 13px;
-  letter-spacing: 1px;
-  animation: dica 1.7s infinite;
+  inset: 0;
+  z-index: -3;
+  background-image:
+    linear-gradient(
+      180deg,
+      #24151a18 0%,
+      #24151a20 50%,
+      #24151a38 76%,
+      transparent 100%
+    ),
+    url("./SaveClip.App_629999614_18361855390163503_5129815402887603622_n.jpg.webp");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.025);
+  animation: photoAppear 1.2s ease-out both;
+}
+
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(
+    180deg,
+    #0000000a 0%,
+    #00000016 55%,
+    #00000005 78%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
-.dica-seta {
-  display: block;
-  font-size: 25px;
-  margin-bottom: 5px;
+.hero-content {
+  width: 100%;
+  min-height: 100svh;
+  padding: 32px 22px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity .18s linear, transform .18s linear;
+  will-change: opacity, transform;
 }
 
-@keyframes dica {
+.logo {
+  display: block;
+  width: min(83vw, 440px);
+  max-height: 62svh;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px #38202b65);
+  animation: logoAppear 1s .15s ease-out both;
+}
+
+.hero-bottom-fade {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  height: 35%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to bottom,
+    #fff8fa00 0%,
+    #fff8fa28 22%,
+    #fff8fa99 62%,
+    #fff8fa 100%
+  );
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 27px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  font-size: .82rem;
+  text-shadow: 0 2px 8px #39202a99;
+  animation: hintFloat 1.8s ease-in-out infinite;
+  transition: opacity .25s;
+}
+
+.scroll-hint span {
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+
+@keyframes photoAppear {
+  from { opacity: .6; transform: scale(1.07); }
+  to { opacity: 1; transform: scale(1.025); }
+}
+
+@keyframes logoAppear {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hintFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+  50% { transform: translateY(6px); }
 }
 
 /* CONTEÚDO */
 
 main {
   position: relative;
-  min-height: 100vh;
-  padding: 20px 14px 45px;
-  background:
-    radial-gradient(ellipse at top, #fff8fb, transparent 65%),
-    var(--rosa-claro);
+  z-index: 1;
+  margin-top: -1px;
 }
 
-.topo {
-  max-width: 650px;
-  margin: 0 auto 22px;
+.intro {
+  padding: 20px 22px 34px;
   text-align: center;
 }
 
-.mini-logo {
-  width: 100px;
-  height: 75px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 4px;
+.eyebrow {
+  color: var(--pink-dark);
+  text-transform: uppercase;
+  font-size: .72rem;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin-bottom: 9px;
 }
 
-h1 {
-  font-size: clamp(25px, 6vw, 36px);
-  color: var(--rosa-escuro);
-  margin: 5px 0;
+h1, h2, h3 {
+  line-height: 1.2;
 }
 
-.subtitulo {
-  margin: 8px 0;
-  color: #936b86;
-  font-size: 14px;
+.intro h1 {
+  font-size: clamp(1.8rem, 7vw, 2.65rem);
+  letter-spacing: -1px;
+  margin-bottom: 12px;
 }
 
-.painel {
-  max-width: 650px;
-  margin: 0 auto 20px;
-  padding: 19px;
-  background: #ffffffd9;
-  border: 1px solid #f4c5da;
-  border-radius: 23px;
-  box-shadow: 0 5px 20px #9b517a0d;
+.intro h1 span {
+  color: var(--pink-dark);
 }
 
-h2 {
-  color: var(--rosa-escuro);
-  font-size: 22px;
-  margin: 0 0 14px;
+.intro p {
+  max-width: 440px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: .96rem;
 }
 
-h3 {
-  margin: 0 0 8px;
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #fff;
+  color: var(--pink-dark);
+  border: 1px solid #f8d9e5;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 700;
+  margin-top: 17px;
+  box-shadow: 0 5px 15px #c8497910;
 }
 
-.texto-suave {
-  font-size: 13px;
-  line-height: 1.5;
-  color: #8b6b80;
+.container {
+  width: min(100% - 30px, 960px);
+  margin: 0 auto;
 }
 
-.categorias {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.section {
+  padding: 24px 0 34px;
 }
 
-.botao-categoria {
-  min-height: 115px;
-  padding: 17px 8px;
-  background: #fff1f7;
-  color: var(--texto);
-  border: 2px solid #f3c1d7;
-  border-radius: 18px;
-  font-weight: bold;
-  transition: transform .18s, background .18s;
+.section-heading {
+  text-align: center;
+  margin-bottom: 23px;
 }
 
-.botao-categoria:active {
-  transform: scale(.97);
-}
-
-.botao-categoria .emoji {
-  display: block;
-  font-size: 31px;
+.section-heading h2 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
   margin-bottom: 8px;
 }
 
-.botao-categoria small {
-  display: block;
-  margin-top: 7px;
-  font-weight: normal;
-  font-size: 12px;
+.section-heading p {
+  color: var(--muted);
+  font-size: .91rem;
+  line-height: 1.5;
 }
 
-.botao-categoria.especial {
-  background: #f8efff;
-  border-color: #dbc1f1;
-}
-
-.lista-sabores {
-  display: grid;
-  gap: 10px;
-}
-
-.sabor {
+.category-bar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px;
-  border: 1px solid #f1d5e2;
-  border-radius: 15px;
-  background: white;
-}
-
-.sabor-info {
-  min-width: 0;
-  flex: 1;
-}
-
-.sabor-nome {
-  font-weight: bold;
-  font-size: 15px;
-  overflow-wrap: anywhere;
-}
-
-.sabor-preco {
-  margin-top: 5px;
-  color: var(--rosa-escuro);
-  font-size: 13px;
-}
-
-.controles {
-  display: flex;
-  align-items: center;
   gap: 9px;
-  flex-shrink: 0;
+  overflow-x: auto;
+  padding: 3px 1px 13px;
+  margin-bottom: 13px;
+  scrollbar-width: thin;
 }
 
-.btn-qtd {
-  width: 34px;
-  height: 34px;
-  border: none;
-  border-radius: 50%;
-  background: #ffe1ed;
-  color: #a74371;
-  font-weight: bold;
-  font-size: 21px;
+.category-button {
+  flex: 0 0 auto;
+  border: 1px solid #f4d4e0;
+  background: #ffffffd9;
+  color: var(--pink-dark);
+  padding: 11px 15px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .85rem;
+  transition: .2s ease;
 }
 
-.qtd {
-  min-width: 17px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.btn {
-  width: 100%;
-  border: none;
-  border-radius: 15px;
-  padding: 14px 16px;
-  background: var(--rosa-escuro);
+.category-button.active,
+.category-button:hover {
   color: white;
-  font-weight: bold;
-  box-shadow: 0 4px 9px #d95f9120;
-  transition: transform .15s, opacity .15s;
+  border-color: var(--pink);
+  background: linear-gradient(135deg, #f59aba, #d95889);
+  box-shadow: 0 5px 14px #d9588930;
 }
 
-.btn:active {
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.product {
+  position: relative;
+  min-width: 0;
+  padding: 16px 12px;
+  border: 1px solid #f5e1e8;
+  border-radius: 22px;
+  background: #ffffffd9;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: cardIn .4s ease both;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.product:active {
   transform: scale(.98);
 }
 
-.btn-secundario {
-  background: #fce2ef;
-  color: #9c426d;
-  box-shadow: none;
+.product-illustration {
+  width: 82px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #fff0f5, #fffaf0);
+  font-size: 3.3rem;
+  filter: drop-shadow(0 5px 4px #c8497913);
 }
 
-.btn-voltar {
-  width: auto;
-  padding: 9px 14px;
-  margin-bottom: 13px;
-  border: 1px solid #efc4d9;
-  background: white;
-  color: #9c426d;
-  border-radius: 12px;
-  font-weight: bold;
+.product h3 {
+  font-size: .96rem;
+  min-height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.escondido {
-  display: none !important;
+.product-description {
+  color: var(--muted);
+  font-size: .77rem;
+  line-height: 1.4;
+  margin: 5px 0 10px;
+  min-height: 30px;
+}
+
+.price {
+  color: var(--pink-dark);
+  font-weight: 900;
+  font-size: 1.12rem;
+  margin: auto 0 12px;
+}
+
+.price small {
+  display: block;
+  font-size: .68rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.add-button {
+  width: 100%;
+  border: none;
+  color: white;
+  font-weight: 800;
+  border-radius: 13px;
+  padding: 11px 8px;
+  background: linear-gradient(135deg, #f19abb, #d95788);
+  box-shadow: 0 5px 12px #d9578822;
+  transition: filter .2s, transform .2s;
+}
+
+.add-button:hover {
+  filter: brightness(1.04);
+}
+
+.add-button:active {
+  transform: scale(.97);
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(9px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* CARRINHO */
 
-.item-carrinho {
+.cart-panel {
+  background: linear-gradient(145deg, #fff, #fff5f8);
+  border: 1px solid #f2dbe4;
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.cart-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.cart-title h2 {
+  font-size: 1.3rem;
+}
+
+.cart-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 29px;
+  height: 29px;
+  padding: 0 8px;
+  border-radius: 50px;
+  color: white;
+  background: var(--pink);
+  font-size: .8rem;
+  font-weight: 800;
+}
+
+.empty-cart {
+  color: var(--muted);
+  text-align: center;
+  padding: 19px 5px;
+  line-height: 1.6;
+  font-size: .9rem;
+}
+
+.cart-items {
+  display: grid;
   gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #f2dce6;
-  font-size: 14px;
 }
 
-.item-carrinho:last-child {
-  border-bottom: 0;
-}
-
-.total-linha {
-  display: flex;
-  justify-content: space-between;
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f4e5eb;
+}
+
+.cart-item h3 {
+  font-size: .9rem;
+  margin-bottom: 5px;
+}
+
+.cart-item small {
+  color: var(--muted);
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.quantity button {
+  width: 31px;
+  height: 31px;
+  border: 1px solid #f1c8d8;
+  border-radius: 10px;
+  background: white;
+  color: var(--pink-dark);
+  font-weight: 900;
+}
+
+.quantity strong {
+  min-width: 14px;
+  text-align: center;
+}
+
+.cart-summary {
+  border-top: 1px dashed #eac8d6;
   margin-top: 16px;
-  padding-top: 13px;
-  border-top: 2px dashed #efc1d6;
-  font-size: 18px;
-  font-weight: bold;
+  padding-top: 16px;
 }
 
-.total-valor {
-  color: var(--rosa-escuro);
-  white-space: nowrap;
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 9px 0;
+  color: var(--muted);
+  font-size: .9rem;
 }
 
-.aviso {
-  padding: 11px;
-  background: #fff6dc;
-  border-radius: 12px;
-  color: #84632c;
-  font-size: 12px;
-  line-height: 1.5;
-  margin: 12px 0;
+.summary-line.total {
+  color: var(--text);
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.primary-button,
+.secondary-button {
+  width: 100%;
+  border: 0;
+  border-radius: 15px;
+  padding: 15px;
+  font-weight: 900;
+  transition: transform .2s, filter .2s;
+}
+
+.primary-button {
+  color: white;
+  background: linear-gradient(135deg, #f19abb, #d95788);
+  box-shadow: 0 8px 20px #d9578829;
+}
+
+.secondary-button {
+  color: var(--pink-dark);
+  background: #fff;
+  border: 1px solid #f2d2df;
+  margin-top: 10px;
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(.99);
+}
+
+.primary-button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
 }
 
 /* FORMULÁRIO */
 
-.campo {
-  display: block;
-  margin: 15px 0;
-}
-
-.campo label {
-  display: block;
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 7px;
-}
-
-.campo input,
-.campo select,
-.campo textarea {
-  display: block;
-  width: 100%;
-  min-height: 46px;
-  padding: 12px;
-  border: 1px solid #edc5d8;
-  border-radius: 12px;
-  background: #fffafd;
-  color: var(--texto);
-}
-
-.campo textarea {
-  resize: vertical;
-  min-height: 70px;
-}
-
-.pagamentos {
+.order-form {
   display: grid;
-  gap: 9px;
+  gap: 15px;
 }
 
-.opcao-pagamento {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  border: 1px solid #efd0df;
-  background: #fffafd;
-  padding: 13px;
-  border-radius: 12px;
+.field {
+  display: grid;
+  gap: 7px;
 }
 
-.opcao-pagamento input {
-  accent-color: var(--rosa-escuro);
-  width: 18px;
-  height: 18px;
+.field label {
+  font-size: .86rem;
+  font-weight: 800;
 }
 
-.rodape {
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #efd5e0;
+  border-radius: 13px;
+  background: #fff;
+  padding: 13px 14px;
+  color: var(--text);
+}
+
+.field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.form-note {
+  color: var(--muted);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+.special-note {
+  color: #956a7e;
+  background: #fff0f5;
+  border: 1px solid #f7dce6;
+  border-radius: 13px;
+  padding: 12px;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
+/* RODAPÉ E SOM */
+
+footer {
+  padding: 30px 20px 100px;
   text-align: center;
-  padding: 15px 10px;
-  color: #a27c94;
-  font-size: 12px;
+  color: var(--muted);
+  font-size: .8rem;
+  line-height: 1.8;
 }
 
-/* GELO CAINDO */
+footer strong {
+  color: var(--pink-dark);
+}
 
-#efeito-gelo {
+.music-button {
   position: fixed;
-  inset: 0;
-  pointer-events: none;
+  z-index: 20;
+  right: 15px;
+  bottom: 16px;
+  width: 49px;
+  height: 49px;
+  border: 1px solid #f4cbd9;
+  border-radius: 50%;
+  background: #fffafc;
+  color: var(--pink-dark);
+  box-shadow: 0 5px 20px #5b29401f;
+  font-size: 1.25rem;
+  display: grid;
+  place-items: center;
+}
+
+.music-button.playing {
+  animation: musicPulse 1.5s infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 0 0 0 #ed719d33; }
+  50% { box-shadow: 0 0 0 8px #ed719d00; }
+}
+
+.toast {
+  position: fixed;
   z-index: 50;
-  overflow: hidden;
+  left: 50%;
+  bottom: 78px;
+  transform: translate(-50%, 15px);
+  opacity: 0;
+  pointer-events: none;
+  width: max-content;
+  max-width: calc(100% - 30px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #5b3949;
+  color: white;
+  text-align: center;
+  font-size: .86rem;
+  box-shadow: 0 8px 25px #38202a26;
+  transition: opacity .25s, transform .25s;
 }
 
-.gelo {
-  position: absolute;
-  top: -35px;
-  width: 17px;
-  height: 19px;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #ffffffd9, #b9efffc4);
-  border: 1px solid #ffffffd9;
-  box-shadow: inset -3px -3px 5px #76b7d22a, 0 2px 8px #6ab5d21c;
-  animation: cair linear forwards;
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
-@keyframes cair {
-  to {
-    transform: translate3d(var(--desvio), 110vh, 0) rotate(330deg);
-    opacity: .15;
+@media (min-width: 600px) {
+  .products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .product {
+    padding: 20px 15px;
+  }
+
+  .hero-content {
+    padding-bottom: 75px;
+  }
+
+  .cart-panel {
+    padding: 25px;
   }
 }
 
-#camada-gelo {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-  pointer-events: none;
-  z-index: 49;
-  background: linear-gradient(to top, #bdeeffa8, #e4faff50, transparent);
-  transition: height .25s ease;
-}
-
-#camada-gelo.rachando {
-  animation: rachadura .55s ease;
-}
-
-@keyframes rachadura {
-  0% { filter: brightness(1); }
-  35% { filter: brightness(1.5); }
-  65% { filter: brightness(.8); }
-  100% { filter: brightness(1); }
-}
-
-.barra-acoes {
-  position: fixed;
-  right: 12px;
-  bottom: 12px;
-  z-index: 60;
-  display: flex;
-  gap: 8px;
-}
-
-.acao-redonda {
-  width: 45px;
-  height: 45px;
-  border: 1px solid #f0c1d6;
-  border-radius: 50%;
-  background: #ffffffed;
-  color: #a64c78;
-  box-shadow: 0 3px 12px #77425b20;
-  font-size: 19px;
-}
-
-#mensagem {
-  position: fixed;
-  z-index: 100;
-  left: 50%;
-  bottom: 76px;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: 90vw;
-  padding: 12px 16px;
-  border-radius: 13px;
-  color: white;
-  background: #74475f;
-  font-size: 13px;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s;
-}
-
-#mensagem.visivel {
-  opacity: 1;
+@media (min-width: 900px) {
+  .products {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -513,391 +679,309 @@ h3 {
 
 <body>
 
-<!-- ENTRADA SEM BOTÃO -->
-<section id="entrada" aria-label="Entrada do site">
-  <div class="logo-area" id="logo-area">
+<header class="hero" id="inicio">
+  <div class="hero-photo" aria-hidden="true"></div>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="hero-content" id="heroContent">
     <img
-      id="logo"
+      class="logo"
       src="./logo_20261025125818.png"
       alt="Geladinho das Meninas"
+      fetchpriority="high"
     >
   </div>
 
-  <div class="dica-deslize" id="dica">
-    <span class="dica-seta">⌃</span>
-    DESLIZE PARA CIMA
+  <div class="hero-bottom-fade" aria-hidden="true"></div>
+
+  <div class="scroll-hint" id="scrollHint">
+    Descubra nossos sabores
+    <span>⌄</span>
   </div>
-</section>
+</header>
 
-<!-- GELO DECORATIVO -->
-<div id="efeito-gelo" aria-hidden="true"></div>
-<div id="camada-gelo" aria-hidden="true"></div>
-
-<!-- ÁUDIOS -->
-<audio
-  id="musica"
-  src="./1 Minute Coffee break with Jazz(MP3_160K).mp3"
-  loop
-  preload="none"
-></audio>
-
-<audio
-  id="som-pop"
-  src="./pop 1.mp3"
-  preload="auto"
-></audio>
-
-<!-- BOTÕES FLUTUANTES -->
-<div class="barra-acoes">
-  <button class="acao-redonda" id="botao-musica"
-    aria-label="Ativar ou pausar música" title="Música">♫</button>
-  <button class="acao-redonda" id="botao-topo"
-    aria-label="Voltar ao início" title="Voltar ao início">↑</button>
-</div>
-
-<div id="mensagem" role="status" aria-live="polite"></div>
-
-<main id="conteudo">
-
-  <header class="topo">
-    <img
-      class="mini-logo"
-      src="./logo_20261025125818.png"
-      alt=""
-    >
-    <h1>Geladinho das Meninas 🍧</h1>
-    <p class="subtitulo">Um carinho geladinho para o seu dia! 💗</p>
-  </header>
-
-  <!-- CATEGORIAS -->
-  <section class="painel" id="tela-categorias">
-    <h2>Escolha sua categoria 💕</h2>
-    <p class="texto-suave">
-      Escolha uma categoria para ver os sabores disponíveis.
+<main>
+  <section class="intro">
+    <div class="eyebrow">Feitos para refrescar seu dia</div>
+    <h1>Um pedacinho de <span>felicidade</span> 🍓</h1>
+    <p>
+      Escolha seus sabores favoritos, monte seu pedido
+      e envie tudo pra gente pelo WhatsApp!
     </p>
-
-    <div class="categorias">
-      <button class="botao-categoria" data-categoria="normais">
-        <span class="emoji">🍓</span>
-        Geladinhos normais
-        <small>R$ 5,00 cada</small>
-      </button>
-
-      <button class="botao-categoria especial"
-        data-categoria="especiais">
-        <span class="emoji">🍫</span>
-        Geladinhos especiais
-        <small>Sabores especiais</small>
-      </button>
-    </div>
+    <div class="pill">❄️ Geladinhos feitos com carinho</div>
   </section>
 
-  <!-- SABORES -->
-  <section class="painel escondido" id="tela-sabores">
-    <button class="btn-voltar" id="voltar-categorias">← Categorias</button>
-    <h2 id="titulo-sabores">Escolha seus sabores</h2>
-    <p class="texto-suave" id="descricao-sabores"></p>
-    <div class="lista-sabores" id="lista-sabores"></div>
-
-    <button class="btn" id="ir-carrinho" style="margin-top:18px">
-      Ver meu pedido 🛒
-    </button>
-  </section>
-
-  <!-- CARRINHO -->
-  <section class="painel escondido" id="tela-carrinho">
-    <button class="btn-voltar" id="voltar-sabores">← Continuar escolhendo</button>
-    <h2>Seu pedido 🛍️</h2>
-    <div id="itens-carrinho"></div>
-
-    <div class="total-linha">
-      <span>Total calculado</span>
-      <span class="total-valor" id="total">R$ 0,00</span>
-    </div>
-
-    <div id="aviso-especiais" class="aviso escondido">
-      Os geladinhos especiais ainda estão com o preço a confirmar.
-      O valor deles será combinado antes de finalizar o pedido.
-    </div>
-
-    <button class="btn" id="ir-checkout" style="margin-top:18px">
-      Continuar para os dados 💗
-    </button>
-  </section>
-
-  <!-- FORMULÁRIO ABAIXO DO CATÁLOGO -->
-  <section class="painel escondido" id="tela-checkout">
-    <button class="btn-voltar" id="voltar-carrinho">← Voltar ao pedido</button>
-    <h2>Finalizar pedido 💌</h2>
-    <p class="texto-suave">
-      Preencha os dados para enviar seu pedido pelo WhatsApp.
-    </p>
-
-    <form id="form-pedido">
-      <div class="campo">
-        <label for="nome">Seu nome</label>
-        <input id="nome" name="nome" autocomplete="name"
-          placeholder="Como podemos te chamar?" required>
+  <section class="section" id="sabores">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Nosso cardápio</div>
+        <h2>Qual vai ser o seu? 💕</h2>
+        <p>Toque em adicionar para montar seu pedido.</p>
       </div>
 
-      <div class="campo">
-        <label for="endereco">Endereço de entrega</label>
-        <textarea id="endereco" name="endereco"
-          autocomplete="street-address"
-          placeholder="Rua, número, bairro e ponto de referência"
-          required></textarea>
+      <div class="category-bar" role="group" aria-label="Categorias">
+        <button class="category-button active" data-category="todos">
+          🍧 Todos
+        </button>
+        <button class="category-button" data-category="tradicionais">
+          🍓 Tradicionais
+        </button>
+        <button class="category-button" data-category="especiais">
+          ✨ Especiais
+        </button>
       </div>
 
-      <div class="campo">
-        <label>Forma de pagamento</label>
-        <div class="pagamentos">
-          <label class="opcao-pagamento">
-            <input type="radio" name="pagamento" value="Cédulas" required>
-            💵 Cédulas
-          </label>
-          <label class="opcao-pagamento">
-            <input type="radio" name="pagamento" value="Cartão" required>
-            💳 Cartão
-          </label>
-          <label class="opcao-pagamento">
-            <input type="radio" name="pagamento" value="Pix" required>
-            📱 Pix
-          </label>
+      <div class="products" id="products"></div>
+    </div>
+  </section>
+
+  <section class="section" id="carrinho">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Seu pedido</div>
+        <h2>Seu carrinho 🛍️</h2>
+        <p>Confira os sabores e as quantidades escolhidas.</p>
+      </div>
+
+      <div class="cart-panel">
+        <div class="cart-title">
+          <h2>Minha sacolinha 💗</h2>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+
+        <div id="cartItems" class="cart-items"></div>
+
+        <div id="emptyCart" class="empty-cart">
+          <div style="font-size:2.6rem;margin-bottom:8px">🧺</div>
+          Sua sacolinha ainda está vazia.<br>
+          Escolha alguns sabores deliciosos!
+        </div>
+
+        <div class="cart-summary">
+          <div class="summary-line">
+            <span>Quantidade</span>
+            <strong id="summaryQuantity">0 unidades</strong>
+          </div>
+          <div class="summary-line total">
+            <span>Total dos itens com preço definido</span>
+            <strong id="summaryTotal">R$ 0,00</strong>
+          </div>
+          <p class="form-note" id="priceNotice" style="margin:12px 0">
+            Os geladinhos especiais estão com preço a consultar.
+          </p>
+          <button class="primary-button" id="checkoutButton" disabled>
+            Continuar pedido 💌
+          </button>
+          <button class="secondary-button" id="clearCartButton">
+            Esvaziar carrinho
+          </button>
         </div>
       </div>
-
-      <div class="campo">
-        <label for="observacoes">Observações (opcional)</label>
-        <textarea id="observacoes" name="observacoes"
-          placeholder="Alguma informação para o pedido?"></textarea>
-      </div>
-
-      <button class="btn" type="submit">
-        Enviar pedido pelo WhatsApp 💚
-      </button>
-    </form>
+    </div>
   </section>
 
-  <footer class="rodape">
-    Feito com carinho e um pouquinho de gelo 💗🍧
-  </footer>
+  <section class="section hidden" id="checkout">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Só falta um pouquinho</div>
+        <h2>Onde entregamos? 💌</h2>
+        <p>Preencha seus dados para preparar a mensagem do pedido.</p>
+      </div>
 
+      <div class="cart-panel">
+        <form class="order-form" id="orderForm">
+          <div class="field">
+            <label for="customerName">Seu nome *</label>
+            <input
+              id="customerName"
+              name="customerName"
+              type="text"
+              placeholder="Como podemos te chamar?"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="customerPhone">Seu telefone (opcional)</label>
+            <input
+              id="customerPhone"
+              name="customerPhone"
+              type="tel"
+              placeholder="(34) 99999-9999"
+              autocomplete="tel"
+            >
+          </div>
+
+          <div class="field">
+            <label for="deliveryType">Como você vai receber? *</label>
+            <select id="deliveryType" name="deliveryType" required>
+              <option value="">Selecione uma opção</option>
+              <option value="Entrega">Entrega</option>
+              <option value="Retirada">Retirada</option>
+              <option value="Combinar pelo WhatsApp">Combinar pelo WhatsApp</option>
+            </select>
+          </div>
+
+          <div class="field" id="addressField">
+            <label for="customerAddress">Endereço ou referência</label>
+            <input
+              id="customerAddress"
+              name="customerAddress"
+              type="text"
+              placeholder="Rua, bairro ou ponto de referência"
+              autocomplete="street-address"
+            >
+          </div>
+
+          <div class="field">
+            <label for="customerNotes">Observações (opcional)</label>
+            <textarea
+              id="customerNotes"
+              name="customerNotes"
+              placeholder="Algum detalhe sobre seu pedido?"
+            ></textarea>
+          </div>
+
+          <div class="special-note">
+            🍓 <strong>Geladinhos especiais:</strong> os valores de
+            Morango com Nutella e Maracujá com Nutella ainda precisam
+            ser confirmados. O WhatsApp vai informar os valores finais.
+          </div>
+
+          <button class="primary-button" type="submit">
+            Enviar pedido pelo WhatsApp 💚
+          </button>
+
+          <button class="secondary-button" type="button" id="backToCart">
+            Voltar ao carrinho
+          </button>
+
+          <p class="form-note">
+            Seu pedido será enviado como mensagem para você conferir
+            diretamente no WhatsApp antes de finalizar.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
 </main>
 
+<footer>
+  <strong>Geladinho das Meninas 🍓</strong><br>
+  Feito com carinho para deixar seu dia mais gostoso!<br>
+  <span>❄️ Um saborzinho de felicidade ❄️</span>
+</footer>
+
+<button
+  class="music-button"
+  id="musicButton"
+  type="button"
+  aria-label="Ativar música"
+  title="Ativar ou pausar música"
+>♫</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<audio id="backgroundMusic" loop preload="none">
+  <source
+    src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3"
+    type="audio/mpeg"
+  >
+</audio>
+
+<audio id="popSound" preload="auto">
+  <source src="./pop%201.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-(function () {
-  "use strict";
+"use strict";
 
-  const WHATSAPP = "5534991387357";
+const WHATSAPP_NUMBER = "5534991387357";
 
-  const produtos = [
-    { id: "morango", nome: "Morango", categoria: "normais", preco: 5 },
-    { id: "abacaxi", nome: "Abacaxi", categoria: "normais", preco: 5 },
-    { id: "abacate", nome: "Abacate", categoria: "normais", preco: 5 },
-    { id: "milho", nome: "Milho verde", categoria: "normais", preco: 5 },
-    { id: "chocolate", nome: "Chocolate", categoria: "normais", preco: 5 },
-    { id: "coco-branco", nome: "Coco branco", categoria: "normais", preco: 5 },
-    { id: "coco-queimado", nome: "Coco queimado", categoria: "normais", preco: 5 },
-    { id: "uva", nome: "Uva", categoria: "normais", preco: 5 },
-    { id: "blue-ice", nome: "Blue Ice", categoria: "normais", preco: 5 },
-    { id: "limao", nome: "Limão", categoria: "normais", preco: 5 },
-    { id: "chiclete", nome: "Chiclete", categoria: "normais", preco: 5 },
-
-    {
-      id: "morango-nutella",
-      nome: "Morango com Nutella",
-      categoria: "especiais",
-      preco: null
-    },
-    {
-      id: "maracuja-nutella",
-      nome: "Maracujá com Nutella",
-      categoria: "especiais",
-      preco: null
-    }
-  ];
-
-  const quantidades = {};
-  produtos.forEach(function (produto) {
-    quantidades[produto.id] = 0;
-  });
-
-  const entrada = document.getElementById("entrada");
-  const logoArea = document.getElementById("logo-area");
-  const dica = document.getElementById("dica");
-
-  const telas = {
-    categorias: document.getElementById("tela-categorias"),
-    sabores: document.getElementById("tela-sabores"),
-    carrinho: document.getElementById("tela-carrinho"),
-    checkout: document.getElementById("tela-checkout")
-  };
-
-  let categoriaAtual = "normais";
-  let mensagemTimer = null;
-  let ultimaAlturaGelo = 0;
-  let somAtivado = true;
-  let musicaTentada = false;
-
-  function dinheiro(valor) {
-    return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    });
-  }
-
-  function mostrarMensagem(texto) {
-    const elemento = document.getElementById("mensagem");
-    elemento.textContent = texto;
-    elemento.classList.add("visivel");
-
-    clearTimeout(mensagemTimer);
-    mensagemTimer = setTimeout(function () {
-      elemento.classList.remove("visivel");
-    }, 2400);
-  }
-
-  function tocarPop() {
-    if (!somAtivado) return;
-
-    const audio = document.getElementById("som-pop");
-    try {
-      audio.currentTime = 0;
-      const promessa = audio.play();
-      if (promessa && promessa.catch) promessa.catch(function () {});
-    } catch (erro) {}
-  }
-
-  function tentarMusica() {
-    if (musicaTentada) return;
-    musicaTentada = true;
-
-    const musica = document.getElementById("musica");
-    musica.volume = 0.35;
-
-    const promessa = musica.play();
-    if (promessa && promessa.catch) {
-      promessa.catch(function () {
-        document.getElementById("botao-musica").textContent = "♫";
-      });
-    }
-  }
-
-  document.getElementById("botao-musica").addEventListener("click", function () {
-    const musica = document.getElementById("musica");
-
-    if (musica.paused) {
-      musica.play().then(function () {
-        document.getElementById("botao-musica").textContent = "♫";
-      }).catch(function () {
-        mostrarMensagem("Não foi possível tocar a música. Confira o arquivo de áudio.");
-      });
-    } else {
-      musica.pause();
-      document.getElementById("botao-musica").textContent = "♪";
-    }
-  });
-
-  document.getElementById("botao-topo").addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    tocarPop();
-  });
-
-  /*
-    A logo acompanha a rolagem:
-    deslizar para cima faz a logo subir e sumir;
-    deslizar para baixo traz a logo de volta.
-  */
-  function atualizarEntrada() {
-    const altura = Math.max(window.innerHeight, 1);
-    const progresso = Math.min(Math.max(window.scrollY / altura, 0), 1);
-
-    logoArea.style.transform =
-      "translateY(" + (-progresso * altura * 0.38) + "px)";
-
-    logoArea.style.opacity = String(1 - progresso);
-
-    dica.style.opacity = String(Math.max(0, 1 - progresso * 2.8));
-    dica.style.transform = "translateY(" + (progresso * -12) + "px)";
-
-    const alturaGelo = Math.min(progresso * 35, 35);
-    document.getElementById("camada-gelo").style.height = alturaGelo + "px";
-
-    if (progresso > 0.88 && ultimaAlturaGelo <= 0.88) {
-      const camada = document.getElementById("camada-gelo");
-      camada.classList.remove("rachando");
-      void camada.offsetWidth;
-      camada.classList.add("rachando");
-    }
-
-    ultimaAlturaGelo = progresso;
-  }
-
-  window.addEventListener("scroll", atualizarEntrada, { passive: true });
-  window.addEventListener("resize", atualizarEntrada);
-  atualizarEntrada();
-
-  /*
-    Gelo decorativo ocasional durante a navegação.
-  */
-  function criarGelo() {
-    const camada = document.getElementById("efeito-gelo");
-    const pedaco = document.createElement("span");
-    pedaco.className = "gelo";
-    pedaco.style.left = Math.random() * 100 + "%";
-    pedaco.style.setProperty("--desvio", (Math.random() * 140 - 70) + "px");
-    pedaco.style.animationDuration = (3.2 + Math.random() * 3.5) + "s";
-    pedaco.style.opacity = String(0.35 + Math.random() * 0.55);
-    pedaco.style.transform = "rotate(" + Math.random() * 90 + "deg)";
-    camada.appendChild(pedaco);
-
-    setTimeout(function () {
-      pedaco.remove();
-    }, 7500);
-  }
-
-  let geloIntervalo = setInterval(criarGelo, 1400);
-
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      clearInterval(geloIntervalo);
-    } else {
-      geloIntervalo = setInterval(criarGelo, 1400);
-    }
-  });
-
-  function abrirTela(nome) {
-    Object.keys(telas).forEach(function (chave) {
-      telas[chave].classList.toggle("escondido", chave !== nome);
-    });
-
-    if (nome === "sabores") desenharSabores();
-    if (nome === "carrinho") desenharCarrinho();
-
-    tocarPop();
-  }
-
-  function abrirCatalogo() {
-    document.getElementById("tela-categorias").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-    tentarMusica();
-  }
-
-  document.querySelectorAll("[data-categoria]").forEach(function (botao) {
-    botao.addEventListener("click", function () {
-      categoriaAtual = botao.dataset.categoria;
-
-      document.getElementById("titulo-sabores").textContent =
-        categoriaAtual === "normais"
-          ? "Geladinhos normais 🍓"
-          : "Geladinhos especiais 🍫";
-
-      document.getElementById("descricao-sabores").textContent =
-        categoriaAtual === "normais"
-          ? "Escolha seus sabores favoritos. Cada um custa R$ 5,00."
-          : "Escolha seus especiais. O preço será confirmado antes de finalizar.";
-
-      abrirTela("sabores");
-      telas.sabores.scrollIntoView({ behavi
+const products = [
+  {
+    id: "morango",
+    name: "Morango",
+    emoji: "🍓",
+    description: "Doce, delicado e refrescante.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "abacaxi",
+    name: "Abacaxi",
+    emoji: "🍍",
+    description: "Um toque tropical delicioso.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "abacate",
+    name: "Abacate",
+    emoji: "🥑",
+    description: "Cremoso e cheio de sabor.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "milho",
+    name: "Milho verde",
+    emoji: "🌽",
+    description: "Aquele sabor especial de milho.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "chocolate",
+    name: "Chocolate",
+    emoji: "🍫",
+    description: "Para quem ama chocolate.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "coco-branco",
+    name: "Coco branco",
+    emoji: "🥥",
+    description: "Um clássico suave e gostoso.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "coco-queimado",
+    name: "Coco queimado",
+    emoji: "🥥",
+    description: "Sabor marcante de coco.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "uva",
+    name: "Uva",
+    emoji: "🍇",
+    description: "Frutado e super refrescante.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "blue-ice",
+    name: "Blue Ice",
+    emoji: "🩵",
+    description: "Geladinho azul para refrescar.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "limao",
+    name: "Limão",
+    emoji: "🍋",
+    description: "Uma explosão cítrica refrescante.",
+    price: 5,
+    category: "tradicionais"
+  },
+  {
+    id: "chiclete",
+    name: "Chiclete",
+    emoji: "🩷",
+    des
