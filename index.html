@@ -2,895 +2,811 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff4f7">
-  <title>Geladinho das Meninas 🍓</title>
-
-  <style>
-    :root {
-      --rosa: #f36b98;
-      --rosa-escuro: #d94678;
-      --rosa-claro: #fff0f5;
-      --roxo: #8b5bb5;
-      --texto: #493541;
-      --fundo: #fff8fa;
-      --branco: #ffffff;
-      --sombra: 0 8px 25px rgba(151, 76, 111, .12);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      color: var(--texto);
-      background: var(--fundo);
-      overflow-x: hidden;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    .hero {
-      position: relative;
-      min-height: 300px;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      background:
-        linear-gradient(rgba(255, 242, 247, .80),
-                        rgba(255, 242, 247, .88)),
-        url("./SaveClip.App_629999614_18361855390163503_5129815402887603622_n.jpg.webp")
-        center/cover;
-    }
-
-    .logo {
-      width: min(210px, 58vw);
-      max-height: 155px;
-      object-fit: contain;
-      margin-bottom: 8px;
-      filter: drop-shadow(0 5px 10px rgba(180, 80, 120, .12));
-    }
-
-    .hero h1 {
-      margin: 5px 0;
-      color: var(--rosa-escuro);
-      font-size: clamp(25px, 5vw, 38px);
-    }
-
-    .hero p {
-      max-width: 440px;
-      margin: 8px auto 0;
-      line-height: 1.6;
-    }
-
-    .hero-decoration {
-      margin-top: 14px;
-      font-size: 23px;
-      letter-spacing: 7px;
-    }
-
-    main {
-      width: min(100% - 28px, 1000px);
-      margin: 0 auto;
-      padding: 28px 0 55px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin: 8px 0 9px;
-      color: var(--rosa-escuro);
-      font-size: clamp(25px, 5vw, 32px);
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: #8c7482;
-      line-height: 1.5;
-      margin: 0 auto 24px;
-      max-width: 520px;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-bottom: 25px;
-    }
-
-    .category-card {
-      position: relative;
-      min-width: 0;
-      min-height: 190px;
-      padding: 0;
-      overflow: hidden;
-      border: 1px solid #f1d9e3;
-      border-radius: 21px;
-      background: white;
-      box-shadow: var(--sombra);
-      text-align: left;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .category-card:active {
-      transform: scale(.975);
-    }
-
-    .category-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 27px rgba(151, 76, 111, .17);
-    }
-
-    .category-card img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .35s ease;
-    }
-
-    .category-card:hover img {
-      transform: scale(1.04);
-    }
-
-    .category-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 15px 12px;
-      color: white;
-      background: linear-gradient(
-        to top,
-        rgba(45, 23, 39, .78),
-        rgba(45, 23, 39, .08) 80%
-      );
-    }
-
-    .category-name {
-      display: block;
-      font-size: clamp(17px, 3.6vw, 23px);
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .category-description {
-      display: block;
-      margin-top: 5px;
-      font-size: 12px;
-      line-height: 1.35;
-    }
-
-    .category-arrow {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      color: var(--rosa-escuro);
-      background: rgba(255, 255, 255, .95);
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    /* Painel de produtos: entra pelo lado da categoria escolhida. */
-    .menu-panel {
-      display: none;
-      position: relative;
-      width: 100%;
-      margin: 0 auto 28px;
-      padding: 20px 14px 22px;
-      border: 1px solid #f0dbe4;
-      border-radius: 22px;
-      background: #fff;
-      box-shadow: var(--sombra);
-      overflow: hidden;
-    }
-
-    .menu-panel.is-open {
-      display: block;
-      animation-duration: .48s;
-      animation-timing-function: cubic-bezier(.2, .75, .25, 1);
-      animation-fill-mode: both;
-    }
-
-    .menu-panel.from-left {
-      animation-name: enterFromLeft;
-    }
-
-    .menu-panel.from-right {
-      animation-name: enterFromRight;
-    }
-
-    @keyframes enterFromLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-75px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes enterFromRight {
-      from {
-        opacity: 0;
-        transform: translateX(75px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .menu-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 0 2px 16px;
-    }
-
-    .menu-heading {
-      margin: 0;
-      color: var(--rosa-escuro);
-      font-size: clamp(22px, 4.5vw, 28px);
-    }
-
-    .menu-description {
-      margin: 6px 0 0;
-      color: #8c7482;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .close-menu {
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      width: 31px;
-      height: 31px;
-      padding: 0;
-      border: none;
-      border-radius: 50%;
-      color: #8c7482;
-      background: #fff0f5;
-      font-size: 23px;
-      line-height: 1;
-      transition: background .2s, transform .2s;
-    }
-
-    .close-menu:hover {
-      color: var(--rosa-escuro);
-      background: #fce0eb;
-      transform: rotate(90deg);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .product-card {
-      min-width: 0;
-      padding: 14px 12px;
-      border: 1px solid #f1e3e9;
-      border-radius: 17px;
-      background: #fffafb;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      transition: transform .2s, border-color .2s;
-    }
-
-    .product-card:hover {
-      transform: translateY(-2px);
-      border-color: #efbfd1;
-    }
-
-    .product-emoji {
-      display: grid;
-      place-items: center;
-      width: 43px;
-      height: 43px;
-      margin-bottom: 10px;
-      border-radius: 14px;
-      background: #fff0f5;
-      font-size: 25px;
-    }
-
-    .product-card h3 {
-      margin: 0 0 6px;
-      font-size: 16px;
-      line-height: 1.3;
-      overflow-wrap: anywhere;
-    }
-
-    .product-card p {
-      flex: 1;
-      margin: 0 0 12px;
-      color: #8c7482;
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .product-bottom {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .product-price {
-      color: var(--rosa-escuro);
-      font-weight: 800;
-      font-size: 15px;
-    }
-
-    .add-button {
-      min-width: 36px;
-      min-height: 36px;
-      padding: 0 10px;
-      border: none;
-      border-radius: 12px;
-      color: white;
-      background: var(--rosa);
-      font-size: 21px;
-      font-weight: bold;
-      transition: background .2s, transform .15s;
-    }
-
-    .add-button:hover {
-      background: var(--rosa-escuro);
-    }
-
-    .add-button:active {
-      transform: scale(.92);
-    }
-
-    .cart-section {
-      margin-top: 30px;
-      padding: 20px;
-      border: 1px solid #f0dbe4;
-      border-radius: 22px;
-      background: white;
-      box-shadow: var(--sombra);
-    }
-
-    .cart-title {
-      margin: 0 0 14px;
-      color: var(--rosa-escuro);
-      font-size: 24px;
-    }
-
-    .cart-empty {
-      padding: 10px 0;
-      color: #8c7482;
-      line-height: 1.6;
-    }
-
-    .cart-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .cart-item {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 10px;
-      align-items: center;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #f4e8ee;
-    }
-
-    .cart-item-name {
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    .cart-item-price {
-      margin-top: 4px;
-      color: #8c7482;
-      font-size: 13px;
-    }
-
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .quantity-controls button {
-      display: grid;
-      place-items: center;
-      width: 29px;
-      height: 29px;
-      border: none;
-      border-radius: 9px;
-      color: var(--rosa-escuro);
-      background: #fff0f5;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .quantity-number {
-      min-width: 14px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .cart-total-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 18px 0;
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .cart-total {
-      color: var(--rosa-escuro);
-    }
-
-    .checkout-button {
-      width: 100%;
-      min-height: 50px;
-      padding: 13px 18px;
-      border: none;
-      border-radius: 15px;
-      color: white;
-      background: #25a65a;
-      font-size: 16px;
-      font-weight: 800;
-      transition: background .2s, transform .2s;
-    }
-
-    .checkout-button:hover {
-      background: #198747;
-    }
-
-    .checkout-button:active {
-      transform: scale(.99);
-    }
-
-    .checkout-button:disabled {
-      cursor: not-allowed;
-      opacity: .5;
-    }
-
-    .cart-note {
-      margin: 12px 0 0;
-      text-align: center;
-      color: #8c7482;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    footer {
-      padding: 25px 18px;
-      text-align: center;
-      background: #ffedf3;
-      color: #8c6177;
-      line-height: 1.7;
-      font-size: 13px;
-    }
-
-    .music-button {
-      position: fixed;
-      right: 15px;
-      bottom: 15px;
-      z-index: 20;
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border: 1px solid #f1d3df;
-      border-radius: 50%;
-      background: white;
-      color: var(--rosa-escuro);
-      box-shadow: 0 5px 20px rgba(120, 50, 80, .16);
-      font-size: 20px;
-    }
-
-    .music-button.playing {
-      animation: musicPulse 1.6s ease-in-out infinite;
-    }
-
-    @keyframes musicPulse {
-      50% {
-        box-shadow: 0 5px 23px rgba(217, 70, 120, .35);
-      }
-    }
-
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    @media (min-width: 650px) {
-      .category-grid {
-        gap: 22px;
-      }
-
-      .category-card {
-        min-height: 260px;
-      }
-
-      .menu-panel {
-        padding: 25px;
-      }
-
-      .product-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 15px;
-      }
-
-      .product-card {
-        padding: 17px;
-      }
-
-      .product-card h3 {
-        font-size: 17px;
-      }
-    }
-
-    @media (max-width: 360px) {
-      main {
-        width: calc(100% - 20px);
-      }
-
-      .category-card {
-        min-height: 160px;
-        border-radius: 16px;
-      }
-
-      .category-overlay {
-        padding: 11px 9px;
-      }
-
-      .category-description {
-        font-size: 11px;
-      }
-
-      .product-grid {
-        gap: 8px;
-      }
-
-      .product-card {
-        padding: 11px 9px;
-      }
-
-      .product-card h3 {
-        font-size: 14px;
-      }
-
-      .product-price {
-        font-size: 13px;
-      }
-
-      .add-button {
-        min-width: 32px;
-        min-height: 32px;
-      }
-
-      .cart-section {
-        padding: 15px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff4f7">
+<title>Geladinho das Meninas 🍓</title>
+
+<style>
+:root {
+  --rosa:#f36b98;
+  --rosa-escuro:#d94678;
+  --rosa-claro:#fff0f5;
+  --texto:#493541;
+  --fundo:#fff8fa;
+}
+
+* { box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  margin:0;
+  font-family:"Trebuchet MS",Arial,sans-serif;
+  color:var(--texto);
+  background:var(--fundo);
+  overflow-x:hidden;
+}
+
+button { font:inherit; cursor:pointer; }
+img { max-width:100%; }
+
+.hero {
+  min-height:300px;
+  padding:30px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:
+    linear-gradient(rgba(255,242,247,.80),rgba(255,242,247,.88)),
+    url("./SaveClip.App_629999614_18361855390163503_5129815402887603622_n.jpg.webp")
+    center/cover;
+}
+
+.logo {
+  width:min(210px,58vw);
+  max-height:155px;
+  object-fit:contain;
+  margin-bottom:8px;
+}
+
+.hero h1 {
+  margin:5px 0;
+  color:var(--rosa-escuro);
+  font-size:clamp(25px,5vw,38px);
+}
+
+.hero p { max-width:440px; line-height:1.6; }
+.hero-decoration { margin-top:14px; font-size:23px; letter-spacing:7px; }
+
+main {
+  width:min(100% - 28px,1000px);
+  margin:0 auto;
+  padding:28px 0 55px;
+}
+
+.section-title {
+  text-align:center;
+  margin:8px 0 9px;
+  color:var(--rosa-escuro);
+  font-size:clamp(25px,5vw,32px);
+}
+
+.section-subtitle {
+  text-align:center;
+  color:#8c7482;
+  line-height:1.5;
+  margin:0 auto 24px;
+  max-width:520px;
+}
+
+.category-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:25px;
+}
+
+.category-card {
+  position:relative;
+  min-width:0;
+  min-height:190px;
+  padding:0;
+  overflow:hidden;
+  border:1px solid #f1d9e3;
+  border-radius:21px;
+  background:white;
+  box-shadow:0 8px 25px rgba(151,76,111,.12);
+  text-align:left;
+  transition:transform .2s,box-shadow .2s;
+}
+
+.category-card:active { transform:scale(.975); }
+
+.category-card img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .35s;
+}
+
+.category-card:hover img { transform:scale(1.04); }
+
+.category-overlay {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:15px 12px;
+  color:white;
+  background:linear-gradient(to top,rgba(45,23,39,.78),rgba(45,23,39,.08) 80%);
+}
+
+.category-name {
+  display:block;
+  font-size:clamp(17px,3.6vw,23px);
+  font-weight:800;
+  line-height:1.2;
+}
+
+.category-description {
+  display:block;
+  margin-top:5px;
+  font-size:12px;
+  line-height:1.35;
+}
+
+.category-arrow {
+  position:absolute;
+  top:10px;
+  right:10px;
+  display:grid;
+  place-items:center;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  color:var(--rosa-escuro);
+  background:rgba(255,255,255,.95);
+  font-size:20px;
+  font-weight:bold;
+}
+
+/* Cardápio animado */
+.menu-panel {
+  display:none;
+  position:relative;
+  width:100%;
+  margin:0 auto 28px;
+  padding:20px 14px 22px;
+  border:1px solid #f0dbe4;
+  border-radius:22px;
+  background:white;
+  box-shadow:0 8px 25px rgba(151,76,111,.12);
+  overflow:hidden;
+}
+
+.menu-panel.is-open { display:block; }
+
+.menu-panel.from-left {
+  animation:enterFromLeft .48s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.menu-panel.from-right {
+  animation:enterFromRight .48s cubic-bezier(.2,.75,.25,1) both;
+}
+
+@keyframes enterFromLeft {
+  from { opacity:0; transform:translateX(-75px); }
+  to { opacity:1; transform:translateX(0); }
+}
+
+@keyframes enterFromRight {
+  from { opacity:0; transform:translateX(75px); }
+  to { opacity:1; transform:translateX(0); }
+}
+
+.menu-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 2px 16px;
+}
+
+.menu-heading {
+  margin:0;
+  color:var(--rosa-escuro);
+  font-size:clamp(22px,4.5vw,28px);
+}
+
+.menu-description {
+  margin:6px 0 0;
+  color:#8c7482;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.close-menu {
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  width:31px;
+  height:31px;
+  padding:0;
+  border:none;
+  border-radius:50%;
+  color:#8c7482;
+  background:#fff0f5;
+  font-size:23px;
+  line-height:1;
+}
+
+.close-menu:hover {
+  color:var(--rosa-escuro);
+  background:#fce0eb;
+}
+
+.product-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.product-card {
+  min-width:0;
+  padding:14px 12px;
+  border:1px solid #f1e3e9;
+  border-radius:17px;
+  background:#fffafb;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.product-emoji {
+  display:grid;
+  place-items:center;
+  width:43px;
+  height:43px;
+  margin-bottom:10px;
+  border-radius:14px;
+  background:#fff0f5;
+  font-size:25px;
+}
+
+.product-card h3 {
+  margin:0 0 6px;
+  font-size:16px;
+  line-height:1.3;
+  overflow-wrap:anywhere;
+}
+
+.product-card p {
+  flex:1;
+  margin:0 0 12px;
+  color:#8c7482;
+  font-size:12px;
+  line-height:1.45;
+}
+
+.product-bottom {
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+}
+
+.product-price {
+  color:var(--rosa-escuro);
+  font-weight:800;
+  font-size:15px;
+}
+
+.add-button {
+  min-width:36px;
+  min-height:36px;
+  padding:0 10px;
+  border:none;
+  border-radius:12px;
+  color:white;
+  background:var(--rosa);
+  font-size:21px;
+  font-weight:bold;
+}
+
+.add-button:hover { background:var(--rosa-escuro); }
+
+.cart-section {
+  margin-top:30px;
+  padding:20px;
+  border:1px solid #f0dbe4;
+  border-radius:22px;
+  background:white;
+  box-shadow:0 8px 25px rgba(151,76,111,.12);
+}
+
+.cart-title {
+  margin:0 0 14px;
+  color:var(--rosa-escuro);
+  font-size:24px;
+}
+
+.cart-empty {
+  padding:10px 0;
+  color:#8c7482;
+  line-height:1.6;
+}
+
+.cart-list { display:grid; gap:12px; }
+
+.cart-item {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+  padding-bottom:12px;
+  border-bottom:1px solid #f4e8ee;
+}
+
+.cart-item-name { font-weight:700; line-height:1.4; }
+.cart-item-price { margin-top:4px; color:#8c7482; font-size:13px; }
+
+.quantity-controls {
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.quantity-controls button {
+  display:grid;
+  place-items:center;
+  width:29px;
+  height:29px;
+  border:none;
+  border-radius:9px;
+  color:var(--rosa-escuro);
+  background:#fff0f5;
+  font-weight:bold;
+  font-size:18px;
+}
+
+.quantity-number { min-width:14px; text-align:center; font-weight:bold; }
+
+.cart-total-row {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin:18px 0;
+  font-size:18px;
+  font-weight:800;
+}
+
+.cart-total { color:var(--rosa-escuro); }
+
+.checkout-button {
+  width:100%;
+  min-height:50px;
+  padding:13px 18px;
+  border:none;
+  border-radius:15px;
+  color:white;
+  background:#25a65a;
+  font-size:16px;
+  font-weight:800;
+}
+
+.checkout-button:hover { background:#198747; }
+.checkout-button:disabled { cursor:not-allowed; opacity:.5; }
+
+.cart-note {
+  margin:12px 0 0;
+  text-align:center;
+  color:#8c7482;
+  font-size:12px;
+  line-height:1.5;
+}
+
+footer {
+  padding:25px 18px;
+  text-align:center;
+  background:#ffedf3;
+  color:#8c6177;
+  line-height:1.7;
+  font-size:13px;
+}
+
+.music-button {
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  z-index:20;
+  display:grid;
+  place-items:center;
+  width:48px;
+  height:48px;
+  border:1px solid #f1d3df;
+  border-radius:50%;
+  background:white;
+  color:var(--rosa-escuro);
+  box-shadow:0 5px 20px rgba(120,50,80,.16);
+  font-size:20px;
+}
+
+.music-button.playing { animation:musicPulse 1.6s ease-in-out infinite; }
+
+@keyframes musicPulse {
+  50% { box-shadow:0 5px 23px rgba(217,70,120,.35); }
+}
+
+@media (min-width:650px) {
+  .category-grid { gap:22px; }
+  .category-card { min-height:260px; }
+  .menu-panel { padding:25px; }
+  .product-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; }
+  .product-card { padding:17px; }
+  .product-card h3 { font-size:17px; }
+}
+
+@media (max-width:360px) {
+  main { width:calc(100% - 20px); }
+  .category-card { min-height:160px; border-radius:16px; }
+  .category-overlay { padding:11px 9px; }
+  .category-description { font-size:11px; }
+  .product-grid { gap:8px; }
+  .product-card { padding:11px 9px; }
+  .product-card h3 { font-size:14px; }
+  .product-price { font-size:13px; }
+  .add-button { min-width:32px; min-height:32px; }
+  .cart-section { padding:15px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+}
+</style>
 </head>
 
 <body>
-  <header class="hero">
-    <img
-      class="logo"
-      src="./logo_20261025125818.png"
-      alt="Logo Geladinho das Meninas"
-      onerror="this.style.display='none'"
-    >
+<header class="hero">
+  <img class="logo"
+       src="./logo_20261025125818.png"
+       alt="Logo Geladinho das Meninas"
+       onerror="this.style.display='none'">
 
-    <h1>Geladinho das Meninas 🍓</h1>
-    <p>Um carinho geladinho para deixar seu dia mais gostoso!</p>
-    <div class="hero-decoration" aria-hidden="true">🍓 💕 🍦</div>
-  </header>
+  <h1>Geladinho das Meninas 🍓</h1>
+  <p>Um carinho geladinho para deixar seu dia mais gostoso!</p>
+  <div class="hero-decoration">🍓 💕 🍦</div>
+</header>
 
-  <main>
-    <section id="cardapio">
-      <h2 class="section-title">Nosso cardápio</h2>
-      <p class="section-subtitle">
-        Escolha sua categoria favorita e descubra os sabores disponíveis.
-        Você pode abrir as duas categorias e misturar seus pedidos!
-      </p>
+<main>
+  <section id="cardapio">
+    <h2 class="section-title">Nosso cardápio</h2>
+    <p class="section-subtitle">
+      Escolha sua categoria favorita. Você pode adicionar sabores
+      das duas categorias sem perder os itens do carrinho!
+    </p>
 
-      <div class="category-grid" id="categoryGrid">
-        <button
-          class="category-card"
-          type="button"
-          data-category="tradicionais"
-          aria-label="Abrir cardápio de geladinhos tradicionais"
-        >
-          <img
-            src="./SaveClip.App_625053558_18080439110349849_5098441813790298616_n.jpg.webp"
-            alt=""
-            onerror="this.style.display='none'"
-          >
-          <span class="category-overlay">
-            <span class="category-name">🍓 Tradicionais</span>
-            <span class="category-description">
-              Sabores clássicos para refrescar seu dia.
-            </span>
+    <div class="category-grid" id="categoryGrid">
+      <button class="category-card" type="button"
+              onclick="openMenu('tradicionais')">
+        <img
+          src="./SaveClip.App_625053558_18080439110349849_5098441813790298616_n.jpg.webp"
+          alt=""
+          onerror="this.style.display='none'">
+        <span class="category-overlay">
+          <span class="category-name">🍓 Tradicionais</span>
+          <span class="category-description">
+            Sabores clássicos para refrescar seu dia.
           </span>
-          <span class="category-arrow" aria-hidden="true">›</span>
-        </button>
-
-        <button
-          class="category-card"
-          type="button"
-          data-category="especiais"
-          aria-label="Abrir cardápio de geladinhos especiais"
-        >
-          <img
-            src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp"
-            alt=""
-            onerror="this.style.display='none'"
-          >
-          <span class="category-overlay">
-            <span class="category-name">✨ Especiais</span>
-            <span class="category-description">
-              Combinações especiais para surpreender.
-            </span>
-          </span>
-          <span class="category-arrow" aria-hidden="true">›</span>
-        </button>
-      </div>
-
-      <section
-        class="menu-panel"
-        id="menuPanel"
-        aria-label="Sabores disponíveis"
-        aria-live="polite"
-      >
-        <div class="menu-header">
-          <div>
-            <h2 class="menu-heading" id="menuHeading">🍓 Tradicionais</h2>
-            <p class="menu-description" id="menuDescription">
-              Escolha seus sabores favoritos.
-            </p>
-          </div>
-
-          <button
-            class="close-menu"
-            id="closeMenu"
-            type="button"
-            aria-label="Fechar cardápio e escolher outra categoria"
-            title="Fechar cardápio"
-          >×</button>
-        </div>
-
-        <div class="product-grid" id="productGrid"></div>
-      </section>
-    </section>
-
-    <section class="cart-section" id="carrinho">
-      <h2 class="cart-title">🛒 Seu carrinho</h2>
-      <div id="cartContents">
-        <p class="cart-empty">
-          Seu carrinho está esperando pelos seus geladinhos! 💕
-        </p>
-      </div>
-
-      <div class="cart-total-row">
-        <span>Total</span>
-        <span class="cart-total" id="cartTotal">R$ 0,00</span>
-      </div>
-
-      <button class="checkout-button" id="checkoutButton" type="button" disabled>
-        💬 Finalizar pedido pelo WhatsApp
+        </span>
+        <span class="category-arrow">›</span>
       </button>
 
-      <p class="cart-note">
-        Confira os sabores e as quantidades antes de enviar seu pedido.
-      </p>
+      <button class="category-card" type="button"
+              onclick="openMenu('especiais')">
+        <img
+          src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp"
+          alt=""
+          onerror="this.style.display='none'">
+        <span class="category-overlay">
+          <span class="category-name">✨ Especiais</span>
+          <span class="category-description">
+            Combinações especiais para surpreender.
+          </span>
+        </span>
+        <span class="category-arrow">›</span>
+      </button>
+    </div>
+
+    <section class="menu-panel" id="menuPanel">
+      <div class="menu-header">
+        <div>
+          <h2 class="menu-heading" id="menuHeading">🍓 Tradicionais</h2>
+          <p class="menu-description" id="menuDescription">
+            Escolha seus sabores favoritos.
+          </p>
+        </div>
+        <button class="close-menu" type="button"
+                onclick="closeMenu()"
+                aria-label="Fechar cardápio"
+                title="Fechar">×</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
     </section>
-  </main>
+  </section>
 
-  <footer>
-    <div>Feito com carinho pelas Meninas 💕</div>
-    <div>Geladinhos preparados para adoçar seu dia! 🍓</div>
-  </footer>
+  <section class="cart-section" id="carrinho">
+    <h2 class="cart-title">🛒 Seu carrinho</h2>
+    <div id="cartContents">
+      <p class="cart-empty">
+        Seu carrinho está esperando pelos seus geladinhos! 💕
+      </p>
+    </div>
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span class="cart-total" id="cartTotal">R$ 0,00</span>
+    </div>
+    <button class="checkout-button" id="checkoutButton"
+            type="button" onclick="checkout()" disabled>
+      💬 Finalizar pedido pelo WhatsApp
+    </button>
+    <p class="cart-note">
+      Confira os sabores e as quantidades antes de enviar seu pedido.
+    </p>
+  </section>
+</main>
 
-  <button
-    class="music-button"
-    id="musicButton"
-    type="button"
-    aria-label="Ativar ou pausar música"
-    title="Música"
-  >♫</button>
+<footer>
+  <div>Feito com carinho pelas Meninas 💕</div>
+  <div>Geladinhos preparados para adoçar seu dia! 🍓</div>
+</footer>
 
-  <audio
-    id="backgroundMusic"
-    src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3"
-    loop
-    preload="none"
-  ></audio>
+<button class="music-button" id="musicButton" type="button"
+        onclick="toggleMusic()" aria-label="Ativar ou pausar música">♫</button>
 
-  <audio id="popSound" src="./pop%201.mp3" preload="auto"></audio>
+<audio id="backgroundMusic"
+       src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3"
+       loop preload="none"></audio>
+<audio id="popSound" src="./pop%201.mp3" preload="auto"></audio>
 
-  <script>
-    const WHATSAPP_NUMBER = "5534991387357";
+<script>
+/* Os elementos são buscados após o HTML existir. */
+const products = [
+  {id:"morango",name:"Morango",emoji:"🍓",description:"Doce, delicado e refrescante.",price:5,category:"tradicionais"},
+  {id:"abacaxi",name:"Abacaxi",emoji:"🍍",description:"Um toque tropical delicioso.",price:5,category:"tradicionais"},
+  {id:"abacate",name:"Abacate",emoji:"🥑",description:"Cremoso e cheio de sabor.",price:5,category:"tradicionais"},
+  {id:"milho",name:"Milho verde",emoji:"🌽",description:"Aquele sabor especial de milho.",price:5,category:"tradicionais"},
+  {id:"chocolate",name:"Chocolate",emoji:"🍫",description:"Para quem ama chocolate.",price:5,category:"tradicionais"},
+  {id:"coco-branco",name:"Coco branco",emoji:"🥥",description:"Um clássico suave e gostoso.",price:5,category:"tradicionais"},
+  {id:"coco-queimado",name:"Coco queimado",emoji:"🥥",description:"Sabor marcante de coco.",price:5,category:"tradicionais"},
+  {id:"uva",name:"Uva",emoji:"🍇",description:"Frutado e super refrescante.",price:5,category:"tradicionais"},
+  {id:"blue-ice",name:"Blue Ice",emoji:"🧊",description:"Geladinho azul para refrescar.",price:5,category:"tradicionais"},
+  {id:"limao",name:"Limão",emoji:"🍋",description:"Um toque cítrico e refrescante.",price:5,category:"tradicionais"},
+  {id:"chiclete",name:"Chiclete",emoji:"🩷",description:"Um sabor divertido e docinho.",price:5,category:"tradicionais"},
+  {id:"morango-nutella",name:"Morango com Nutella",emoji:"🍓",description:"Uma combinação especial.",price:8,category:"especiais"},
+  {id:"maracuja-nutella",name:"Maracujá com Nutella",emoji:"💛",description:"Uma mistura para surpreender.",price:6,category:"especiais"}
+];
 
-    const products = [
-      {
-        id: "morango",
-        name: "Morango",
-        emoji: "🍓",
-        description: "Doce, delicado e refrescante.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "abacaxi",
-        name: "Abacaxi",
-        emoji: "🍍",
-        description: "Um toque tropical delicioso.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "abacate",
-        name: "Abacate",
-        emoji: "🥑",
-        description: "Cremoso e cheio de sabor.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "milho",
-        name: "Milho verde",
-        emoji: "🌽",
-        description: "Aquele sabor especial de milho.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "chocolate",
-        name: "Chocolate",
-        emoji: "🍫",
-        description: "Para quem ama chocolate.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "coco-branco",
-        name: "Coco branco",
-        emoji: "🥥",
-        description: "Um clássico suave e gostoso.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "coco-queimado",
-        name: "Coco queimado",
-        emoji: "🥥",
-        description: "Sabor marcante de coco.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "uva",
-        name: "Uva",
-        emoji: "🍇",
-        description: "Frutado e super refrescante.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "blue-ice",
-        name: "Blue Ice",
-        emoji: "🧊",
-        description: "Geladinho azul para refrescar.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "limao",
-        name: "Limão",
-        emoji: "🍋",
-        description: "Um toque cítrico e refrescante.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "chiclete",
-        name: "Chiclete",
-        emoji: "🩷",
-        description: "Um sabor divertido e docinho.",
-        price: 5,
-        category: "tradicionais"
-      },
-      {
-        id: "morango-nutella",
-        name: "Morango com Nutella",
-        emoji: "🍓",
-        description: "Uma combinação especial.",
-        price: 8,
-        category: "especiais"
-      },
-      {
-        id: "maracuja-nutella",
-        name: "Maracujá com Nutella",
-        emoji: "💛",
-        description: "Uma mistura para surpreender.",
-        price: 6,
-        category: "especiais"
-      }
-    ];
+const cart = new Map();
 
-    // O carrinho é independente do cardápio aberto.
-    // Fechar ou trocar a categoria não apaga os produtos adicionados.
-    const cart = new Map();
+function el(id) {
+  return document.getElementById(id);
+}
 
-    const categoryGrid = document.getElementById("categoryGrid");
-    const menuPanel = document.getElementById("menuPanel");
-    const menuHeading = document.getElementById("menuHeading");
-    const menuDescription = document.getElementById("menuDescription");
-    const productGrid = document.getElementById("productGrid");
-    const closeMenuButton = document.getElementById("closeMenu");
-    const cartContents = document.getElementById("cartContents");
-    const cartTotal = document.getElementById("cartTotal");
-    const checkoutButton = document.getElementById("checkoutButton");
-    const backgroundMusic = document.getElementById("backgroundMusic");
-    const musicButton = document.getElementById("musicButton");
-    const popSound = document.getElementById("popSound");
+function formatPrice(value) {
+  return value.toLocaleString("pt-BR", {
+    style:"currency",
+    currency:"BRL"
+  });
+}
 
-    let currentCategory = null;
+function playPop() {
+  const sound = el("popSound");
+  try {
+    sound.currentTime = 0;
+    const result = sound.play();
+    if (result && result.catch) result.catch(function(){});
+  } catch (error) {}
+}
 
-    function formatPrice(value) {
-      return value.toLocaleString("pt-BR"
+/* A função é chamada diretamente pelo botão de cada categoria. */
+function openMenu(category) {
+  const panel = el("menuPanel");
+  const categories = el("categoryGrid");
+  const heading = el("menuHeading");
+  const description = el("menuDescription");
+
+  if (!panel || !categories || !heading || !description) {
+    alert("Não foi possível encontrar o cardápio. Confira se o HTML foi copiado por inteiro.");
+    return;
+  }
+
+  const traditional = category === "tradicionais";
+
+  heading.textContent = traditional
+    ? "🍓 Geladinhos tradicionais"
+    : "✨ Geladinhos especiais";
+
+  description.textContent = traditional
+    ? "Clássicos deliciosos por R$ 5,00 cada."
+    : "Nossos sabores especiais, de R$ 6,00 a R$ 8,00.";
+
+  renderProducts(category);
+
+  /* Retira a animação anterior para permitir reaberturas. */
+  panel.classList.remove("from-left", "from-right", "is-open");
+  panel.style.display = "block";
+  categories.style.display = "none";
+
+  /* Reinicia a animação ao alternar entre os cardápios. */
+  void panel.offsetWidth;
+  panel.classList.add("is-open");
+  panel.classList.add(traditional ? "from-left" : "from-right");
+
+  el("cardapio").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+
+function closeMenu() {
+  const panel = el("menuPanel");
+  const categories = el("categoryGrid");
+
+  panel.classList.remove("is-open", "from-left", "from-right");
+  panel.style.display = "none";
+  categories.style.display = "grid";
+}
+
+function renderProducts(category) {
+  const grid = el("productGrid");
+  const visible = products.filter(function(product) {
+    return product.category === category;
+  });
+
+  grid.innerHTML = "";
+
+  visible.forEach(function(product) {
+    const card = document.createElement("article");
+    card.className = "product-card";
+
+    const emoji = document.createElement("div");
+    emoji.className = "product-emoji";
+    emoji.textContent = product.emoji;
+
+    const name = document.createElement("h3");
+    name.textContent = product.name;
+
+    const description = document.createElement("p");
+    description.textContent = product.description;
+
+    const bottom = document.createElement("div");
+    bottom.className = "product-bottom";
+
+    const price = document.createElement("span");
+    price.className = "product-price";
+    price.textContent = formatPrice(product.price);
+
+    const button = document.createElement("button");
+    button.className = "add-button";
+    button.type = "button";
+    button.textContent = "+";
+    button.setAttribute("aria-label", "Adicionar " + product.name + " ao carrinho");
+    button.addEventListener("click", function() {
+      addToCart(product.id);
+    });
+
+    bottom.appendChild(price);
+    bottom.appendChild(button);
+    card.appendChild(emoji);
+    card.appendChild(name);
+    card.appendChild(description);
+    card.appendChild(bottom);
+    grid.appendChild(card);
+  });
+}
+
+function addToCart(productId) {
+  cart.set(productId, (cart.get(productId) || 0) + 1);
+  playPop();
+  renderCart();
+}
+
+function changeQuantity(productId, amount) {
+  const quantity = (cart.get(productId) || 0) + amount;
+
+  if (quantity <= 0) {
+    cart.delete(productId);
+  } else {
+    cart.set(productId, quantity);
+  }
+
+  renderCart();
+}
+
+function getCartTotal() {
+  let total = 0;
+
+  cart.forEach(function(quantity, productId) {
+    const product = products.find(function(item) {
+      return item.id === productId;
+    });
+
+    if (product) total += product.price * quantity;
+  });
+
+  return total;
+}
+
+function renderCart() {
+  const container = el("cartContents");
+  const entries = Array.from(cart.entries());
+  const checkoutButton = el("checkoutButton");
+
+  if (entries.length === 0) {
+    container.innerHTML =
+      '<p class="cart-empty">Seu carrinho está esperando pelos seus geladinhos! 💕</p>';
+  } else {
+    const list = document.createElement("div");
+    list.className = "cart-list";
+
+    entries.forEach(function(entry) {
+      const productId = entry[0];
+      const quantity = entry[1];
+      const product = products.find(function(item) {
+        return item.id === productId;
+      });
+
+      if (!product) return;
+
+      const item = document.createElement("div");
+      item.className = "cart-item";
+
+      const info = document.createElement("div");
+
+      const name = document.createElement("div");
+      name.className = "cart-item-name";
+      name.textContent = product.emoji + " " + product.name;
+
+      const price = document.createElement("div");
+      price.className = "cart-item-price";
+      price.textContent = formatPrice(product.price) + " cada · " +
+        formatPrice(product.price * quantity);
+
+      info.appendChild(name);
+      info.appendChild(price);
+
+      const controls = document.createElement("div");
+      controls.className = "quantity-controls";
+
+      const minus = document.createElement("button");
+      minus.type = "button";
+      minus.textContent = "−";
+      minus.setAttribute("aria-label", "Diminuir " + product.name);
+      minus.addEventListener("click", function() {
+        changeQuantity(productId, -1);
+      });
+
+      const number = document.createElement("span");
+      number.className = "quantity-number";
+      number.textContent = quantity;
+
+      const plus = document.createElement("button");
+      plus.type = "button";
+      plus.textContent = "+";
+      plus.setAttribute("aria-label", "Aumentar " + product.name);
+      plus.addEventListener("click", function() {
+        changeQuantity(productId, 1);
+      });
+
+      controls.appendChild(minus);
+      controls.appendChild(number);
+      controls.appendChild(plus);
+
+      item.appendChild(info);
+      item.appendChild(controls);
+      list.appendChild(item);
+    });
+
+    container.replaceChildren(list);
+  }
+
+  el("cartTotal").textContent = formatPrice(getCartTotal());
+  checkoutButton.disabled = cart.size === 0;
+}
+
+function checkout() {
+  if (cart.size === 0) return;
+
+  const lines = [];
+
+  cart.f
