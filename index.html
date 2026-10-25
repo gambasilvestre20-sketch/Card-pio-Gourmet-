@@ -43,7 +43,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .category-choice{position:relative;display:block;width:100%;min-width:0;aspect-ratio:3/4.2;overflow:hidden;padding:0;border:2px solid transparent;border-radius:22px;background:#fff;isolation:isolate;box-shadow:0 8px 24px #5d304018;transform:scale(.95);filter:grayscale(.78) brightness(.88);opacity:.78;transition:transform .28s ease,filter .28s ease,opacity .28s ease,border-color .28s ease,box-shadow .28s ease}
 .category-choice img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s ease}
 .category-choice::after{content:"";position:absolute;inset:0;z-index:1;background:transparent;pointer-events:none}
-.category-choice-label{position:absolute;z-index:2;left:7px;right:7px;bottom:16px;color:#fff;font-weight:900;line-height:1.2;font-size:clamp(.85rem,3.5vw,1.15rem);text-align:center;text-shadow:0 2px 9px #1b0b28aa}
+.category-choice-label{position:absolute;z-index:2;left:7px;right:7px;bottom:16px;color:#fff;font-weight:900;line-height:1.2;font-size:clamp(.85rem,3.5vw,1.15rem);text-align:center;text-shadow:0 2px 9px #1b0b28aa;pointer-events:none}
 .category-choice-label small{display:block;margin-top:7px;font-size:.7rem;font-weight:700;letter-spacing:.7px;opacity:.95}
 .category-choice.active{transform:scale(1);filter:none;opacity:1;border-color:#c35aff;box-shadow:0 0 0 2px #a72eff55,0 0 12px #bd55ffdd,0 0 28px #bd55ff88,0 12px 28px #5d30402a}
 .category-choice.active img{transform:scale(1.025)}
@@ -141,8 +141,8 @@ footer strong{color:var(--dark);font-size:1rem}
     </button>
 
     <button class="category-choice" type="button" data-choice="especiais" aria-pressed="false">
-      <img src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp" alt="Geladinhos especiais de Chocomalte" loading="lazy">
-      <span class="category-choice-label">🍫 Especiais<small>Preço a consultar</small></span>
+      <img src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp" alt="Geladinhos especiais" loading="lazy">
+      <span class="category-choice-label">🍫 Especiais<small>De R$ 6,00 a R$ 8,00</small></span>
     </button>
   </div>
 
@@ -174,8 +174,8 @@ footer strong{color:var(--dark);font-size:1rem}
     <div id="emptyCart" class="empty-cart"><div style="font-size:2.6rem;margin-bottom:8px">🧺</div>Sua sacolinha ainda está vazia.<br>Escolha alguns sabores deliciosos!</div>
     <div class="cart-summary">
       <div class="summary-line"><span>Quantidade</span><strong id="summaryQuantity">0 unidades</strong></div>
-      <div class="summary-line total"><span>Total dos itens com preço definido</span><strong id="summaryTotal">R$ 0,00</strong></div>
-      <p class="form-note" id="priceNotice">Os geladinhos especiais estão com preço a consultar.</p>
+      <div class="summary-line total"><span>Total dos produtos</span><strong id="summaryTotal">R$ 0,00</strong></div>
+      <p class="form-note" id="priceNotice">Os geladinhos especiais custam entre R$ 6,00 e R$ 8,00, conforme o sabor.</p>
       <button class="primary-button" id="checkoutButton" disabled>Continuar pedido 💌</button>
       <button class="secondary-button" id="clearCartButton">Esvaziar carrinho</button>
     </div>
@@ -197,7 +197,7 @@ footer strong{color:var(--dark);font-size:1rem}
       <div class="field"><label for="deliveryType">Como você vai receber? *</label><select id="deliveryType" required><option value="">Selecione uma opção</option><option value="Entrega">Entrega</option><option value="Retirada">Retirada</option><option value="Combinar pelo WhatsApp">Combinar pelo WhatsApp</option></select></div>
       <div class="field"><label for="customerAddress">Endereço ou referência</label><input id="customerAddress" type="text" placeholder="Rua, bairro ou ponto de referência" autocomplete="street-address"></div>
       <div class="field"><label for="customerNotes">Observações (opcional)</label><textarea id="customerNotes" placeholder="Algum detalhe sobre seu pedido?"></textarea></div>
-      <div class="special-note">🍓 <strong>Geladinhos especiais:</strong> os valores de Morango com Nutella e Maracujá com Nutella ainda precisam ser confirmados.</div>
+      <div class="special-note">🍓 <strong>Geladinhos especiais:</strong> os preços variam de R$ 6,00 a R$ 8,00, conforme o sabor.</div>
       <button class="primary-button" type="submit">Enviar pedido pelo WhatsApp 💚</button>
       <button class="secondary-button" type="button" id="backToCart">Voltar ao carrinho</button>
       <p class="form-note">O WhatsApp abrirá com sua mensagem pronta para você conferir e enviar.</p>
@@ -231,8 +231,8 @@ const products=[
 {id:"blue-ice",name:"Blue Ice",emoji:"🩵",description:"Geladinho azul para refrescar.",price:5,category:"tradicionais"},
 {id:"limao",name:"Limão",emoji:"🍋",description:"Uma explosão cítrica refrescante.",price:5,category:"tradicionais"},
 {id:"chiclete",name:"Chiclete",emoji:"🩷",description:"Doce, divertido e colorido.",price:5,category:"tradicionais"},
-{id:"morango-nutella",name:"Morango com Nutella",emoji:"🍓",description:"Uma combinação especial.",price:null,category:"especiais"},
-{id:"maracuja-nutella",name:"Maracujá com Nutella",emoji:"💛",description:"Uma mistura para surpreender.",price:null,category:"especiais"}
+{id:"morango-nutella",name:"Morango com Nutella",emoji:"🍓",description:"Uma combinação especial.",price:8,category:"especiais"},
+{id:"maracuja-nutella",name:"Maracujá com Nutella",emoji:"💛",description:"Uma mistura para surpreender.",price:6,category:"especiais"}
 ];
 
 const cart=new Map();
@@ -262,22 +262,25 @@ function playPop(){
 
 function renderProducts(){
   const shown=products.filter(p=>p.category===confirmedCategory);
+
   $("products").innerHTML=shown.map(p=>`
     <article class="product">
       <div class="product-illustration" aria-hidden="true">${p.emoji}</div>
       <h3>${p.name}</h3>
       <p class="product-description">${p.description}</p>
-      <div class="price">${p.price===null?"A consultar":money(p.price)}${p.price!==null?"<small>por unidade</small>":""}</div>
+      <div class="price">${money(p.price)}<small>por unidade</small></div>
       <button class="add-button" type="button" data-add="${p.id}">+ Adicionar</button>
     </article>
   `).join("");
 }
 
 function chooseCategory(category){
+  if(!["tradicionais","especiais"].includes(category))return;
+
   selectedCategory=category;
 
-  document.querySelectorAll("[data-choice]").forEach(button=>{
-    const active=button.dataset.choice===category;
+  document.querySelectorAll(".category-choice").forEach(button=>{
+    const active=button.dataset.choice===selectedCategory;
     button.classList.toggle("active",active);
     button.setAttribute("aria-pressed",String(active));
   });
@@ -287,7 +290,10 @@ function chooseCategory(category){
 }
 
 function confirmCategory(){
-  if(!selectedCategory)return;
+  if(!selectedCategory){
+    showToast("Escolha uma categoria primeiro! 💗");
+    return;
+  }
 
   confirmedCategory=selectedCategory;
   renderProducts();
@@ -330,12 +336,13 @@ function changeQuantity(id,amount){
 function renderCart(){
   const entries=Array.from(cart.entries());
   const qty=entries.reduce((sum,[,item])=>sum+item.quantity,0);
-  const total=entries.reduce((sum,[,item])=>sum+(item.product.price===null?0:item.product.price*item.quantity),0);
-  const hasUnpriced=entries.some(([,item])=>item.product.price===null);
+  const total=entries.reduce((sum,[,item])=>sum+item.product.price*item.quantity,0);
 
   $("cartCount").textContent=qty;
   $("summaryQuantity").textContent=`${qty} ${qty===1?"unidade":"unidades"}`;
   $("summaryTotal").textContent=money(total);
-  $("priceNotice").textContent=hasUnpriced
-    ?"O total não inclui os geladinhos especiais, pois os preços precisam ser confirmados pelo WhatsApp."
-    :"Total dos itens com preço defi
+  $("priceNotice").textContent="Os preços das especiais já estão incluídos no total.";
+
+  $("emptyCart").classList.toggle("hidden",entries.length>0);
+  $("cartItems").classList.toggle("hidden",entries.length===0);
+  $("checko
