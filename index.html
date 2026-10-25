@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f7b5dc">
+  <meta name="theme-color" content="#eaa0dc">
   <title>Geladinho das Meninas</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,12 @@
       min-height: 100vh;
       color: white;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(145deg, #ffb7dc, #ee8fd0 35%, #c28af5 70%, #8e62e8);
+      background: linear-gradient(145deg, #ffb9dc, #ed91d1 38%, #c18af2 72%, #8d62e8);
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
     }
 
     .pagina {
@@ -37,79 +42,101 @@
 
     header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      padding: 24px 0;
-      font-size: .85rem;
+      padding: 23px 0;
+      font-size: .82rem;
       font-weight: 600;
     }
 
     .tag {
-      padding: 8px 12px;
+      padding: 7px 12px;
       border: 1px solid #ffffff80;
       border-radius: 30px;
       background: #ffffff20;
-      font-size: .7rem;
+      font-size: .68rem;
       white-space: nowrap;
     }
 
-    .hero {
-      min-height: 75vh;
+    .tela-inicial {
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 35px 10px 55px;
       text-align: center;
+      animation: aparecer 1.1s ease both;
     }
 
     .ilustracao {
-      width: min(65vw, 230px);
-      margin-bottom: 18px;
-      filter: drop-shadow(0 15px 20px #652b8240);
+      width: min(68vw, 245px);
+      margin-bottom: 20px;
+      filter: drop-shadow(0 17px 22px #652b8230);
       animation: flutuar 4s ease-in-out infinite;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
-      font-weight: 400;
       font-size: clamp(2.5rem, 9vw, 4.8rem);
       line-height: 1.25;
-      text-shadow: 0 6px 20px #6c2a8640;
+      font-weight: 400;
+      text-shadow: 0 5px 20px #6c2a8640;
     }
 
     .linha {
-      width: 85px;
+      width: 82px;
       height: 4px;
       margin: 22px auto;
-      border-radius: 10px;
-      background: white;
+      border-radius: 9px;
+      background: #fff;
     }
 
     .slogan {
-      font-size: clamp(.95rem, 3.5vw, 1.2rem);
+      max-width: 420px;
+      font-size: clamp(.95rem, 3.5vw, 1.15rem);
       line-height: 1.9;
       font-weight: 300;
     }
 
-    .rolar {
-      margin-top: 35px;
-      color: white;
-      text-decoration: none;
-      font-size: .8rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
+    .botao-principal {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 32px;
+      padding: 16px 28px;
+      border: 0;
+      border-radius: 50px;
+      background: white;
+      color: #a64ab7;
+      font-weight: 700;
+      box-shadow: 0 10px 28px #682c8130;
+      transition: transform .2s, box-shadow .2s;
     }
 
-    .rolar span {
+    .botao-principal:active {
+      transform: scale(.96);
+    }
+
+    .seta {
+      font-size: 1.2rem;
+    }
+
+    .tela-pedido {
+      display: none;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .tela-pedido.visivel {
       display: block;
-      font-size: 1.5rem;
-      animation: descer 1.5s infinite;
+      animation: entrar .65s ease forwards;
     }
 
     .secao {
-      margin-top: 22px;
+      margin-top: 20px;
       padding: clamp(18px, 4vw, 32px);
       border: 1px solid #ffffff65;
       border-radius: 27px;
@@ -120,117 +147,165 @@
 
     .titulo-secao {
       margin-bottom: 8px;
+      text-align: center;
       font-family: 'Pacifico', cursive;
       font-size: clamp(1.8rem, 6vw, 2.7rem);
       font-weight: 400;
-      text-align: center;
     }
 
     .descricao {
-      margin-bottom: 25px;
+      margin-bottom: 24px;
       text-align: center;
       font-size: .9rem;
-      line-height: 1.7;
+      line-height: 1.8;
       font-weight: 300;
     }
 
-    .preco-geral {
-      margin-bottom: 18px;
-      padding: 13px;
-      border-radius: 15px;
-      background: #ffffff25;
+    .categorias {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .categoria {
+      min-height: 175px;
+      padding: 20px 12px;
+      border: 1px solid #ffffff80;
+      border-radius: 22px;
+      background: #ffffff24;
+      color: white;
       text-align: center;
-      font-weight: 500;
+      transition: transform .2s, background .2s;
+    }
+
+    .categoria:active {
+      transform: scale(.97);
+    }
+
+    .categoria.selecionada {
+      background: #ffffff45;
+      outline: 2px solid white;
+    }
+
+    .categoria h3 {
+      margin: 8px 0;
+      font-size: 1.08rem;
+    }
+
+    .categoria p {
+      font-size: .78rem;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .preco-categoria {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .categoria-icone {
+      font-size: 1.7rem;
+    }
+
+    .voltar {
+      display: block;
+      margin: 16px auto 0;
+      padding: 9px 14px;
+      border: 1px solid #ffffff70;
+      border-radius: 30px;
+      background: transparent;
+      color: white;
+      font-size: .82rem;
     }
 
     .lista-sabores {
       display: grid;
-      gap: 12px;
+      gap: 11px;
     }
 
     .sabor {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
-      padding: 15px;
-      border: 1px solid #ffffff50;
-      border-radius: 18px;
+      padding: 14px 12px;
+      border: 1px solid #ffffff55;
+      border-radius: 17px;
       background: #ffffff20;
     }
 
     .nome-sabor {
-      font-size: .95rem;
+      font-size: .92rem;
       font-weight: 600;
       overflow-wrap: anywhere;
     }
 
     .preco-sabor {
       margin-top: 4px;
-      font-size: .8rem;
+      font-size: .78rem;
       opacity: .9;
     }
 
     .controle {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-shrink: 0;
     }
 
     .controle button {
-      display: grid;
-      place-items: center;
-      width: 38px;
-      height: 38px;
+      width: 35px;
+      height: 37px;
       border: none;
-      border-radius: 13px;
+      border-radius: 12px;
       background: white;
-      color: #9c50b8;
-      font-size: 1.35rem;
+      color: #9748b2;
+      font-size: 1.3rem;
       font-weight: 600;
-      box-shadow: 0 3px 8px #4b176820;
-      transition: transform .15s, background .15s;
-    }
-
-    .controle button:active {
-      transform: scale(.9);
-      background: #ffe4f3;
     }
 
     .quantidade {
-      min-width: 18px;
+      min-width: 15px;
       text-align: center;
-      font-size: 1rem;
       font-weight: 700;
     }
 
-    .resumo {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 20px;
-      background: #ffffffed;
-      color: #6f397f;
+    .mini-resumo {
+      margin-top: 20px;
+      padding: 17px;
+      border-radius: 18px;
+      background: #ffffff23;
+      line-height: 1.8;
+      font-size: .88rem;
     }
 
-    .resumo h3 {
-      margin-bottom: 15px;
+    .mini-resumo strong {
+      display: block;
       font-size: 1.2rem;
     }
 
-    .resumo-vazio {
-      font-size: .9rem;
-      line-height: 1.7;
-      color: #8e7195;
+    .resumo {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 20px;
+      background: #fff;
+      color: #713980;
+    }
+
+    .resumo h3 {
+      margin-bottom: 12px;
+      font-size: 1.15rem;
     }
 
     .linha-resumo {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       padding: 10px 0;
       border-bottom: 1px solid #ead9ef;
-      font-size: .88rem;
+      font-size: .85rem;
       line-height: 1.6;
     }
 
@@ -242,37 +317,38 @@
       white-space: nowrap;
     }
 
+    .vazio {
+      color: #927a98;
+      font-size: .85rem;
+      line-height: 1.7;
+    }
+
     .total {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin-top: 17px;
+      gap: 10px;
+      margin-top: 15px;
       padding-top: 15px;
       border-top: 2px dashed #d7b6e4;
-      font-size: 1.05rem;
       font-weight: 700;
     }
 
     .total-valor {
       color: #a344b9;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       white-space: nowrap;
     }
 
     .limpar {
       width: 100%;
-      margin-top: 18px;
+      margin-top: 15px;
       padding: 12px;
       border: 1px solid #cda7d9;
-      border-radius: 14px;
-      background: transparent;
+      border-radius: 13px;
+      background: white;
       color: #854394;
       font-weight: 600;
-    }
-
-    .limpar:active {
-      background: #f6e9fa;
     }
 
     .mensagem {
@@ -291,48 +367,34 @@
     }
 
     footer {
-      padding: 30px 10px 0;
+      padding: 28px 10px 0;
       text-align: center;
       font-size: .78rem;
       line-height: 1.8;
     }
 
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes entrar {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes flutuar {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-7px); }
     }
 
-    @keyframes descer {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(5px); }
-    }
-
-    @media (max-width: 420px) {
-      header {
-        font-size: .72rem;
-      }
-
-      .tag {
-        font-size: .58rem;
-        padding: 7px 9px;
-      }
-
-      .sabor {
-        padding: 12px 10px;
-      }
-
-      .nome-sabor {
-        font-size: .87rem;
-      }
-
-      .controle {
-        gap: 9px;
-      }
-
-      .controle button {
-        width: 34px;
-        height: 36px;
-      }
+    @media (max-width: 430px) {
+      header { font-size: .7rem; }
+      .tag { font-size: .58rem; }
+      .categoria { min-height: 170px; padding: 16px 9px; }
+      .controle { gap: 7px; }
+      .controle button { width: 32px; height: 35px; }
+      .nome-sabor { font-size: .84rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -353,10 +415,12 @@
     </header>
 
     <main>
-      <section class="hero">
+      <section class="tela-inicial" id="inicio">
 
-        <svg class="ilustracao" viewBox="0 0 240 300"
-          role="img" aria-label="Ilustração de um geladinho de laranja">
+        <!-- Geladinho de laranja em um saquinho comprido,
+             com as pontas seladas e sem folha verde. -->
+        <svg class="ilustracao" viewBox="0 0 240 320"
+          role="img" aria-label="Geladinho de laranja em um saquinho transparente">
 
           <defs>
             <linearGradient id="liquido" x1="0" y1="0" x2="1" y2="1">
@@ -364,61 +428,75 @@
               <stop offset="35%" stop-color="#ffbd42"/>
               <stop offset="100%" stop-color="#f87525"/>
             </linearGradient>
+
             <linearGradient id="plastico" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#fff" stop-opacity=".8"/>
-              <stop offset="50%" stop-color="#fff" stop-opacity=".12"/>
-              <stop offset="100%" stop-color="#fff" stop-opacity=".65"/>
+              <stop offset="0%" stop-color="#fff" stop-opacity=".85"/>
+              <stop offset="28%" stop-color="#fff" stop-opacity=".15"/>
+              <stop offset="72%" stop-color="#fff" stop-opacity=".05"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity=".7"/>
             </linearGradient>
           </defs>
 
-          <ellipse cx="120" cy="270" rx="55" ry="10"
-            fill="#652b82" opacity=".2"/>
+          <ellipse cx="120" cy="292" rx="49" ry="9"
+            fill="#652b82" opacity=".18"/>
 
-          <path d="M98 42 Q85 23 100 15 Q112 12 119 35
-            Q129 14 143 20 Q154 29 137 44 L132 52 L105 52 Z"
-            fill="#ffbd42" stroke="#fff2d5" stroke-width="3"/>
+          <!-- Ponta superior fina e selada -->
+          <path d="M110 25 L130 25 L127 44 L113 44 Z"
+            fill="url(#liquido)" stroke="#fff" stroke-width="2.5"/>
 
-          <path d="M88 49 Q120 57 152 49
-            L160 228 Q161 250 143 258
-            Q120 268 97 258 Q79 250 80 228 Z"
-            fill="url(#liquido)" stroke="#fff" stroke-width="4"/>
+          <!-- Corpo longo do saquinho -->
+          <path d="M113 43
+            L127 43
+            L150 66
+            L151 244
+            L132 272
+            Q120 282 108 272
+            L89 244
+            L90 66 Z"
+            fill="url(#liquido)" stroke="#fff" stroke-width="3.5"
+            stroke-linejoin="round"/>
 
-          <path d="M88 49 Q120 57 152 49
-            L160 228 Q161 250 143 258
-            Q120 268 97 258 Q79 250 80 228 Z"
+          <!-- Película transparente -->
+          <path d="M113 43
+            L127 43
+            L150 66
+            L151 244
+            L132 272
+            Q120 282 108 272
+            L89 244
+            L90 66 Z"
             fill="url(#plastico)"/>
 
-          <path d="M94 66 Q89 115 96 184"
-            fill="none" stroke="#fff" stroke-width="7"
-            stroke-linecap="round" opacity=".65"/>
+          <!-- Reflexos do plástico -->
+          <path d="M99 77 L99 232 L111 253"
+            fill="none" stroke="#fff" stroke-width="5"
+            stroke-linecap="round" opacity=".7"/>
 
-          <path d="M143 75 Q150 111 148 145"
+          <path d="M139 83 L140 222"
             fill="none" stroke="#fff" stroke-width="3"
             stroke-linecap="round" opacity=".5"/>
 
-          <g fill="#fff" opacity=".8">
-            <circle cx="105" cy="95" r="3"/>
-            <circle cx="138" cy="115" r="4"/>
-            <circle cx="112" cy="197" r="3"/>
-            <circle cx="143" cy="213" r="3"/>
-            <circle cx="100" cy="229" r="2.5"/>
-            <circle cx="130" cy="85" r="2.5"/>
+          <!-- Pequenas bolhas no líquido -->
+          <g fill="#fff" opacity=".75">
+            <circle cx="113" cy="91" r="2.5"/>
+            <circle cx="130" cy="111" r="3"/>
+            <circle cx="111" cy="205" r="2.5"/>
+            <circle cx="132" cy="225" r="3"/>
+            <circle cx="119" cy="185" r="2"/>
           </g>
 
-          <path d="M105 147 Q110 137 115 147"
-            fill="none" stroke="#a54e35" stroke-width="3"
-            stroke-linecap="round"/>
-          <path d="M126 147 Q131 137 136 147"
-            fill="none" stroke="#a54e35" stroke-width="3"
-            stroke-linecap="round"/>
-          <path d="M111 161 Q120 170 130 161"
-            fill="none" stroke="#a54e35" stroke-width="3"
-            stroke-linecap="round"/>
+          <!-- Rostinho discreto -->
+          <circle cx="110" cy="150" r="2.8" fill="#a34f34"/>
+          <circle cx="130" cy="150" r="2.8" fill="#a34f34"/>
+          <path d="M111 162 Q120 171 130 162"
+            fill="none" stroke="#a34f34"
+            stroke-width="2.8" stroke-linecap="round"/>
 
-          <path d="M104 38 Q94 21 106 17 Q117 27 115 40"
-            fill="#75c76c" stroke="#fff" stroke-width="2.5"/>
-          <path d="M115 39 Q132 19 146 28 Q134 43 115 43"
-            fill="#4db86a" stroke="#fff" stroke-width="2.5"/>
+          <!-- Pontas inferiores finas, formadas pelo próprio saquinho -->
+          <path d="M108 272 L101 282 L114 277
+            M132 272 L139 282 L126 277"
+            fill="none" stroke="#fff" stroke-width="2.5"
+            stroke-linejoin="round" stroke-linecap="round"/>
         </svg>
 
         <h1>Geladinho<br>das Meninas</h1>
@@ -429,50 +507,80 @@
           para refrescar o seu dia.
         </p>
 
-        <a class="rolar" href="#cardapio">
-          Conheça nossos sabores
-          <span aria-hidden="true">⌄</span>
-        </a>
+        <button class="botao-principal" id="iniciar">
+          Iniciar pedido <span class="seta">→</span>
+        </button>
       </section>
 
-      <section class="secao" id="cardapio">
-        <h2 class="titulo-secao">Nosso cardápio</h2>
-        <p class="descricao">
-          Escolha seus sabores favoritos e ajuste a quantidade.
-          O valor do pedido será calculado automaticamente.
-        </p>
+      <section class="tela-pedido" id="pedido">
 
-        <div class="preco-geral">
-          Todos os sabores: R$ 5,00 por unidade
-        </div>
+        <section class="secao" id="escolherCategoria">
+          <h2 class="titulo-secao">Vamos escolher?</h2>
+          <p class="descricao">
+            Primeiro, escolha a categoria dos seus geladinhos.
+          </p>
 
-        <div class="lista-sabores" id="listaSabores"></div>
+          <div class="categorias">
+            <button class="categoria" data-categoria="normal">
+              <div class="categoria-icone">01</div>
+              <h3>Normais</h3>
+              <p>Sabores frutados e clássicos para refrescar seu dia.</p>
+              <span class="preco-categoria">R$ 5,00</span>
+            </button>
 
-        <div class="resumo" aria-live="polite">
-          <h3>Resumo do pedido</h3>
-          <div id="itensResumo">
-            <p class="resumo-vazio">
-              Você ainda não selecionou nenhum geladinho.
-              Use os botões acima para começar!
-            </p>
+            <button class="categoria" data-categoria="especial">
+              <div class="categoria-icone">02</div>
+              <h3>Especiais</h3>
+              <p>Combinações cremosas para quem quer algo diferente.</p>
+              <span class="preco-categoria">A partir de R$ 6,00</span>
+            </button>
           </div>
+        </section>
 
-          <div class="total">
-            <span>Valor total</span>
-            <span class="total-valor" id="valorTotal">R$ 0,00</span>
-          </div>
+        <section class="secao" id="secaoSabores" hidden>
+          <h2 class="titulo-secao" id="tituloSabores">Sabores</h2>
+          <p class="descricao" id="descricaoSabores"></p>
 
-          <button class="limpar" id="limparPedido" type="button">
-            Limpar pedido
+          <div class="lista-sabores" id="listaSabores"></div>
+
+          <button class="voltar" id="voltarCategorias" type="button">
+            ← Voltar às categorias
           </button>
-        </div>
-      </section>
+        </section>
 
-      <section class="mensagem">
-        <p>
-          Um carinho geladinho<br>
-          em cada pedacinho do seu dia.
-        </p>
+        <section class="secao">
+          <h2 class="titulo-secao">Seu pedido</h2>
+          <p class="descricao">
+            Acompanhe as quantidades e o total em tempo real.
+          </p>
+
+          <div class="mini-resumo">
+            Unidades selecionadas
+            <strong id="totalUnidades">0</strong>
+          </div>
+
+          <div class="resumo" aria-live="polite">
+            <h3>Resumo detalhado</h3>
+            <div id="itensResumo">
+              <p class="vazio">
+                Você ainda não selecionou nenhum geladinho.
+              </p>
+            </div>
+
+            <div class="total">
+              <span>Valor total</span>
+              <span class="total-valor" id="valorTotal">R$ 0,00</span>
+            </div>
+
+            <button class="limpar" id="limparPedido" type="button">
+              Limpar pedido
+            </button>
+          </div>
+        </section>
+
+        <section class="mensagem">
+          <p>Um carinho geladinho<br>em cada pedacinho do seu dia.</p>
+        </section>
       </section>
     </main>
 
@@ -483,9 +591,7 @@
   </div>
 
   <script>
-    const precoUnitario = 5;
-
-    const sabores = [
+    const saboresNormais = [
       "Morango",
       "Abacaxi",
       "Abacate",
@@ -499,66 +605,135 @@
       "Chiclete"
     ];
 
-    const quantidades = {};
-    sabores.forEach(sabor => {
-      quantidades[sabor] = 0;
+    const saboresEspeciais = [
+      "Morango com Nutella",
+      "Maracujá com Nutella"
+    ];
+
+    const precos = {
+      normal: 5,
+      especial: 6
+    };
+
+    const pedido = {};
+
+    [...saboresNormais, ...saboresEspeciais].forEach(nome => {
+      pedido[nome] = 0;
     });
 
-    const formatarDinheiro = valor =>
-      valor.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
+    const dinheiro = valor => valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+
+    const inicio = document.getElementById("inicio");
+    const telaPedido = document.getElementById("pedido");
+    const secaoSabores = document.getElementById("secaoSabores");
+    const listaSabores = document.getElementById("listaSabores");
+
+    document.getElementById("iniciar").addEventListener("click", () => {
+      telaPedido.classList.add("visivel");
+
+      setTimeout(() => {
+        document.getElementById("escolherCategoria").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 100);
+    });
+
+    document.querySelectorAll("[data-categoria]").forEach(botao => {
+      botao.addEventListener("click", () => {
+        const categoria = botao.dataset.categoria;
+        mostrarSabores(categoria);
+      });
+    });
+
+    function mostrarSabores(categoria) {
+      const especiais = categoria === "especial";
+      const sabores = especiais ? saboresEspeciais : saboresNormais;
+      const preco = precos[categoria];
+
+      document.getElementById("tituloSabores").textContent =
+        especiais ? "Sabores especiais" : "Sabores normais";
+
+      document.getElementById("descricaoSabores").textContent =
+        "Cada unidade custa " + dinheiro(preco) +
+        ". Use os botões para escolher a quantidade.";
+
+      listaSabores.replaceChildren();
+
+      sabores.forEach(sabor => {
+        const item = document.createElement("article");
+        item.className = "sabor";
+
+        const info = document.createElement("div");
+
+        const nome = document.createElement("div");
+        nome.className = "nome-sabor";
+        nome.textContent = sabor;
+
+        const valor = document.createElement("div");
+        valor.className = "preco-sabor";
+        valor.textContent = dinheiro(preco) + " / unidade";
+
+        info.append(nome, valor);
+
+        const controle = document.createElement("div");
+        controle.className = "controle";
+
+        const menos = document.createElement("button");
+        menos.type = "button";
+        menos.textContent = "−";
+        menos.setAttribute("aria-label", "Diminuir " + sabor);
+        menos.addEventListener("click", () => alterar(sabor, -1));
+
+        const quantidade = document.createElement("span");
+        quantidade.className = "quantidade";
+        quantidade.id = "q-" + slug(sabor);
+        quantidade.textContent = pedido[sabor];
+
+        const mais = document.createElement("button");
+        mais.type = "button";
+        mais.textContent = "+";
+        mais.setAttribute("aria-label", "Adicionar " + sabor);
+        mais.addEventListener("click", () => alterar(sabor, 1));
+
+        controle.append(menos, quantidade, mais);
+        item.append(info, controle);
+        listaSabores.appendChild(item);
       });
 
-    const lista = document.getElementById("listaSabores");
+      secaoSabores.hidden = false;
+      secaoSabores.style.display = "block";
 
-    sabores.forEach((sabor, indice) => {
-      const item = document.createElement("article");
-      item.className = "sabor";
+      document.querySelectorAll("[data-categoria]").forEach(botao => {
+        botao.classList.toggle(
+          "selecionada",
+          botao.dataset.categoria === categoria
+        );
+      });
 
-      const informacoes = document.createElement("div");
+      secaoSabores.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
 
-      const nome = document.createElement("div");
-      nome.className = "nome-sabor";
-      nome.textContent = sabor;
+    function slug(texto) {
+      return texto.toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-");
+    }
 
-      const preco = document.createElement("div");
-      preco.className = "preco-sabor";
-      preco.textContent = formatarDinheiro(precoUnitario) + " / unidade";
+    function alterar(sabor, diferenca) {
+      pedido[sabor] = Math.max(0, pedido[sabor] + diferenca);
 
-      informacoes.append(nome, preco);
-
-      const controle = document.createElement("div");
-      controle.className = "controle";
-
-      const diminuir = document.createElement("button");
-      diminuir.type = "button";
-      diminuir.textContent = "−";
-      diminuir.setAttribute("aria-label", "Diminuir " + sabor);
-      diminuir.addEventListener("click", () => alterarQuantidade(sabor, -1));
-
-      const quantidade = document.createElement("span");
-      quantidade.className = "quantidade";
-      quantidade.id = "quantidade-" + indice;
-      quantidade.textContent = "0";
-
-      const aumentar = document.createElement("button");
-      aumentar.type = "button";
-      aumentar.textContent = "+";
-      aumentar.setAttribute("aria-label", "Adicionar " + sabor);
-      aumentar.addEventListener("click", () => alterarQuantidade(sabor, 1));
-
-      controle.append(diminuir, quantidade, aumentar);
-      item.append(informacoes, controle);
-      lista.appendChild(item);
-    });
-
-    function alterarQuantidade(sabor, alteracao) {
-      quantidades[sabor] = Math.max(0, quantidades[sabor] + alteracao);
-
-      const indice = sabores.indexOf(sabor);
-      document.getElementById("quantidade-" + indice).textContent =
-        quantidades[sabor];
+      const quantidade = document.getElementById("q-" + slug(sabor));
+      if (quantidade) {
+        quantidade.textContent = pedido[sabor];
+      }
 
       atualizarResumo();
     }
@@ -567,53 +742,39 @@
       const resumo = document.getElementById("itensResumo");
       resumo.replaceChildren();
 
-      let totalGeral = 0;
-      let totalUnidades = 0;
+      let total = 0;
+      let unidades = 0;
 
-      sabores.forEach(sabor => {
-        const quantidade = quantidades[sabor];
+      [...saboresNormais, ...saboresEspeciais].forEach(sabor => {
+        const quantidade = pedido[sabor];
 
         if (quantidade > 0) {
-          const subtotal = quantidade * precoUnitario;
-          totalGeral += subtotal;
-          totalUnidades += quantidade;
+          const categoria = saboresNormais.includes(sabor)
+            ? "normal"
+            : "especial";
+
+          const subtotal = quantidade * precos[categoria];
+          total += subtotal;
+          unidades += quantidade;
 
           const linha = document.createElement("div");
           linha.className = "linha-resumo";
 
-          const descricao = document.createElement("span");
-          descricao.textContent =
-            sabor + ": " + quantidade + " " +
-            (quantidade === 1 ? "unidade" : "unidades");
+          const texto = document.createElement("span");
+          texto.textContent = sabor + ": " + quantidade +
+            (quantidade === 1 ? " unidade" : " unidades");
 
           const valor = document.createElement("strong");
-          valor.textContent = formatarDinheiro(subtotal);
+          valor.textContent = dinheiro(subtotal);
 
-          linha.append(descricao, valor);
+          linha.append(texto, valor);
           resumo.appendChild(linha);
         }
       });
 
-      if (totalUnidades === 0) {
+      if (unidades === 0) {
         const vazio = document.createElement("p");
-        vazio.className = "resumo-vazio";
-        vazio.textContent =
-          "Você ainda não selecionou nenhum geladinho. Use os botões acima para começar!";
+        vazio.className = "vazio";
+        vazio.textContent = "Você ainda não selecionou nenhum geladinho.";
         resumo.appendChild(vazio);
-      }
-
-      document.getElementById("valorTotal").textContent =
-        formatarDinheiro(totalGeral);
-    }
-
-    document.getElementById("limparPedido").addEventListener("click", () => {
-      sabores.forEach((sabor, indice) => {
-        quantidades[sabor] = 0;
-        document.getElementById("quantidade-" + indice).textContent = "0";
-      });
-
-      atualizarResumo();
-    });
-  </script>
-</body>
-</html>
+      
