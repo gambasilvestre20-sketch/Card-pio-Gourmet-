@@ -3,542 +3,581 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f8eaff">
-<title>Geladinho das Meninas 🍧</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geladinho das Meninas</title>
 
 <style>
-:root {
-  --purple:#8d16b5;
-  --deep:#5e087d;
-  --pink:#f4b8ed;
-  --lavender:#f8edff;
-  --white:#fffaff;
-  --text:#4b2059;
-  --shadow:0 10px 30px #781b8c20;
+*{box-sizing:border-box}
+:root{--rosa:#f45b91;--rosa2:#ff8ab4;--roxo:#683b82;--creme:#fff8fc}
+body{
+ margin:0;font-family:Arial,sans-serif;color:#542b48;
+ background:linear-gradient(145deg,#fff0f6,#f8e8ff,#fff8ee);
+ min-height:100vh
 }
-* { box-sizing:border-box; }
-html,body {
-  margin:0; min-height:100%;
-  background:var(--lavender); color:var(--text);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:active{transform:scale(.97)}
+header{text-align:center;padding:22px 15px 8px}
+.logo{width:min(210px,65vw);max-height:180px;object-fit:contain}
+h1{color:#b93470;margin:8px 0;font-size:clamp(25px,6vw,36px)}
+.subtitulo{margin:6px 0 20px;color:#81536d}
+main{width:min(720px,94%);margin:auto;padding-bottom:35px}
+.painel{
+ background:#ffffffdc;border:1px solid #f5c9dd;border-radius:22px;
+ padding:20px;margin:15px 0;box-shadow:0 7px 24px #9a497d15
 }
-body { overflow-x:hidden; overscroll-behavior-y:contain; }
-button,input,textarea,select { font:inherit; }
-button { cursor:pointer; }
-button:focus-visible,input:focus-visible,
-textarea:focus-visible,select:focus-visible {
-  outline:3px solid #d35fe8; outline-offset:3px;
+.central{text-align:center}
+.botao{
+ border:0;border-radius:14px;padding:14px 20px;
+ color:white;background:linear-gradient(135deg,#f45b91,#bd4caa);
+ font-weight:bold;box-shadow:0 5px 13px #d85b9630
 }
-.hidden { display:none!important; }
-
-.page {
-  display:none; min-height:100svh;
-  padding:22px 17px 105px;
-  animation:pageIn .35s ease both;
+.botao.secundario{background:linear-gradient(135deg,#8055a3,#5d428b)}
+.botao.claro{background:#fff0f6;color:#a32e66;border:1px solid #f5bdd5}
+.botao:disabled{opacity:.5;cursor:not-allowed}
+.linha{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.categorias{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.categoria{padding:24px 10px;min-height:100px;font-size:18px}
+.lista{display:grid;gap:10px}
+.produto{
+ display:flex;justify-content:space-between;align-items:center;gap:10px;
+ padding:12px;border:1px solid #f2d5e2;border-radius:14px;background:#fffafd
 }
-.page.active { display:block; }
-@keyframes pageIn {
-  from { opacity:0; transform:translateY(10px); }
-  to { opacity:1; transform:translateY(0); }
+.produto small{display:block;color:#997187;margin-top:5px}
+.controles{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.controles button{
+ border:0;background:#fce0ec;color:#a32e66;border-radius:10px;
+ width:34px;height:34px;font-weight:bold;font-size:20px
 }
-
-/* TELA INICIAL */
-#landing {
-  position:fixed; inset:0; z-index:20;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  padding:25px; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 40%,#fff 0%,#f9e5ff 45%,#eac7fb 100%);
-  transition:opacity .7s ease,transform .7s ease;
+.quantidade{min-width:15px;text-align:center;font-weight:bold}
+h2{color:#a83470;margin-top:0}
+h3{color:#87436e}
+label{display:block;font-weight:bold;margin:13px 0 6px}
+input,select,textarea{
+ width:100%;border:1px solid #e7bfd2;border-radius:11px;
+ padding:12px;background:#fff;outline-color:#f45b91
 }
-#landing.leaving {
-  opacity:0; transform:scale(1.06); pointer-events:none;
+textarea{resize:vertical;min-height:75px}
+.campo{margin-bottom:12px}
+.oculto{display:none!important}
+.aviso{font-size:13px;color:#8b627b;line-height:1.5}
+.total{font-size:20px;font-weight:bold;color:#a32e66}
+.item-carrinho{padding:9px 0;border-bottom:1px solid #f1dce6}
+footer{text-align:center;padding:20px 10px;color:#9a7189;font-size:13px}
+#gelo{
+ position:fixed;inset:0;z-index:20;pointer-events:none;
+ display:none;overflow:hidden
 }
-.hero-logo {
-  display:block; width:min(84vw,420px);
-  max-height:62svh; object-fit:contain;
-  filter:drop-shadow(0 15px 22px #6d168b26);
-  animation:floatLogo 3.5s ease-in-out infinite;
+#mensagemStatus{margin-top:12px;color:#a32e66;font-weight:bold}
+.floco{
+ position:absolute;top:-100px;background:#ffffffc9;
+ border:2px solid #d9f8ff;border-radius:35% 65% 55% 45%;
+ box-shadow:0 0 18px #a8efff;
+ animation:cair 1.3s ease-in forwards
 }
-@keyframes floatLogo {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-9px); }
+@keyframes cair{
+ 0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
+ 15%{opacity:1}
+ 100%{transform:translateY(120vh) rotate(360deg);opacity:.9}
 }
-#logoFallback { text-align:center; }
-.start-button {
-  position:absolute;
-  bottom:max(55px,calc(env(safe-area-inset-bottom) + 30px));
-  left:50%; transform:translateX(-50%);
-  width:min(85%,320px); padding:17px 24px;
-  border:2px solid #fff; border-radius:20px;
-  color:#fff;
-  background:linear-gradient(120deg,#a52bc6,#74119b);
-  font-size:17px; font-weight:900;
-  box-shadow:0 8px 25px #821aa544;
-  animation:hintPulse 1.8s ease-in-out infinite;
-}
-.start-button:active { transform:translateX(-50%) scale(.96); }
-@keyframes hintPulse {
-  0%,100% { filter:brightness(1); }
-  50% { filter:brightness(1.12); }
-}
-
-/* TRANSIÇÃO DE GELO */
-#ice-transition {
-  position:fixed; inset:0; z-index:100;
-  display:none; pointer-events:none; overflow:hidden;
-}
-#ice-transition.playing { display:block; }
-.ice-cube {
-  position:absolute; top:-110px;
-  width:var(--size,65px); height:var(--size,65px);
-  left:var(--left,50%);
-  border:2px solid #ffffffdc; border-radius:15px;
-  background:linear-gradient(135deg,#ffffffd9,#c5f2ff90 55%,#e3c9ffb8);
-  box-shadow:inset 5px 5px 12px #ffffffbb,
-    inset -5px -5px 12px #8db8e566,0 8px 20px #532b8740;
-  backdrop-filter:blur(3px);
-  transform:rotate(var(--rot,25deg));
-  animation:iceFall var(--duration,1.1s) cubic-bezier(.2,.6,.35,1) forwards;
-  animation-delay:var(--delay,0s);
-}
-@keyframes iceFall {
-  0% { top:-100px; opacity:0; }
-  12% { opacity:1; }
-  75% { transform:translateY(78vh) rotate(160deg); }
-  100% { top:calc(100% - var(--size,65px)); transform:rotate(220deg); opacity:1; }
-}
-.ice-crack {
-  position:absolute; inset:0; width:100%; height:100%;
-  opacity:0; transform:scale(.5);
-}
-#ice-transition.cracking .ice-crack {
-  animation:crackOpen .85s ease-out forwards;
-}
-@keyframes crackOpen {
-  0% { opacity:0; transform:scale(.5); }
-  30% { opacity:1; transform:scale(1.05); }
-  70% { opacity:1; transform:scale(1); }
-  100% { opacity:0; transform:scale(1.25); }
-}
-.ice-flash { position:absolute; inset:0; background:#fff; opacity:0; }
-#ice-transition.cracking .ice-flash { animation:flash .65s ease-out; }
-@keyframes flash {
-  0%,100% { opacity:0; }
-  35% { opacity:.95; }
-}
-
-/* CONTEÚDO */
-.topbar {
-  display:flex; align-items:center; gap:12px; margin-bottom:24px;
-}
-.mini-logo { width:57px; height:57px; object-fit:contain; }
-.topbar-title { flex:1; font-weight:900; font-size:17px; line-height:1.15; }
-.topbar-title small {
-  display:block; margin-top:4px; font-size:11px;
-  font-weight:600; color:#9466a0;
-}
-.icon-button {
-  width:43px; height:43px; border:0; border-radius:15px;
-  background:#fff; color:var(--deep);
-  box-shadow:var(--shadow); font-size:20px;
-}
-h1,h2,h3,p { margin-top:0; }
-h1 { font-size:clamp(25px,7vw,34px); line-height:1.1; margin-bottom:9px; letter-spacing:-.7px; }
-h2 { font-size:23px; margin-bottom:8px; }
-.subtitle { color:#8c6a96; line-height:1.5; margin-bottom:24px; }
-
-.category-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
-.category-card {
-  min-width:0; min-height:265px;
-  display:flex; flex-direction:column; align-items:center;
-  justify-content:center; gap:13px; padding:20px 12px;
-  border:2px solid #fff; border-radius:26px;
-  color:var(--deep);
-  background:linear-gradient(155deg,#fff 0%,#f4dcff 100%);
-  box-shadow:var(--shadow); text-align:center;
-  transition:transform .2s;
-}
-.category-card:active { transform:scale(.97); }
-.category-card.special { background:linear-gradient(155deg,#fff8ff,#f8c7ed); }
-.category-art {
-  width:100%; aspect-ratio:3/4; max-height:185px;
-  border-radius:19px; display:flex; justify-content:center;
-  align-items:center; background:radial-gradient(circle,#fff 0%,#f4d8ff 75%);
-  font-size:50px;
-}
-.category-card strong { font-size:19px; }
-.category-card small { font-size:12px; color:#93649e; }
-
-.flavor-list { display:grid; grid-template-columns:1fr; gap:11px; }
-.flavor-item {
-  display:flex; align-items:center; gap:12px; padding:13px;
-  border-radius:19px; border:1px solid #f0d9f6;
-  background:#fff; box-shadow:0 4px 14px #781b8c0b;
-}
-.flavor-emoji {
-  display:grid; place-items:center; width:49px; height:49px;
-  flex-shrink:0; border-radius:15px; background:#f8eaff; font-size:25px;
-}
-.flavor-info { flex:1; min-width:0; }
-.flavor-name { font-weight:800; font-size:15px; }
-.flavor-price { margin-top:4px; font-size:13px; color:#8c579a; }
-.quantity { display:flex; align-items:center; gap:9px; }
-.qty-btn {
-  border:0; width:35px; height:35px; border-radius:12px;
-  color:#fff; background:var(--purple); font-weight:900; font-size:20px;
-  box-shadow:0 3px 9px #7e159e30;
-}
-.qty-num { min-width:14px; text-align:center; font-weight:800; }
-.panel {
-  background:#fff; border:1px solid #f0def5;
-  border-radius:23px; padding:17px; box-shadow:var(--shadow);
-  margin-bottom:15px;
-}
-.cart-line {
-  display:flex; justify-content:space-between; gap:12px;
-  padding:12px 0; border-bottom:1px solid #f2e4f5;
-}
-.cart-line:last-child { border-bottom:0; }
-.cart-line small { display:block; color:#956d9d; margin-top:4px; }
-.total-row {
-  display:flex; justify-content:space-between; gap:12px;
-  align-items:center; font-weight:900; font-size:19px;
-}
-.note {
-  padding:12px; background:#fff5d9; border-radius:13px;
-  color:#76541b; font-size:13px; line-height:1.5; margin-top:12px;
-}
-.primary-btn,.secondary-btn {
-  width:100%; border:0; border-radius:17px;
-  padding:16px; font-weight:900; transition:transform .15s,opacity .15s;
-}
-.primary-btn {
-  color:#fff; background:linear-gradient(120deg,#a52bc6,#74119b);
-  box-shadow:0 7px 17px #821aa533;
-}
-.secondary-btn { color:var(--deep); background:#f1dcfa; }
-.primary-btn:active,.secondary-btn:active { transform:scale(.98); }
-.button-stack { display:grid; gap:10px; margin-top:20px; }
-.field { margin-bottom:16px; }
-.field label { display:block; margin-bottom:7px; font-size:13px; font-weight:800; }
-.field input,.field textarea,.field select {
-  width:100%; border:1px solid #e4c8ed; border-radius:14px;
-  padding:13px; color:var(--text); background:#fff;
-}
-.field textarea { min-height:90px; resize:vertical; }
-.payment-option {
-  display:flex; align-items:center; gap:11px; background:#fff;
-  border:1px solid #edddf2; padding:13px; border-radius:14px; margin-bottom:9px;
-}
-.payment-option input { accent-color:var(--purple); width:18px; height:18px; }
-.bottom-nav {
-  position:fixed; z-index:15; bottom:0; left:0; right:0;
-  display:none; justify-content:space-around; gap:5px;
-  padding:10px 10px max(10px,env(safe-area-inset-bottom));
-  background:#fffdfbf2; border-top:1px solid #efdff4;
-  backdrop-filter:blur(12px);
-}
-.bottom-nav.visible { display:flex; }
-.nav-item {
-  flex:1; min-width:0; border:0; background:transparent;
-  color:#8f6d99; border-radius:13px; padding:7px 2px;
-  font-size:11px; font-weight:800;
-}
-.nav-item span { display:block; font-size:21px; margin-bottom:3px; }
-.nav-item.selected { color:var(--purple); background:#f6e6fc; }
-.cart-badge {
-  display:inline-grid; place-items:center; min-width:18px; height:18px;
-  padding:0 4px; border-radius:20px; background:#eab2fa;
-  color:#4b0b64; font-size:11px; vertical-align:middle;
-}
-.empty-state { text-align:center; padding:30px 15px; color:#916c9a; }
-.empty-state .big { font-size:48px; margin-bottom:12px; }
-footer { text-align:center; font-size:11px; color:#a082aa; margin-top:30px; }
-
-@media(min-width:600px) {
-  .page { max-width:620px; margin:0 auto; }
-  .category-card { min-height:330px; }
-  .flavor-list { grid-template-columns:1fr 1fr; }
-  .flavor-item { padding:10px; }
-  .flavor-emoji { width:40px; height:40px; font-size:21px; }
-  .quantity { gap:6px; }
-  .qty-btn { width:30px; height:30px; }
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    scroll-behavior:auto!important;
-  }
+@media(max-width:430px){
+ .painel{padding:15px}
+ .categorias{grid-template-columns:1fr}
+ .produto{align-items:flex-start}
+ .produto .controles{margin-left:auto}
 }
 </style>
 </head>
 
 <body>
 
-<!-- TELA INICIAL -->
-<section id="landing" aria-label="Entrada do catálogo">
-  <img class="hero-logo"
-       src="./logo_20261025125818.png"
-       alt="Geladinho das Meninas"
-       onerror="this.style.display='none';document.getElementById('logoFallback').classList.remove('hidden');">
+<div id="gelo"></div>
 
-  <div id="logoFallback" class="hidden">
-    <div style="font-size:76px">🍧</div>
-    <h2>Geladinho das Meninas</h2>
-  </div>
-
-  <button id="startOrderButton" class="start-button" type="button">
-    Iniciar pedido
-  </button>
-</section>
-
-<!-- GELO -->
-<div id="ice-transition" aria-hidden="true">
-  <svg class="ice-crack" viewBox="0 0 400 800" preserveAspectRatio="none">
-    <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M200 390 L170 335 L190 285 L150 230 L170 160"/>
-      <path d="M170 335 L120 350 L85 320"/>
-      <path d="M190 285 L235 270 L265 225"/>
-      <path d="M200 390 L240 430 L220 485 L260 535 L245 605"/>
-      <path d="M240 430 L290 410 L330 435"/>
-      <path d="M220 485 L175 505 L145 555"/>
-      <path d="M200 390 L145 400 L110 450"/>
-      <path d="M200 390 L255 365 L300 325"/>
-    </g>
-  </svg>
-  <div class="ice-flash"></div>
-</div>
-
-<!-- ÁUDIOS -->
-<audio id="backgroundMusic" loop preload="auto">
-  <source src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3" type="audio/mpeg">
-</audio>
-
-<audio id="popSound" preload="auto">
-  <source src="./pop%201.mp3" type="audio/mpeg">
-</audio>
+<header>
+ <img class="logo" src="./logo_20261025125818.png"
+      alt="Logo Geladinho das Meninas"
+      onerror="this.style.display='none'">
+ <h1>Geladinho das Meninas 🍧</h1>
+ <p class="subtitulo">Escolha seus sabores favoritos!</p>
+</header>
 
 <main>
-<!-- CATEGORIAS -->
-<section class="page" id="categories">
-  <header class="topbar">
-    <img class="mini-logo" src="./logo_20261025125818.png" alt="Logo">
-    <div class="topbar-title">Geladinho das Meninas<small>Escolha sua categoria 💜</small></div>
-    <button class="icon-button" onclick="openCart()" aria-label="Abrir carrinho">🛒</button>
-  </header>
-  <h1>Qual vai ser hoje?</h1>
-  <p class="subtitle">Escolha sua categoria favorita e monte seu pedido do seu jeitinho.</p>
+ <!-- TELA INICIAL -->
+ <section id="inicio" class="painel central">
+  <h2>Seja bem-vindo(a)! 💗</h2>
+  <p>Prepare seu pedido de um jeito fácil e rápido.</p>
+  <button type="button" id="botaoIniciar" class="botao">
+   🍧 Iniciar pedido
+  </button>
+  <p class="aviso">Toque no botão para começar.</p>
+ </section>
 
-  <div class="category-grid">
-    <button class="category-card" onclick="openCategory('normal')">
-      <div class="category-art">🍓🍍</div>
-      <strong>Normais</strong>
-      <small>Deliciosos e refrescantes</small>
-      <small><b>R$ 5,00 cada</b></small>
-    </button>
-    <button class="category-card special" onclick="openCategory('special')">
-      <div class="category-art">🍫🍓</div>
-      <strong>Especiais</strong>
-      <small>Uma dose extra de carinho</small>
-      <small><b>Preço a confirmar</b></small>
-    </button>
+ <!-- CATEGORIAS -->
+ <section id="telaCategorias" class="painel oculto">
+  <h2>Escolha uma categoria</h2>
+  <div class="categorias">
+   <button type="button" class="botao categoria" id="btnNormais">
+    🍓 Geladinhos Normais
+   </button>
+   <button type="button" class="botao secundario categoria" id="btnEspeciais">
+    🍫 Geladinhos Especiais
+   </button>
   </div>
-  <footer>— Desde 2021, trazendo mais alegria ao seu dia —</footer>
-</section>
+  <p class="aviso">Os especiais estão com o preço a confirmar.</p>
+ </section>
 
-<!-- SABORES -->
-<section class="page" id="flavors">
-  <header class="topbar">
-    <button class="icon-button" onclick="showPage('categories')" aria-label="Voltar">←</button>
-    <div class="topbar-title" id="flavorHeader">Sabores<small>Escolha suas quantidades</small></div>
-    <button class="icon-button" onclick="openCart()" aria-label="Carrinho">🛒</button>
-  </header>
-  <h1 id="flavorTitle">Escolha seus sabores</h1>
-  <p class="subtitle" id="flavorSubtitle">Toque no + para adicionar ao pedido.</p>
-  <div id="flavorList" class="flavor-list"></div>
-  <div class="button-stack">
-    <button class="primary-btn" onclick="openCart()">Ver meu pedido <span id="flavorCartCount"></span></button>
-    <button class="secondary-btn" onclick="showPage('categories')">Voltar às categorias</button>
+ <!-- SABORES -->
+ <section id="telaSabores" class="painel oculto">
+  <div class="linha">
+   <h2 id="tituloSabores">Sabores</h2>
+   <button type="button" class="botao claro" id="voltarCategorias">← Voltar</button>
   </div>
-</section>
-
-<!-- CARRINHO -->
-<section class="page" id="cart">
-  <header class="topbar">
-    <button class="icon-button" onclick="showPage('categories')" aria-label="Voltar">←</button>
-    <div class="topbar-title">Meu carrinho<small>Confira seu pedido</small></div>
-  </header>
-  <h1>Seu pedido 🛒</h1>
-  <p class="subtitle">Confira tudo antes de finalizar.</p>
-  <div class="panel" id="cartContents"></div>
-  <div class="button-stack">
-    <button class="primary-btn" id="checkoutButton" onclick="goCheckout()">Continuar para entrega</button>
-    <button class="secondary-btn" onclick="showPage('categories')">Adicionar mais sabores</button>
-    <button class="secondary-btn" onclick="clearCart()">Limpar carrinho</button>
+  <p id="descricaoSabores" class="aviso"></p>
+  <div id="listaSabores" class="lista"></div>
+  <div class="linha" style="margin-top:18px">
+   <button type="button" class="botao claro" id="verCarrinho">🛒 Ver pedido</button>
+   <button type="button" class="botao" id="continuarSabores">Continuar →</button>
   </div>
-</section>
+ </section>
 
-<!-- FINALIZAÇÃO -->
-<section class="page" id="checkout">
-  <header class="topbar">
-    <button class="icon-button" onclick="openCart()" aria-label="Voltar ao carrinho">←</button>
-    <div class="topbar-title">Finalizar pedido<small>Falta pouco! 💜</small></div>
-  </header>
-  <h1>Onde vamos entregar?</h1>
-  <p class="subtitle">Preencha os dados para preparar a mensagem do WhatsApp.</p>
+ <!-- CARRINHO -->
+ <section id="telaCarrinho" class="painel oculto">
+  <div class="linha">
+   <h2>🛒 Seu pedido</h2>
+   <button type="button" class="botao claro" id="voltarSabores">← Voltar</button>
+  </div>
+  <div id="itensCarrinho"></div>
+  <p id="textoTotal" class="total">Total: R$ 0,00</p>
+  <p id="avisoEspecial" class="aviso"></p>
+  <div class="linha">
+   <button type="button" class="botao claro" id="continuarComprando">+ Adicionar sabores</button>
+   <button type="button" class="botao" id="irCheckout">Finalizar pedido →</button>
+  </div>
+ </section>
 
-  <form id="orderForm">
-    <div class="field">
-      <label for="customerName">Seu nome *</label>
-      <input id="customerName" autocomplete="name" required placeholder="Como podemos te chamar?">
-    </div>
-    <div class="field">
-      <label for="customerAddress">Endereço de entrega *</label>
-      <textarea id="customerAddress" autocomplete="street-address" required placeholder="Rua, número, bairro e ponto de referência"></textarea>
-    </div>
+ <!-- FINALIZAÇÃO -->
+ <section id="telaCheckout" class="painel oculto">
+  <div class="linha">
+   <h2>Finalizar pedido 💗</h2>
+   <button type="button" class="botao claro" id="voltarCarrinho">← Voltar</button>
+  </div>
 
-    <div class="field">
-      <label>Forma de pagamento *</label>
-      <label class="payment-option"><input type="radio" name="payment" value="Dinheiro em cédulas" required><span>💵 Cédulas (dinheiro)</span></label>
-      <label class="payment-option"><input type="radio" name="payment" value="Cartão"><span>💳 Cartão</span></label>
-      <label class="payment-option"><input type="radio" name="payment" value="Pix"><span>📱 Pix</span></label>
-    </div>
+  <form id="formPedido">
+   <div class="campo">
+    <label for="nome">Seu nome *</label>
+    <input id="nome" name="nome" required maxlength="80"
+           placeholder="Digite seu nome">
+   </div>
 
-    <div id="changeSection" class="field hidden">
-      <label for="needsChange">Precisa de troco?</label>
-      <select id="needsChange" onchange="toggleChangeAmount()">
-        <option value="Não">Não</option>
-        <option value="Sim">Sim</option>
-      </select>
-      <div id="changeAmountField" class="field hidden" style="margin-top:12px">
-        <label for="changeAmount">Troco para quanto?</label>
-        <input id="changeAmount" inputmode="decimal" placeholder="Ex.: R$ 50,00">
-      </div>
-    </div>
+   <div class="campo">
+    <label for="entrega">Como vai receber? *</label>
+    <select id="entrega" name="entrega" required>
+     <option value="">Selecione</option>
+     <option value="Retirada">Vou retirar</option>
+     <option value="Entrega">Quero entrega</option>
+    </select>
+   </div>
 
-    <div class="field">
-      <label for="orderNotes">Observações (opcional)</label>
-      <textarea id="orderNotes" placeholder="Alguma informação adicional?"></textarea>
-    </div>
+   <div class="campo oculto" id="campoEndereco">
+    <label for="endereco">Endereço para entrega *</label>
+    <textarea id="endereco" name="endereco"
+              placeholder="Rua, número e referência"></textarea>
+   </div>
 
-    <div id="checkoutSummary" class="panel"></div>
-    <div class="button-stack">
-      <button class="primary-btn" type="submit">Continuar pelo WhatsApp 💬</button>
-      <button class="secondary-btn" type="button" onclick="openCart()">Voltar ao carrinho</button>
-    </div>
+   <div class="campo">
+    <label for="pagamento">Forma de pagamento *</label>
+    <select id="pagamento" name="pagamento" required>
+     <option value="">Selecione</option>
+     <option value="Pix">Pix</option>
+     <option value="Dinheiro">Dinheiro</option>
+     <option value="Cartão">Cartão</option>
+    </select>
+   </div>
+
+   <div class="campo oculto" id="campoTroco">
+    <label for="troco">Precisa de troco para quanto?</label>
+    <input id="troco" name="troco" inputmode="decimal"
+           placeholder="Ex.: 50,00">
+    <p class="aviso">Se não precisar de troco, deixe em branco.</p>
+   </div>
+
+   <div class="campo">
+    <label for="observacoes">Observações (opcional)</label>
+    <textarea id="observacoes" name="observacoes"
+              placeholder="Alguma informação adicional?"></textarea>
+   </div>
+
+   <div class="painel">
+    <h3>Resumo</h3>
+    <div id="resumoFinal"></div>
+    <p id="totalFinal" class="total"></p>
+    <p id="avisoFinal" class="aviso"></p>
+   </div>
+
+   <button type="submit" class="botao" style="width:100%">
+    📲 Enviar pedido pelo WhatsApp
+   </button>
+   <p id="mensagemStatus" role="status"></p>
   </form>
-  <footer>Seu pedido será enviado após você tocar em Enviar no WhatsApp.</footer>
-</section>
+ </section>
 </main>
 
-<nav class="bottom-nav" id="bottomNav" aria-label="Navegação">
-  <button class="nav-item selected" id="navCategories" onclick="showPage('categories')"><span>🍧</span>Sabores</button>
-  <button class="nav-item" id="navCart" onclick="openCart()"><span>🛒</span>Carrinho <b class="cart-badge" id="navBadge">0</b></button>
-</nav>
+<footer>
+ — Desde 2021, trazendo mais alegria ao seu dia —
+</footer>
+
+<audio id="musica" loop preload="auto">
+ <source src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3" type="audio/mpeg">
+</audio>
+
+<audio id="somPop" preload="auto">
+ <source src="./pop%201.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-(() => {
-  "use strict";
+"use strict";
 
-  const WHATSAPP_NUMBER = "5534991387357";
+/* SABORES E PREÇOS */
+const sabores = {
+ normais: [
+  {nome:"Morango", preco:5},
+  {nome:"Abacaxi", preco:5},
+  {nome:"Abacate", preco:5},
+  {nome:"Milho verde", preco:5},
+  {nome:"Chocolate", preco:5},
+  {nome:"Coco branco", preco:5},
+  {nome:"Coco queimado", preco:5},
+  {nome:"Uva", preco:5},
+  {nome:"Blue Ice", preco:5},
+  {nome:"Limão", preco:5},
+  {nome:"Chiclete", preco:5}
+ ],
+ especiais: [
+  {nome:"Morango com Nutella", preco:null},
+  {nome:"Maracujá com Nutella", preco:null}
+ ]
+};
 
-  const flavors = [
-    {id:"morango",name:"Morango",emoji:"🍓",price:5,category:"normal"},
-    {id:"abacaxi",name:"Abacaxi",emoji:"🍍",price:5,category:"normal"},
-    {id:"abacate",name:"Abacate",emoji:"🥑",price:5,category:"normal"},
-    {id:"milho",name:"Milho verde",emoji:"🌽",price:5,category:"normal"},
-    {id:"chocolate",name:"Chocolate",emoji:"🍫",price:5,category:"normal"},
-    {id:"coco-branco",name:"Coco branco",emoji:"🥥",price:5,category:"normal"},
-    {id:"coco-queimado",name:"Coco queimado",emoji:"🥥",price:5,category:"normal"},
-    {id:"uva",name:"Uva",emoji:"🍇",price:5,category:"normal"},
-    {id:"blue-ice",name:"Blue Ice",emoji:"🧊",price:5,category:"normal"},
-    {id:"limao",name:"Limão",emoji:"🍋",price:5,category:"normal"},
-    {id:"chiclete",name:"Chiclete",emoji:"🩷",price:5,category:"normal"},
-    {id:"morango-nutella",name:"Morango com Nutella",emoji:"🍓",price:null,category:"special"},
-    {id:"maracuja-nutella",name:"Maracujá com Nutella",emoji:"💛",price:null,category:"special"}
-  ];
+const carrinho = {};
+let categoriaAtual = "normais";
 
-  const cart = {};
-  let currentCategory = "normal";
-  let currentPage = "categories";
-  let landingStarted = false;
-  let soundUnlocked = false;
+const $ = id => document.getElementById(id);
+const formatarDinheiro = valor =>
+ "R$ " + valor.toLocaleString("pt-BR", {
+  minimumFractionDigits:2, maximumFractionDigits:2
+ });
 
-  const landing = document.getElementById("landing");
-  const ice = document.getElementById("ice-transition");
-  const audio = document.getElementById("backgroundMusic");
-  const popAudio = document.getElementById("popSound");
-  const pages = Array.from(document.querySelectorAll(".page"));
-  const bottomNav = document.getElementById("bottomNav");
+function tocarPop(){
+ const audio = $("somPop");
+ if(!audio) return;
+ try {
+  audio.currentTime = 0;
+  const promessa = audio.play();
+  if(promessa && promessa.catch) promessa.catch(()=>{});
+ } catch(e) {}
+}
 
-  function money(value) {
-    return value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+function mostrarTela(id){
+ ["inicio","telaCategorias","telaSabores","telaCarrinho","telaCheckout"]
+  .forEach(tela => $(tela).classList.add("oculto"));
+ $(id).classList.remove("oculto");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function animarGelo(){
+ const camada = $("gelo");
+ camada.innerHTML = "";
+ camada.style.display = "block";
+
+ for(let i=0;i<24;i++){
+  const floco = document.createElement("div");
+  floco.className = "floco";
+  floco.style.left = Math.random()*100+"%";
+  floco.style.width = (15+Math.random()*35)+"px";
+  floco.style.height = (20+Math.random()*45)+"px";
+  floco.style.animationDelay = Math.random()*.35+"s";
+  camada.appendChild(floco);
+ }
+ setTimeout(()=>{
+  camada.style.display="none";
+  camada.innerHTML="";
+ },1700);
+}
+
+/* O botão abre a próxima tela mesmo se o áudio não funcionar. */
+function iniciarPedido(){
+ tocarPop();
+
+ try{
+  const musica = $("musica");
+  if(musica){
+   musica.volume = 0.35;
+   const promessa = musica.play();
+   if(promessa && promessa.catch) promessa.catch(()=>{});
   }
+ }catch(e){}
 
-  /* SOM DOS BOTÕES */
-  function playPop() {
-    try {
-      popAudio.pause();
-      popAudio.currentTime = 0;
-      const attempt = popAudio.play();
-      if (attempt && attempt.catch) attempt.catch(() => {});
-    } catch (error) {}
-  }
+ mostrarTela("telaCategorias");
+ animarGelo();
+}
 
-  // Um som para cada botão, sem precisar editar cada botão individualmente.
-  document.addEventListener("click", event => {
-    const button = event.target.closest("button");
-    if (!button || button.disabled) return;
-    playPop();
-  }, true);
+function abrirCategoria(categoria){
+ categoriaAtual = categoria;
+ $("tituloSabores").textContent =
+  categoria === "normais" ? "🍓 Geladinhos Normais" : "🍫 Geladinhos Especiais";
+ $("descricaoSabores").textContent =
+  categoria === "normais"
+  ? "Todos os geladinhos normais custam R$ 5,00 cada."
+  : "O preço dos geladinhos especiais precisa ser confirmado.";
 
-  function unlockAudio() {
-    soundUnlocked = true;
-    popAudio.load();
-  }
+ renderizarSabores();
+ mostrarTela("telaSabores");
+}
 
-  document.getElementById("startOrderButton").addEventListener("click", () => {
-    unlockAudio();
-    startLanding();
+function renderizarSabores(){
+ const lista = $("listaSabores");
+ lista.innerHTML = "";
+
+ sabores[categoriaAtual].forEach(sabor=>{
+  const chave = categoriaAtual+"|"+sabor.nome;
+  const quantidade = carrinho[chave] || 0;
+
+  const linha = document.createElement("div");
+  linha.className = "produto";
+
+  const info = document.createElement("div");
+  const nome = document.createElement("strong");
+  nome.textContent = sabor.nome;
+  const preco = document.createElement("small");
+  preco.textContent = sabor.preco === null
+   ? "Preço a confirmar"
+   : formatarDinheiro(sabor.preco)+" cada";
+  info.append(nome,preco);
+
+  const controles = document.createElement("div");
+  controles.className = "controles";
+
+  const menos = document.createElement("button");
+  menos.type = "button";
+  menos.textContent = "−";
+  menos.setAttribute("aria-label","Diminuir "+sabor.nome);
+  menos.addEventListener("click",()=>{
+   tocarPop();
+   alterarQuantidade(chave,-1);
   });
 
-  function cartCount() {
-    return Object.values(cart).reduce((sum,q) => sum + q,0);
-  }
+  const numero = document.createElement("span");
+  numero.className = "quantidade";
+  numero.textContent = quantidade;
 
-  function getLines() {
-    return flavors.filter(f => (cart[f.id] || 0) > 0).map(f => ({
-      ...f,
-      quantity:cart[f.id],
-      subtotal:f.price === null ? null : f.price * cart[f.id]
-    }));
-  }
+  const mais = document.createElement("button");
+  mais.type = "button";
+  mais.textContent = "+";
+  mais.setAttribute("aria-label","Adicionar "+sabor.nome);
+  mais.addEventListener("click",()=>{
+   tocarPop();
+   alterarQuantidade(chave,1);
+  });
 
-  function knownTotal() {
-    return getLines().reduce((sum,item) => sum + (item.subtotal || 0),0);
-  }
+  controles.append(menos,numero,mais);
+  linha.append(info,controles);
+  lista.appendChild(linha);
+ });
+}
 
-  function hasUnknownPrice() {
-    return getLines().some(item => item.price === null);
-  }
+function alterarQuantidade(chave,delta){
+ const nova = Math.max(0,(carrinho[chave]||0)+delta);
+ if(nova===0) delete carrinho[chave];
+ else carrinho[chave]=nova;
 
-  function showPage(pageId) {
-    if (!landingStarted) return;
+ renderizarSabores();
+ atualizarCarrinho();
+}
 
-    currentPage = pageId;
-    pages.forEach(page => page.classList.toggle("active",page.id === pageId));
-    bottomNav.classList.add("visible");
+function obterResumo(){
+ let quantidadeTotal = 0;
+ let total = 0;
+ let temEspecial = false;
+ const itens = [];
 
-    document.getElementById("navCategories").classList.toggle(
-      "selected",pageId === "categories" || pageId === "flavors"
-    );
-    document.getElementById("navCart").classList.toggle(
-      "selected",pageId === "cart" || pageId === "checkout"
-    );
+ Object.keys(carrinho).forEach(chave=>{
+  const quantidade = carrinho[chave];
+  if(!quantidade) return;
 
-    window.scrollTo({top:0,behavior:"smooth"});
-    if (pageId === "cart") renderCart();
-    if (pageId === "checko
+  const partes = chave.split("|");
+  const categoria = partes[0];
+  const nome = partes.slice(1).join("|");
+  const sabor = sabores[categoria].find(s=>s.nome===nome);
+  if(!sabor) return;
+
+  quantidadeTotal += quantidade;
+  if(sabor.preco===null) temEspecial=true;
+  else total += sabor.preco*quantidade;
+
+  itens.push({categoria,nome,quantidade,preco:sabor.preco});
+ });
+
+ return {itens,quantidadeTotal,total,temEspecial};
+}
+
+function atualizarCarrinho(){
+ const resumo = obterResumo();
+ const container = $("itensCarrinho");
+ container.innerHTML = "";
+
+ if(resumo.itens.length===0){
+  container.textContent = "Seu carrinho está vazio. Escolha alguns sabores!";
+ }else{
+  resumo.itens.forEach(item=>{
+   const linha = document.createElement("div");
+   linha.className="item-carrinho";
+   const preco = item.preco===null
+    ? "preço a confirmar"
+    : formatarDinheiro(item.preco*item.quantidade);
+   linha.textContent =
+    item.quantidade+" × "+item.nome+" — "+preco;
+   container.appendChild(linha);
+  });
+ }
+
+ $("textoTotal").textContent="Total conhecido: "+formatarDinheiro(resumo.total);
+ $("avisoEspecial").textContent=resumo.temEspecial
+  ? "⚠️ O total não inclui os geladinhos especiais. O preço será confirmado pelo atendimento."
+  : "";
+}
+
+function preencherResumoFinal(){
+ const resumo = obterResumo();
+ $("resumoFinal").innerHTML="";
+
+ resumo.itens.forEach(item=>{
+  const linha=document.createElement("p");
+  linha.textContent=item.quantidade+" × "+item.nome+" — "+
+   (item.preco===null
+    ? "preço a confirmar"
+    : formatarDinheiro(item.preco*item.quantidade));
+  $("resumoFinal").appendChild(linha);
+ });
+
+ $("totalFinal").textContent="Total conhecido: "+formatarDinheiro(resumo.total);
+ $("avisoFinal").textContent=resumo.temEspecial
+  ? "Os especiais serão confirmados separadamente; o total acima não inclui esses sabores."
+  : "Confira seus dados antes de enviar.";
+}
+
+function irParaCheckout(){
+ const resumo=obterResumo();
+ if(resumo.itens.length===0){
+  alert("Adicione pelo menos um geladinho ao pedido.");
+  return;
+ }
+ preencherResumoFinal();
+ mostrarTela("telaCheckout");
+}
+
+$("entrega").addEventListener("change",()=>{
+ const precisa = $("entrega").value==="Entrega";
+ $("campoEndereco").classList.toggle("oculto",!precisa);
+ $("endereco").required=precisa;
+});
+
+$("pagamento").addEventListener("change",()=>{
+ const dinheiro=$("pagamento").value==="Dinheiro";
+ $("campoTroco").classList.toggle("oculto",!dinheiro);
+});
+
+$("formPedido").addEventListener("submit",event=>{
+ event.preventDefault();
+ tocarPop();
+
+ const resumo=obterResumo();
+ if(resumo.itens.length===0){
+  alert("Seu carrinho está vazio.");
+  mostrarTela("telaCategorias");
+  return;
+ }
+
+ const nome=$("nome").value.trim();
+ const entrega=$("entrega").value;
+ const endereco=$("endereco").value.trim();
+ const pagamento=$("pagamento").value;
+ const troco=$("troco").value.trim();
+ const observacoes=$("observacoes").value.trim();
+
+ if(!nome || !entrega || !pagamento){
+  alert("Preencha todos os campos obrigatórios.");
+  return;
+ }
+ if(entrega==="Entrega" && !endereco){
+  alert("Informe o endereço para entrega.");
+  return;
+ }
+
+ let mensagem="🍧 *PEDIDO — GELADINHO DAS MENINAS* 🍧\n\n";
+ mensagem+="👤 *Nome:* "+nome+"\n";
+ mensagem+="📦 *Recebimento:* "+entrega+"\n";
+ if(entrega==="Entrega") mensagem+="📍 *Endereço:* "+endereco+"\n";
+ mensagem+="\n🛒 *ITENS DO PEDIDO*\n";
+
+ resumo.itens.forEach(item=>{
+  mensagem+="• "+item.quantidade+" × "+item.nome;
+  if(item.preco===null) mensagem+=" — preço a confirmar";
+  else mensagem+=" — "+formatarDinheiro(item.preco*item.quantidade);
+  mensagem+="\n";
+ });
+
+ mensagem+="\n💰 *Total conhecido:* "+formatarDinheiro(resumo.total)+"\n";
+ if(resumo.temEspecial){
+  mensagem+="⚠️ *Atenção:* falta confirmar o preço dos especiais.\n";
+ }
+ mensagem+="💳 *Pagamento:* "+pagamento+"\n";
+ if(pagamento==="Dinheiro" && troco){
+  mensagem+="💵 *Troco para:* R$ "+troco+"\n";
+ }
+ if(observacoes) mensagem+="📝 *Observações:* "+observacoes+"\n";
+ mensagem+="\nPedido enviado pelo site. 💗";
+
+ const telefone="5534991387357";
+ const url="https://wa.me/"+telefone+"?text="+encodeURIComponent(mensagem);
+
+ $("mensagemStatus").textContent="Abrindo o WhatsApp...";
+ window.location.href=url;
+});
+
+/* BOTÕES: todos ligados diretamente aos seus eventos */
+$("botaoIniciar").addEventListener("click",iniciarPedido);
+$("btnNormais").addEventListener("click",()=>{
+ tocarPop(); abrirCategoria("normais");
+});
+$("btnEspeciais").addEventListener("click",()=>{
+ tocarPop(); abrirCategoria("especiais");
+});
+$("voltarCategorias").addEventListener("click",()=>{
+ tocarPop(); mostrarTela("telaCategorias");
+});
+$("verCarrinho").addEventListener("click",()=>{
+ tocarPop(); atualizarCarrinho(); mostrarTela("telaCarrinho");
+});
+$("continuarSabores").addEventListener("click",()=>{
+ tocarPop(); atualizarCarrinho(); mostrarTela("telaCarrinho");
+});
+$("voltarSabores").addEventListener("click",()=>{
+ tocarPop(); abrirCategoria(categoriaAtual);
+});
+$("continuarComprando").addEventListener("click",()=>{
+ tocarPop(); mostrarTela("telaCategorias");
+});
+$("irCheckout").addEventListener("click",()=>{
+ tocarPop(); irParaCheckout();
+});
+$("voltarCarrinho").addEventListener("click",()=>{
+ tocarPop(); atualizarCarrinho(); mostrarTela("telaCarrinho");
+});
+
+/* Evita que um erro de áudio impeça o site de funcionar. */
+atualizarCarrinho();
+</script>
+
+</body>
+</html>
+
