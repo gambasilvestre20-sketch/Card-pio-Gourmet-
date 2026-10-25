@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -436,41 +435,49 @@ function playPop() {
   } catch (_) {}
 }
 
-/* O botão de entrada libera os sons e a música.
-   A música só começa depois do toque, por exigência dos navegadores. */
-$("enterButton").addEventListener("click", async () => {
+/* CORREÇÃO DO BOTÃO DE ENTRADA:
+   A loja abre imediatamente, sem depender do áudio. */
+function enterStore() {
   if (entered) return;
   entered = true;
-  document.body.classList.add("entered");
-  $("entryScreen").classList.add("leaving");
 
-  try {
-    $("backgroundMusic").volume = 0.32;
-    await $("backgroundMusic").play();
-    $("musicButton").classList.add("playing");
-    $("musicButton").textContent = "♫";
-    $("musicButton").setAttribute("aria-label","Pausar música");
-  } catch (_) {
-    showToast("Toque em ♫ para tentar iniciar a música.");
+  document.body.classList.add("entered");
+
+  const entryScreen = $("entryScreen");
+  if (entryScreen) {
+    entryScreen.classList.add("leaving");
+
+    // Garante que a tela inicial seja removida após a transição.
+    window.setTimeout(() => {
+      if (entryScreen.isConnected) entryScreen.remove();
+    }, 1000);
   }
 
-  // Pequeno som de entrada, se o arquivo estiver disponível.
+  // A música tenta iniciar, mas uma falha não bloqueia a entrada.
+  const music = $("backgroundMusic");
+  music.volume = 0.32;
+
   try {
-    $("popSound").volume = 0.55;
-    $("popSound").currentTime = 0;
-    const p = $("popSound").play();
-    if (p) p.catch(()=>{});
-  } catch (_) {}
+    const musicPromise = music.play();
 
-  setTimeout(()=>$("entryScreen").remove(),1000);
-});
+    if (musicPromise && typeof musicPromise.then === "function") {
+      musicPromise.then(() => {
+        $("musicButton").classList.add("playing");
+        $("musicButton").textContent = "♫";
+        $("musicButton").setAttribute("aria-label", "Pausar música");
+      }).catch(() => {
+        $("musicButton").classList.remove("playing");
+        showToast("A loja abriu! Toque em ♫ para tentar iniciar a música.");
+      });
+    }
+  } catch (_) {
+    showToast("A loja abriu! Toque em ♫ para tentar iniciar a música.");
+  }
 
-function renderProducts() {
-  const shown = products.filter(p => currentCategory === "todos" || p.category === currentCategory);
-  $("products").innerHTML = shown.map(p => `
-    <article class="product">
-      <div class="product-illustration" aria-hidden="true">${p.emoji}</div>
-      <h3>${p.name}</h3>
-      <p class="product-description">${p.description}</p>
-      <div class="price">${p.price === null ? "A consultar" : money(p.price)}
-        ${p.price !== null ? "<small>por unidade
+  // O efeito sonoro também é opcional.
+  try {
+    const pop = $("popSound");
+    pop.volume = 0.55;
+    pop.currentTime = 0;
+    const popPromise = pop.play();
+    if (popPromise && typeof popPromise.catch === "
