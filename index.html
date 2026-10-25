@@ -26,164 +26,261 @@
       min-height: 100vh;
       color: white;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(
-        145deg,
-        #ffb7dc 0%,
-        #ee8fd0 35%,
-        #c28af5 70%,
-        #8e62e8 100%
-      );
+      background: linear-gradient(145deg, #ffb7dc, #ee8fd0 35%, #c28af5 70%, #8e62e8);
     }
 
     .pagina {
-      width: min(100% - 32px, 900px);
-      margin: 0 auto;
-      padding-bottom: 60px;
+      width: min(100% - 30px, 850px);
+      margin: auto;
+      padding-bottom: 45px;
     }
 
     header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
-      padding: 25px 0;
+      padding: 24px 0;
       font-size: .85rem;
-      letter-spacing: .06em;
       font-weight: 600;
     }
 
     .tag {
+      padding: 8px 12px;
       border: 1px solid #ffffff80;
-      border-radius: 999px;
-      padding: 8px 13px;
+      border-radius: 30px;
       background: #ffffff20;
       font-size: .7rem;
       white-space: nowrap;
     }
 
     .hero {
-      min-height: 82vh;
+      min-height: 75vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 35px 10px 55px;
       text-align: center;
-      padding: 40px 18px 60px;
-      animation: entrar 1s ease both;
     }
 
     .ilustracao {
-      width: min(72vw, 270px);
-      margin-bottom: 22px;
-      filter: drop-shadow(0 18px 24px #652b8240);
+      width: min(65vw, 230px);
+      margin-bottom: 18px;
+      filter: drop-shadow(0 15px 20px #652b8240);
       animation: flutuar 4s ease-in-out infinite;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
-      font-size: clamp(2.7rem, 10vw, 5.5rem);
       font-weight: 400;
+      font-size: clamp(2.5rem, 9vw, 4.8rem);
       line-height: 1.25;
       text-shadow: 0 6px 20px #6c2a8640;
     }
 
     .linha {
-      width: 94px;
+      width: 85px;
       height: 4px;
-      margin: 25px auto 22px;
-      border-radius: 99px;
-      background: linear-gradient(
-        90deg,
-        #ffffff80,
-        white,
-        #ffffff80
-      );
+      margin: 22px auto;
+      border-radius: 10px;
+      background: white;
     }
 
     .slogan {
-      max-width: 470px;
-      font-size: clamp(1rem, 3.5vw, 1.25rem);
+      font-size: clamp(.95rem, 3.5vw, 1.2rem);
       line-height: 1.9;
       font-weight: 300;
-      text-shadow: 0 2px 12px #6c2a8630;
     }
 
     .rolar {
-      margin-top: 45px;
+      margin-top: 35px;
       color: white;
       text-decoration: none;
-      font-size: .78rem;
-      letter-spacing: .12em;
+      font-size: .8rem;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
 
     .rolar span {
       display: block;
-      margin-top: 8px;
       font-size: 1.5rem;
-      animation: descer 1.5s ease-in-out infinite;
+      animation: descer 1.5s infinite;
     }
 
-    .sobre {
-      margin-top: 20px;
-      padding: clamp(28px, 6vw, 55px);
+    .secao {
+      margin-top: 22px;
+      padding: clamp(18px, 4vw, 32px);
       border: 1px solid #ffffff65;
-      border-radius: 30px;
-      background: #ffffff1c;
-      text-align: center;
-      box-shadow: 0 18px 50px #632c8520;
+      border-radius: 27px;
+      background: #ffffff20;
+      box-shadow: 0 15px 40px #632c8515;
+      backdrop-filter: blur(8px);
     }
 
-    .sobre h2 {
-      margin-bottom: 16px;
+    .titulo-secao {
+      margin-bottom: 8px;
       font-family: 'Pacifico', cursive;
-      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-size: clamp(1.8rem, 6vw, 2.7rem);
       font-weight: 400;
+      text-align: center;
     }
 
-    .sobre p {
-      max-width: 590px;
-      margin: 0 auto;
-      line-height: 1.9;
-      font-size: .98rem;
+    .descricao {
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: .9rem;
+      line-height: 1.7;
       font-weight: 300;
     }
 
-    .detalhes {
+    .preco-geral {
+      margin-bottom: 18px;
+      padding: 13px;
+      border-radius: 15px;
+      background: #ffffff25;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .lista-sabores {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 25px;
     }
 
-    .detalhe {
-      padding: 20px 10px;
-      border-radius: 20px;
+    .sabor {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      border: 1px solid #ffffff50;
+      border-radius: 18px;
       background: #ffffff20;
-      border: 1px solid #ffffff45;
     }
 
-    .detalhe strong {
-      display: block;
-      margin-bottom: 6px;
+    .nome-sabor {
       font-size: .95rem;
+      font-weight: 600;
+      overflow-wrap: anywhere;
     }
 
-    .detalhe small {
-      display: block;
-      font-size: .75rem;
+    .preco-sabor {
+      margin-top: 4px;
+      font-size: .8rem;
+      opacity: .9;
+    }
+
+    .controle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .controle button {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 13px;
+      background: white;
+      color: #9c50b8;
+      font-size: 1.35rem;
+      font-weight: 600;
+      box-shadow: 0 3px 8px #4b176820;
+      transition: transform .15s, background .15s;
+    }
+
+    .controle button:active {
+      transform: scale(.9);
+      background: #ffe4f3;
+    }
+
+    .quantidade {
+      min-width: 18px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .resumo {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 20px;
+      background: #ffffffed;
+      color: #6f397f;
+    }
+
+    .resumo h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .resumo-vazio {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: #8e7195;
+    }
+
+    .linha-resumo {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #ead9ef;
+      font-size: .88rem;
       line-height: 1.6;
     }
 
+    .linha-resumo span:first-child {
+      overflow-wrap: anywhere;
+    }
+
+    .linha-resumo strong {
+      white-space: nowrap;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 17px;
+      padding-top: 15px;
+      border-top: 2px dashed #d7b6e4;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .total-valor {
+      color: #a344b9;
+      font-size: 1.5rem;
+      white-space: nowrap;
+    }
+
+    .limpar {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border: 1px solid #cda7d9;
+      border-radius: 14px;
+      background: transparent;
+      color: #854394;
+      font-weight: 600;
+    }
+
+    .limpar:active {
+      background: #f6e9fa;
+    }
+
     .mensagem {
-      margin-top: 28px;
-      padding: 30px 20px;
-      border-radius: 25px;
-      background: linear-gradient(
-        135deg,
-        #ffffff28,
-        #ffffff10
-      );
+      margin-top: 22px;
+      padding: 25px 18px;
+      border: 1px solid #ffffff50;
+      border-radius: 23px;
+      background: #ffffff15;
       text-align: center;
     }
 
@@ -194,45 +291,24 @@
     }
 
     footer {
-      padding: 35px 10px 0;
+      padding: 30px 10px 0;
       text-align: center;
       font-size: .78rem;
-      opacity: .9;
       line-height: 1.8;
     }
 
-    @keyframes entrar {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     @keyframes flutuar {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-9px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     @keyframes descer {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(6px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 420px) {
       header {
-        padding: 20px 0;
         font-size: .72rem;
       }
 
@@ -241,23 +317,27 @@
         padding: 7px 9px;
       }
 
-      .hero {
-        min-height: 82vh;
+      .sabor {
+        padding: 12px 10px;
       }
 
-      .detalhes {
-        grid-template-columns: 1fr;
+      .nome-sabor {
+        font-size: .87rem;
       }
 
-      .detalhe {
-        padding: 17px;
+      .controle {
+        gap: 9px;
+      }
+
+      .controle button {
+        width: 34px;
+        height: 36px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
+        animation: none !important;
         scroll-behavior: auto !important;
       }
     }
@@ -275,86 +355,73 @@
     <main>
       <section class="hero">
 
-        <svg class="ilustracao"
-          viewBox="0 0 300 300"
-          role="img"
-          aria-label="Desenho de um geladinho de laranja">
+        <svg class="ilustracao" viewBox="0 0 240 300"
+          role="img" aria-label="Ilustração de um geladinho de laranja">
 
           <defs>
-            <linearGradient id="geladinho"
-              x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#fff4a8"/>
-              <stop offset="45%" stop-color="#ffb347"/>
-              <stop offset="100%" stop-color="#ff7b91"/>
+            <linearGradient id="liquido" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffe98a"/>
+              <stop offset="35%" stop-color="#ffbd42"/>
+              <stop offset="100%" stop-color="#f87525"/>
+            </linearGradient>
+            <linearGradient id="plastico" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#fff" stop-opacity=".8"/>
+              <stop offset="50%" stop-color="#fff" stop-opacity=".12"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity=".65"/>
             </linearGradient>
           </defs>
 
-          <ellipse cx="150" cy="262" rx="75" ry="15"
-            fill="#6b287d" opacity=".16"/>
+          <ellipse cx="120" cy="270" rx="55" ry="10"
+            fill="#652b82" opacity=".2"/>
 
-          <path d="M118 38 Q150 28 182 38
-            L198 210 Q200 231 180 240
-            Q150 251 120 240 Q100 231 102 210 Z"
-            fill="url(#geladinho)"
-            stroke="#fff" stroke-width="5"
-            stroke-linejoin="round"/>
+          <path d="M98 42 Q85 23 100 15 Q112 12 119 35
+            Q129 14 143 20 Q154 29 137 44 L132 52 L105 52 Z"
+            fill="#ffbd42" stroke="#fff2d5" stroke-width="3"/>
 
-          <path d="M118 39 Q150 49 182 39"
-            fill="none" stroke="#fff"
-            stroke-width="5" stroke-linecap="round"/>
+          <path d="M88 49 Q120 57 152 49
+            L160 228 Q161 250 143 258
+            Q120 268 97 258 Q79 250 80 228 Z"
+            fill="url(#liquido)" stroke="#fff" stroke-width="4"/>
 
-          <path d="M126 58 Q119 112 128 177"
-            fill="none" stroke="#fff"
-            stroke-width="8" stroke-linecap="round"
-            opacity=".48"/>
+          <path d="M88 49 Q120 57 152 49
+            L160 228 Q161 250 143 258
+            Q120 268 97 258 Q79 250 80 228 Z"
+            fill="url(#plastico)"/>
 
-          <path d="M173 66 Q183 111 178 143"
-            fill="none" stroke="#fff"
-            stroke-width="4" stroke-linecap="round"
-            opacity=".35"/>
+          <path d="M94 66 Q89 115 96 184"
+            fill="none" stroke="#fff" stroke-width="7"
+            stroke-linecap="round" opacity=".65"/>
 
-          <circle cx="144" cy="145" r="3.5" fill="#9c4b68"/>
-          <circle cx="163" cy="145" r="3.5" fill="#9c4b68"/>
+          <path d="M143 75 Q150 111 148 145"
+            fill="none" stroke="#fff" stroke-width="3"
+            stroke-linecap="round" opacity=".5"/>
 
-          <path d="M143 160 Q153 171 164 160"
-            fill="none" stroke="#9c4b68"
-            stroke-width="3.5" stroke-linecap="round"/>
+          <g fill="#fff" opacity=".8">
+            <circle cx="105" cy="95" r="3"/>
+            <circle cx="138" cy="115" r="4"/>
+            <circle cx="112" cy="197" r="3"/>
+            <circle cx="143" cy="213" r="3"/>
+            <circle cx="100" cy="229" r="2.5"/>
+            <circle cx="130" cy="85" r="2.5"/>
+          </g>
 
-          <ellipse cx="132" cy="155" rx="7" ry="4"
-            fill="#ff779a" opacity=".8"/>
-          <ellipse cx="175" cy="155" rx="7" ry="4"
-            fill="#ff779a" opacity=".8"/>
-
-          <path d="M147 35 Q139 17 151 10
-            Q163 22 156 37"
-            fill="#77c96f" stroke="#fff" stroke-width="3"/>
-
-          <path d="M151 36 Q167 15 184 22
-            Q174 39 151 41"
-            fill="#53b96c" stroke="#fff" stroke-width="3"/>
-
-          <path d="M151 37 Q138 29 127 35
-            Q136 46 151 42"
-            fill="#8ddc7b" stroke="#fff" stroke-width="3"/>
-
-          <path d="M94 91 L80 82 M205 99 L219 89
-            M94 184 L77 188 M205 177 L222 183"
-            stroke="#fff" stroke-width="5"
+          <path d="M105 147 Q110 137 115 147"
+            fill="none" stroke="#a54e35" stroke-width="3"
+            stroke-linecap="round"/>
+          <path d="M126 147 Q131 137 136 147"
+            fill="none" stroke="#a54e35" stroke-width="3"
+            stroke-linecap="round"/>
+          <path d="M111 161 Q120 170 130 161"
+            fill="none" stroke="#a54e35" stroke-width="3"
             stroke-linecap="round"/>
 
-          <path d="M218 45 L222 56 L233 60
-            L222 64 L218 75 L214 64
-            L203 60 L214 56 Z"
-            fill="#fff" opacity=".9"/>
-
-          <path d="M76 126 L79 134 L87 137
-            L79 140 L76 148 L73 140
-            L65 137 L73 134 Z"
-            fill="#fff" opacity=".8"/>
+          <path d="M104 38 Q94 21 106 17 Q117 27 115 40"
+            fill="#75c76c" stroke="#fff" stroke-width="2.5"/>
+          <path d="M115 39 Q132 19 146 28 Q134 43 115 43"
+            fill="#4db86a" stroke="#fff" stroke-width="2.5"/>
         </svg>
 
         <h1>Geladinho<br>das Meninas</h1>
-
         <div class="linha"></div>
 
         <p class="slogan">
@@ -362,38 +429,42 @@
           para refrescar o seu dia.
         </p>
 
-        <a class="rolar" href="#sobre">
-          Descubra nossa doçura
+        <a class="rolar" href="#cardapio">
+          Conheça nossos sabores
           <span aria-hidden="true">⌄</span>
         </a>
-
       </section>
 
-      <section class="sobre" id="sobre">
-        <h2>Feito para adoçar seus momentos</h2>
-
-        <p>
-          Uma pausa refrescante, um sabor especial
-          e aquele carinho que deixa qualquer dia
-          mais leve. Que cada geladinho traga um
-          motivo a mais para sorrir.
+      <section class="secao" id="cardapio">
+        <h2 class="titulo-secao">Nosso cardápio</h2>
+        <p class="descricao">
+          Escolha seus sabores favoritos e ajuste a quantidade.
+          O valor do pedido será calculado automaticamente.
         </p>
 
-        <div class="detalhes">
-          <div class="detalhe">
-            <strong>Mais sabor</strong>
-            <small>Uma delícia para aproveitar cada momento.</small>
+        <div class="preco-geral">
+          Todos os sabores: R$ 5,00 por unidade
+        </div>
+
+        <div class="lista-sabores" id="listaSabores"></div>
+
+        <div class="resumo" aria-live="polite">
+          <h3>Resumo do pedido</h3>
+          <div id="itensResumo">
+            <p class="resumo-vazio">
+              Você ainda não selecionou nenhum geladinho.
+              Use os botões acima para começar!
+            </p>
           </div>
 
-          <div class="detalhe">
-            <strong>Mais carinho</strong>
-            <small>Preparado com atenção em cada detalhe.</small>
+          <div class="total">
+            <span>Valor total</span>
+            <span class="total-valor" id="valorTotal">R$ 0,00</span>
           </div>
 
-          <div class="detalhe">
-            <strong>Mais alegria</strong>
-            <small>Pequenos momentos que ficam na memória.</small>
-          </div>
+          <button class="limpar" id="limparPedido" type="button">
+            Limpar pedido
+          </button>
         </div>
       </section>
 
@@ -403,15 +474,146 @@
           em cada pedacinho do seu dia.
         </p>
       </section>
-
     </main>
 
     <footer>
       Geladinho das Meninas<br>
       Um carinho em forma de geladinho.
     </footer>
-
   </div>
+
+  <script>
+    const precoUnitario = 5;
+
+    const sabores = [
+      "Morango",
+      "Abacaxi",
+      "Abacate",
+      "Milho verde",
+      "Chocolate",
+      "Coco branco",
+      "Coco queimado",
+      "Uva",
+      "Blue Ice",
+      "Limão",
+      "Chiclete"
+    ];
+
+    const quantidades = {};
+    sabores.forEach(sabor => {
+      quantidades[sabor] = 0;
+    });
+
+    const formatarDinheiro = valor =>
+      valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+
+    const lista = document.getElementById("listaSabores");
+
+    sabores.forEach((sabor, indice) => {
+      const item = document.createElement("article");
+      item.className = "sabor";
+
+      const informacoes = document.createElement("div");
+
+      const nome = document.createElement("div");
+      nome.className = "nome-sabor";
+      nome.textContent = sabor;
+
+      const preco = document.createElement("div");
+      preco.className = "preco-sabor";
+      preco.textContent = formatarDinheiro(precoUnitario) + " / unidade";
+
+      informacoes.append(nome, preco);
+
+      const controle = document.createElement("div");
+      controle.className = "controle";
+
+      const diminuir = document.createElement("button");
+      diminuir.type = "button";
+      diminuir.textContent = "−";
+      diminuir.setAttribute("aria-label", "Diminuir " + sabor);
+      diminuir.addEventListener("click", () => alterarQuantidade(sabor, -1));
+
+      const quantidade = document.createElement("span");
+      quantidade.className = "quantidade";
+      quantidade.id = "quantidade-" + indice;
+      quantidade.textContent = "0";
+
+      const aumentar = document.createElement("button");
+      aumentar.type = "button";
+      aumentar.textContent = "+";
+      aumentar.setAttribute("aria-label", "Adicionar " + sabor);
+      aumentar.addEventListener("click", () => alterarQuantidade(sabor, 1));
+
+      controle.append(diminuir, quantidade, aumentar);
+      item.append(informacoes, controle);
+      lista.appendChild(item);
+    });
+
+    function alterarQuantidade(sabor, alteracao) {
+      quantidades[sabor] = Math.max(0, quantidades[sabor] + alteracao);
+
+      const indice = sabores.indexOf(sabor);
+      document.getElementById("quantidade-" + indice).textContent =
+        quantidades[sabor];
+
+      atualizarResumo();
+    }
+
+    function atualizarResumo() {
+      const resumo = document.getElementById("itensResumo");
+      resumo.replaceChildren();
+
+      let totalGeral = 0;
+      let totalUnidades = 0;
+
+      sabores.forEach(sabor => {
+        const quantidade = quantidades[sabor];
+
+        if (quantidade > 0) {
+          const subtotal = quantidade * precoUnitario;
+          totalGeral += subtotal;
+          totalUnidades += quantidade;
+
+          const linha = document.createElement("div");
+          linha.className = "linha-resumo";
+
+          const descricao = document.createElement("span");
+          descricao.textContent =
+            sabor + ": " + quantidade + " " +
+            (quantidade === 1 ? "unidade" : "unidades");
+
+          const valor = document.createElement("strong");
+          valor.textContent = formatarDinheiro(subtotal);
+
+          linha.append(descricao, valor);
+          resumo.appendChild(linha);
+        }
+      });
+
+      if (totalUnidades === 0) {
+        const vazio = document.createElement("p");
+        vazio.className = "resumo-vazio";
+        vazio.textContent =
+          "Você ainda não selecionou nenhum geladinho. Use os botões acima para começar!";
+        resumo.appendChild(vazio);
+      }
+
+      document.getElementById("valorTotal").textContent =
+        formatarDinheiro(totalGeral);
+    }
+
+    document.getElementById("limparPedido").addEventListener("click", () => {
+      sabores.forEach((sabor, indice) => {
+        quantidades[sabor] = 0;
+        document.getElementById("quantidade-" + indice).textContent = "0";
+      });
+
+      atualizarResumo();
+    });
+  </script>
 </body>
-  </html>
-  
+</html>
