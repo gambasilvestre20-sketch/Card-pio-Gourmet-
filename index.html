@@ -2,705 +2,682 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geladinho das Meninas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geladinho das Meninas</title>
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+* { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffe0f0, #e9d5ff, #fff0f7);
+  color: #57245f;
+  min-height: 100vh;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #59264f;
-      background: linear-gradient(145deg, #ffe3ef, #f3d9ff, #fff0f7);
-      min-height: 100vh;
-    }
+header {
+  text-align: center;
+  padding: 25px 15px 10px;
+}
 
-    button {
-      font: inherit;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
+h1 {
+  color: #a52b88;
+  margin-bottom: 8px;
+  font-size: 2rem;
+}
 
-    .inicio {
-      min-height: 100svh;
-      padding: 35px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: opacity .45s ease, transform .45s ease;
-    }
+.slogan {
+  font-size: 14px;
+  color: #85518b;
+}
 
-    .inicio.saindo {
-      opacity: 0;
-      transform: translateY(-18px);
-      pointer-events: none;
-    }
+main {
+  width: min(700px, 94%);
+  margin: 15px auto 40px;
+}
 
-    .marca {
-      margin: 0;
-      font-size: clamp(2.2rem, 9vw, 3.6rem);
-      line-height: 1.05;
-      font-weight: 900;
-      letter-spacing: -1.5px;
-      color: #c43c88;
-      text-shadow: 0 4px 0 rgba(255,255,255,.65);
-    }
+.panel {
+  background: rgba(255,255,255,.91);
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 20px #9d58a51c;
+}
 
-    .slogan {
-      margin: 17px 0 0;
-      color: #854d86;
-      font-size: .95rem;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
+h2 {
+  color: #a52b88;
+  margin-top: 0;
+}
 
-    .ilustracao {
-      width: min(75vw, 275px);
-      margin: 24px 0 16px;
-      filter: drop-shadow(0 16px 14px rgba(139, 55, 112, .18));
-      animation: flutuar 3s ease-in-out infinite;
-    }
+p { line-height: 1.5; }
 
-    @keyframes flutuar {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-9px) rotate(2deg); }
-    }
+button {
+  border: none;
+  border-radius: 13px;
+  padding: 13px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .descricao {
-      max-width: 330px;
-      margin: 0 0 24px;
-      color: #805578;
-      line-height: 1.6;
-      font-size: 1rem;
-    }
+.primary {
+  background: linear-gradient(100deg, #d84eaa, #9556d9);
+  color: white;
+  width: 100%;
+  margin-top: 12px;
+}
 
-    .botao-principal {
-      border: 0;
-      border-radius: 18px;
-      padding: 17px 30px;
-      color: white;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ec579f, #a94dd1);
-      box-shadow: 0 8px 0 #8e3c9c, 0 14px 25px #bd64b34a;
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
+.secondary {
+  background: #f3e3f8;
+  color: #773d86;
+}
 
-    .botao-principal:active {
-      transform: translateY(5px);
-      box-shadow: 0 3px 0 #8e3c9c;
-    }
+.start-illustration {
+  width: 130px;
+  height: 150px;
+  margin: 10px auto 20px;
+  position: relative;
+}
 
-    .pedido {
-      display: none;
-      opacity: 0;
-      transform: translateY(18px);
-      padding: 28px 16px 45px;
-      max-width: 720px;
-      margin: 0 auto;
-    }
+.popsicle {
+  position: absolute;
+  width: 72px;
+  height: 115px;
+  left: 29px;
+  top: 8px;
+  border-radius: 25px 25px 18px 18px;
+  background: linear-gradient(150deg, #ff85bf, #e9449b);
+  transform: rotate(-8deg);
+  box-shadow: inset -8px -5px 0 #c92f871a;
+}
 
-    .pedido.visivel {
-      display: block;
-      animation: aparecer .5s ease forwards;
-    }
+.popsicle:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 48px;
+  left: 26px;
+  top: 105px;
+  border-radius: 0 0 8px 8px;
+  background: #d8a16e;
+}
 
-    @keyframes aparecer {
-      to { opacity: 1; transform: translateY(0); }
-    }
+.popsicle:after {
+  content: "";
+  position: absolute;
+  width: 42px;
+  height: 6px;
+  left: 14px;
+  top: 22px;
+  border-radius: 50%;
+  background: #ffffff80;
+}
 
-    .cabecalho-pedido {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+.flavor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #f0e1f2;
+  padding: 13px 0;
+}
 
-    .cabecalho-pedido h2 {
-      color: #c43c88;
-      font-size: 2rem;
-      margin: 0 0 8px;
-    }
+.flavor:last-child { border-bottom: none; }
 
-    .cabecalho-pedido p {
-      margin: 0;
-      line-height: 1.5;
-      color: #805578;
-    }
+.flavor-name {
+  font-weight: bold;
+  line-height: 1.4;
+}
 
-    .categorias {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-bottom: 22px;
-    }
+.price {
+  font-size: 13px;
+  color: #96619c;
+  margin-top: 4px;
+}
 
-    .categoria {
-      padding: 19px 10px;
-      border: 2px solid #edb3d8;
-      border-radius: 18px;
-      background: #ffffffb8;
-      color: #a23c82;
-      font-weight: 800;
-      box-shadow: 0 5px 14px #9b4a7610;
-      transition: .2s ease;
-    }
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+}
 
-    .categoria.ativa {
-      background: linear-gradient(135deg, #ec579f, #b04fd0);
-      border-color: transparent;
-      color: white;
-      box-shadow: 0 6px 16px #b64f9d35;
-    }
+.quantity button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: #f0dcfa;
+  color: #823c9b;
+  font-size: 21px;
+}
 
-    .lista-sabores { display: none; }
+.quantity span {
+  min-width: 18px;
+  text-align: center;
+  font-weight: bold;
+}
 
-    .lista-sabores.ativa {
-      display: block;
-      animation: aparecer .3s ease forwards;
-    }
+.total {
+  background: #fae9f8;
+  border-radius: 15px;
+  padding: 16px;
+  margin-top: 16px;
+}
 
-    .titulo-secao {
-      text-align: center;
-      font-size: 1.45rem;
-      margin: 10px 0 16px;
-      color: #a83d87;
-    }
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 6px 0;
+}
 
-    .aviso-preco {
-      text-align: center;
-      margin: -6px 0 17px;
-      color: #805578;
-      font-size: .92rem;
-    }
+.grand-total {
+  font-size: 21px;
+  font-weight: bold;
+  color: #a52b88;
+  border-top: 1px solid #e8c9e8;
+  padding-top: 12px;
+  margin-top: 12px;
+}
 
-    .sabor {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: #ffffffd9;
-      border: 1px solid #f1c6e0;
-      border-radius: 16px;
-      padding: 14px 12px;
-      margin-bottom: 10px;
-      box-shadow: 0 4px 12px #8b377012;
-    }
+label {
+  display: block;
+  font-weight: bold;
+  margin: 15px 0 7px;
+}
 
-    .nome-sabor {
-      font-weight: 800;
-      font-size: 1rem;
-      color: #67315f;
-    }
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #dfc4e4;
+  border-radius: 11px;
+  background: #fffaff;
+  color: #57245f;
+  font: inherit;
+}
 
-    .preco-sabor {
-      margin-top: 5px;
-      font-size: .88rem;
-      color: #9c6190;
-    }
+textarea {
+  min-height: 85px;
+  resize: vertical;
+}
 
-    .controles {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #ead7ef;
+  border-radius: 12px;
+  margin-top: 9px;
+  cursor: pointer;
+  font-weight: normal;
+}
 
-    .controles button {
-      width: 35px;
-      height: 35px;
-      border: 0;
-      border-radius: 12px;
-      color: white;
-      background: #c34b9a;
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
+.payment-option input {
+  width: auto;
+  accent-color: #a52b88;
+}
 
-    .controles button:active { transform: scale(.94); }
+.notice {
+  background: #fff3d8;
+  color: #78531a;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-top: 12px;
+}
 
-    .quantidade {
-      min-width: 18px;
-      text-align: center;
-      font-weight: 800;
-      color: #713368;
-    }
+.hidden { display: none !important; }
 
-    .resumo {
-      position: sticky;
-      bottom: 10px;
-      margin-top: 25px;
-      padding: 19px;
-      border-radius: 20px;
-      background: #fff;
-      border: 1px solid #f0c0df;
-      box-shadow: 0 8px 28px #81356b24;
-      z-index: 5;
-    }
+.music-button {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: auto;
+  z-index: 5;
+  background: #fff;
+  color: #963b9d;
+  border: 1px solid #ebc9f1;
+  box-shadow: 0 3px 12px #00000012;
+}
 
-    .resumo h3 {
-      margin: 0 0 12px;
-      color: #b33e88;
-    }
+footer {
+  text-align: center;
+  color: #91689a;
+  padding: 5px 15px 75px;
+  font-size: 12px;
+}
 
-    .linha-resumo {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 8px 0;
-      color: #74456f;
-    }
-
-    .linha-resumo.total {
-      border-top: 1px solid #f1c6e0;
-      padding-top: 12px;
-      margin-top: 12px;
-      color: #a72e80;
-      font-size: 1.2rem;
-      font-weight: 900;
-    }
-
-    .botoes-resumo {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .botao-secundario {
-      flex: 1;
-      padding: 12px 8px;
-      border: 1px solid #dba4ce;
-      border-radius: 12px;
-      background: #fff2fa;
-      color: #9f3f83;
-      font-weight: 800;
-    }
-
-    .rodape {
-      text-align: center;
-      padding: 20px 10px 0;
-      color: #96678e;
-      font-size: .85rem;
-    }
-
-    /* Botão flutuante da música */
-    .botao-musica {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      border: 1px solid #f0b8dc;
-      border-radius: 30px;
-      background: rgba(255,255,255,.94);
-      color: #a23c82;
-      font-weight: 800;
-      box-shadow: 0 5px 20px #81356b30;
-      transition: transform .2s ease, background .2s ease;
-    }
-
-    .botao-musica:active { transform: scale(.96); }
-
-    .botao-musica.tocando {
-      background: linear-gradient(135deg, #ec579f, #b04fd0);
-      color: white;
-      border-color: transparent;
-    }
-
-    .botao-musica .indicador {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
-    @media (max-width: 390px) {
-      .sabor { gap: 7px; padding: 12px 9px; }
-      .nome-sabor { font-size: .92rem; }
-      .controles { gap: 7px; }
-      .controles button { width: 32px; height: 32px; }
-      .botao-musica { right: 10px; bottom: 10px; }
-    }
-  </style>
+@media (max-width: 430px) {
+  h1 { font-size: 1.65rem; }
+  .panel { padding: 17px; }
+  .flavor { gap: 7px; }
+  .quantity { gap: 7px; }
+}
+</style>
 </head>
 
 <body>
+<header>
+  <h1>Geladinho das Meninas</h1>
+  <div class="slogan">— Desde 2021, trazendo mais alegria ao seu dia —</div>
+</header>
 
-  <!-- Áudio: o nome deve corresponder exatamente ao arquivo no GitHub -->
-  <audio id="musicaCafe" preload="auto">
-    <source src="1%20Minute%20Coffee%20break%20with%20Jazz%28MP3_160K%29.mp3" type="audio/mpeg">
-  </audio>
-
-  <button
-    type="button"
-    class="botao-musica"
-    id="botaoMusica"
-    aria-label="Ligar música de cafeteria"
-    aria-pressed="false">
-    <span class="indicador"></span>
-    <span id="textoMusica">Ligar música</span>
-  </button>
-
-  <section class="inicio" id="telaInicial">
-    <h1 class="marca">Geladinho<br>das Meninas</h1>
-    <p class="slogan">— Desde 2021, trazendo mais alegria ao seu dia —</p>
-
-    <svg class="ilustracao" viewBox="0 0 240 310" role="img" aria-label="Ilustração de um geladinho de morango dentro de um saquinho transparente">
-      <defs>
-        <linearGradient id="geladinho" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ffb5d6"/>
-          <stop offset="45%" stop-color="#f35b9d"/>
-          <stop offset="100%" stop-color="#cf2878"/>
-        </linearGradient>
-        <linearGradient id="plastico" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity=".75"/>
-          <stop offset="30%" stop-color="#ffffff" stop-opacity=".15"/>
-          <stop offset="65%" stop-color="#ffffff" stop-opacity=".35"/>
-          <stop offset="100%" stop-color="#ffffff" stop-opacity=".7"/>
-        </linearGradient>
-      </defs>
-
-      <ellipse cx="120" cy="285" rx="65" ry="10" fill="#9e579a" opacity=".15"/>
-
-      <path d="M78 49 L88 20 L96 48 L112 14 L120 48 L138 20 L142 49 L158 29 L160 54 L169 70 L164 244 Q163 267 144 274 Q120 283 96 273 Q76 265 75 244 L70 70 Z"
-        fill="url(#plastico)" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
-
-      <path d="M79 82 Q119 91 161 82 L157 239 Q157 257 140 264 Q119 272 99 263 Q82 256 81 239 Z"
-        fill="url(#geladinho)"/>
-
-      <path d="M85 83 L89 236 Q90 251 101 256"
-        fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".65"/>
-      <path d="M153 91 L150 228"
-        fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
-
-      <ellipse cx="105" cy="163" rx="4" ry="6" fill="#74305e"/>
-      <ellipse cx="136" cy="163" rx="4" ry="6" fill="#74305e"/>
-      <path d="M110 179 Q120 190 132 178"
-        fill="none" stroke="#74305e" stroke-width="3.5" stroke-linecap="round"/>
-      <ellipse cx="95" cy="176" rx="7" ry="4" fill="#ffb3ce" opacity=".85"/>
-      <ellipse cx="146" cy="176" rx="7" ry="4" fill="#ffb3ce" opacity=".85"/>
-      <path d="M91 268 Q120 279 149 268"
-        fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-    </svg>
-
-    <p class="descricao">
-      Um saborzinho especial para deixar seu dia mais gostoso.
-      Escolha seus favoritos e monte seu pedido!
-    </p>
-
-    <button class="botao-principal" id="botaoIniciar" type="button">
-      Iniciar pedido
-    </button>
+<main>
+  <section id="home" class="panel" style="text-align:center">
+    <div class="start-illustration">
+      <div class="popsicle"></div>
+    </div>
+    <h2>Um geladinho para alegrar seu dia!</h2>
+    <p>Escolha seus sabores favoritos e prepare seu pedido com carinho.</p>
+    <button class="primary" onclick="iniciarPedido()">Iniciar pedido</button>
   </section>
 
-  <main class="pedido" id="telaPedido">
-    <header class="cabecalho-pedido">
-      <h2>Monte seu pedido</h2>
-      <p>Escolha uma categoria e adicione a quantidade desejada.</p>
-    </header>
-
-    <div class="categorias">
-      <button type="button" class="categoria ativa" data-categoria="normais">Normais</button>
-      <button type="button" class="categoria" data-categoria="especiais">Especiais</button>
+  <section id="catalogo" class="hidden">
+    <div class="panel">
+      <h2>Geladinhos normais</h2>
+      <p>R$ 5,00 cada</p>
+      <div id="normais"></div>
     </div>
 
-    <section class="lista-sabores ativa" id="normais">
-      <h3 class="titulo-secao">Geladinhos normais</h3>
-      <p class="aviso-preco">Todos por R$ 5,00 a unidade</p>
-      <div id="listaNormais"></div>
-    </section>
+    <div class="panel">
+      <h2>Geladinhos especiais</h2>
+      <p>Os preços dos especiais ainda serão confirmados.</p>
+      <div id="especiais"></div>
+      <div class="notice">
+        Os especiais podem ser escolhidos, mas o preço precisará ser confirmado antes de fechar o pedido.
+      </div>
+    </div>
 
-    <section class="lista-sabores" id="especiais">
-      <h3 class="titulo-secao">Geladinhos especiais</h3>
-      <p class="aviso-preco">Com Nutella, por R$ 6,00 a unidade</p>
-      <div id="listaEspeciais"></div>
-    </section>
-
-    <section class="resumo">
-      <h3>Resumo do pedido</h3>
-      <div id="itensResumo">
-        <p style="color:#96678e; margin:8px 0;">Nenhum sabor selecionado ainda.</p>
+    <div class="panel">
+      <h2>Resumo do pedido</h2>
+      <div id="resumo"></div>
+      <div class="total">
+        <div class="total-line">
+          <span>Geladinhos normais</span>
+          <strong id="subtotalNormal">R$ 0,00</strong>
+        </div>
+        <div class="total-line">
+          <span>Geladinhos especiais</span>
+          <strong id="subtotalEspecial">A confirmar</strong>
+        </div>
+        <div class="total-line grand-total">
+          <span>Total conhecido</span>
+          <span id="total">R$ 0,00</span>
+        </div>
       </div>
 
-      <div class="linha-resumo">
-        <span>Quantidade total</span>
-        <strong id="quantidadeTotal">0</strong>
-      </div>
+      <button class="primary" onclick="abrirCheckout()">Finalizar pedido</button>
+      <button class="secondary" style="width:100%;margin-top:10px"
+        onclick="limparPedido()">Limpar pedido</button>
+      <button class="secondary" style="width:100%;margin-top:10px"
+        onclick="voltarInicio()">Voltar ao início</button>
+    </div>
+  </section>
 
-      <div class="linha-resumo total">
-        <span>Total do pedido</span>
-        <span id="valorTotal">R$ 0,00</span>
-      </div>
+  <section id="checkout" class="hidden">
+    <div class="panel">
+      <h2>Seus dados para entrega</h2>
+      <p>Preencha seus dados para preparar a mensagem do pedido.</p>
 
-      <div class="botoes-resumo">
-        <button type="button" class="botao-secundario" id="botaoVoltar">Voltar ao início</button>
-        <button type="button" class="botao-secundario" id="botaoLimpar">Limpar pedido</button>
-      </div>
-    </section>
+      <form id="pedidoForm">
+        <label for="nome">Seu nome</label>
+        <input id="nome" name="nome" type="text"
+          placeholder="Digite seu nome" autocomplete="name" required>
 
-    <footer class="rodape">
-      Geladinho das Meninas — desde 2021
-    </footer>
-  </main>
+        <label for="endereco">Endereço completo</label>
+        <textarea id="endereco" name="endereco"
+          placeholder="Rua, número, bairro e ponto de referência"
+          autocomplete="street-address" required></textarea>
 
-  <script>
-    (() => {
-      "use strict";
+        <label>Forma de pagamento</label>
 
-      const saboresNormais = [
-        "Morango", "Abacaxi", "Abacate", "Milho verde", "Chocolate",
-        "Coco branco", "Coco queimado", "Uva", "Blue Ice", "Limão", "Chiclete"
-      ];
+        <label class="payment-option">
+          <input type="radio" name="pagamento" value="Cédulas (dinheiro)" required>
+          Cédulas (dinheiro)
+        </label>
 
-      const saboresEspeciais = [
-        "Morango com Nutella", "Maracujá com Nutella"
-      ];
+        <label class="payment-option">
+          <input type="radio" name="pagamento" value="Cartão" required>
+          Cartão
+        </label>
 
-      const precos = {};
-      const quantidades = {};
+        <label class="payment-option">
+          <input type="radio" name="pagamento" value="Pix" required>
+          Pix
+        </label>
 
-      saboresNormais.forEach(sabor => {
-        precos[sabor] = 5;
-        quantidades[sabor] = 0;
-      });
+        <div id="trocoArea" class="hidden">
+          <label for="troco">Precisa de troco? Para qual valor?</label>
+          <input id="troco" type="text"
+            placeholder="Ex.: vou pagar com R$ 50,00">
+        </div>
 
-      saboresEspeciais.forEach(sabor => {
-        precos[sabor] = 6;
-        quantidades[sabor] = 0;
-      });
+        <div id="avisoEspecial" class="notice hidden">
+          Você escolheu geladinho especial. O preço ainda precisa ser confirmado.
+          O pedido será enviado com essa observação para a loja.
+        </div>
 
-      const telaInicial = document.getElementById("telaInicial");
-      const telaPedido = document.getElementById("telaPedido");
-      const botaoIniciar = document.getElementById("botaoIniciar");
-      const botaoVoltar = document.getElementById("botaoVoltar");
-      const botaoLimpar = document.getElementById("botaoLimpar");
-      const listaNormais = document.getElementById("listaNormais");
-      const listaEspeciais = document.getElementById("listaEspeciais");
-      const itensResumo = document.getElementById("itensResumo");
-      const quantidadeTotal = document.getElementById("quantidadeTotal");
-      const valorTotal = document.getElementById("valorTotal");
+        <button class="primary" type="submit">Enviar pedido pelo WhatsApp</button>
+        <button class="secondary" type="button" style="width:100%;margin-top:10px"
+          onclick="voltarCatalogo()">Voltar aos sabores</button>
+      </form>
+    </div>
+  </section>
+</main>
 
-      const musica = document.getElementById("musicaCafe");
-      const botaoMusica = document.getElementById("botaoMusica");
-      const textoMusica = document.getElementById("textoMusica");
+<footer>
+  Geladinho das Meninas · Feito com carinho
+</footer>
 
-      musica.volume = 0.25;
+<button class="music-button" id="musicButton" onclick="alternarMusica()">
+  Ligar música
+</button>
 
-      function atualizarBotaoMusica(tocando) {
-        botaoMusica.classList.toggle("tocando", tocando);
-        botaoMusica.setAttribute("aria-pressed", String(tocando));
-        botaoMusica.setAttribute(
-          "aria-label",
-          tocando ? "Desligar música de cafeteria" : "Ligar música de cafeteria"
-        );
-        textoMusica.textContent = tocando ? "Música ligada" : "Ligar música";
-      }
+<audio id="musica" loop preload="none">
+  <source src="1%20Minute%20Coffee%20break%20with%20Jazz%28MP3_160K%29.mp3" type="audio/mpeg">
+</audio>
 
-      async function tocarMusica() {
-        try {
-          await musica.play();
-          atualizarBotaoMusica(true);
-        } catch (erro) {
-          atualizarBotaoMusica(false);
-          textoMusica.textContent = "Tocar música";
-        }
-      }
+<script>
+const WHATSAPP_RECEPTOR = "5534991387357";
+const PRECO_NORMAL = 5;
 
-      function pausarMusica() {
-        musica.pause();
-        atualizarBotaoMusica(false);
-      }
+const saboresNormais = [
+  "Morango",
+  "Abacaxi",
+  "Abacate",
+  "Milho verde",
+  "Chocolate",
+  "Coco branco",
+  "Coco queimado",
+  "Uva",
+  "Blue Ice",
+  "Limão",
+  "Chiclete"
+];
 
-      botaoMusica.addEventListener("click", () => {
-        if (musica.paused) {
-          tocarMusica();
-        } else {
-          pausarMusica();
-        }
-      });
+const saboresEspeciais = [
+  "Morango com Nutella",
+  "Maracujá com Nutella"
+];
 
-      musica.addEventListener("play", () => atualizarBotaoMusica(true));
-      musica.addEventListener("pause", () => atualizarBotaoMusica(false));
-      musica.addEventListener("ended", () => atualizarBotaoMusica(false));
+const quantidades = {};
 
-      function formatarDinheiro(valor) {
-        return valor.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL"
-        });
-      }
+[...saboresNormais, ...saboresEspeciais].forEach(sabor => {
+  quantidades[sabor] = 0;
+});
 
-      function slug(texto) {
-        return texto.normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-");
-      }
+const dinheiro = valor => valor.toLocaleString("pt-BR", {
+  style: "currency",
+  currency: "BRL"
+});
 
-      function criarSabor(sabor, destino) {
-        const cartao = document.createElement("div");
-        cartao.className = "sabor";
+function iniciarPedido() {
+  mostrar("catalogo");
+  renderizarSabores();
+  atualizarResumo();
 
-        const informacoes = document.createElement("div");
-        const nome = document.createElement("div");
-        nome.className = "nome-sabor";
-        nome.textContent = sabor;
+  const musica = document.getElementById("musica");
+  if (musica.paused) {
+    musica.volume = 0.25;
+    musica.play().then(() => {
+      document.getElementById("musicButton").textContent = "Desligar música";
+    }).catch(() => {});
+  }
+}
 
-        const preco = document.createElement("div");
-        preco.className = "preco-sabor";
-        preco.textContent = formatarDinheiro(precos[sabor]) + " a unidade";
+function mostrar(idVisivel) {
+  ["home", "catalogo", "checkout"].forEach(id => {
+    document.getElementById(id).classList.toggle("hidden", id !== idVisivel);
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
-        informacoes.appendChild(nome);
-        informacoes.appendChild(preco);
+function voltarInicio() {
+  mostrar("home");
+}
 
-        const controles = document.createElement("div");
-        controles.className = "controles";
+function voltarCatalogo() {
+  mostrar("catalogo");
+}
 
-        const diminuir = document.createElement("button");
-        diminuir.type = "button";
-        diminuir.textContent = "−";
-        diminuir.setAttribute("aria-label", "Diminuir " + sabor);
-        diminuir.addEventListener("click", () => {
-          if (quantidades[sabor] > 0) {
-            quantidades[sabor]--;
-            atualizar();
-          }
-        });
+function renderizarLista(id, lista, especial) {
+  const container = document.getElementById(id);
+  container.innerHTML = "";
 
-        const numero = document.createElement("span");
-        numero.className = "quantidade";
-        numero.id = "quantidade-" + slug(sabor);
-        numero.textContent = "0";
+  lista.forEach(sabor => {
+    const linha = document.createElement("div");
+    linha.className = "flavor";
 
-        const aumentar = document.createElement("button");
-        aumentar.type = "button";
-        aumentar.textContent = "+";
-        aumentar.setAttribute("aria-label", "Adicionar " + sabor);
-        aumentar.addEventListener("click", () => {
-          quantidades[sabor]++;
-          atualizar();
-        });
+    const info = document.createElement("div");
+    const nome = document.createElement("div");
+    nome.className = "flavor-name";
+    nome.textContent = sabor;
 
-        controles.appendChild(diminuir);
-        controles.appendChild(numero);
-        controles.appendChild(aumentar);
-        cartao.appendChild(informacoes);
-        cartao.appendChild(controles);
-        destino.appendChild(cartao);
-      }
+    const preco = document.createElement("div");
+    preco.className = "price";
+    preco.textContent = especial ? "Preço a confirmar" : dinheiro(PRECO_NORMAL);
 
-      function criarListas() {
-        saboresNormais.forEach(sabor => criarSabor(sabor, listaNormais));
-        saboresEspeciais.forEach(sabor => criarSabor(sabor, listaEspeciais));
-      }
+    info.appendChild(nome);
+    info.appendChild(preco);
 
-      function atualizar() {
-        let total = 0;
-        let unidades = 0;
-        itensResumo.replaceChildren();
+    const controle = document.createElement("div");
+    controle.className = "quantity";
 
-        [...saboresNormais, ...saboresEspeciais].forEach(sabor => {
-          const quantidade = quantidades[sabor];
-          const elementoQuantidade = document.getElementById(
-            "quantidade-" + slug(sabor)
-          );
+    const menos = document.createElement("button");
+    menos.type = "button";
+    menos.textContent = "−";
+    menos.setAttribute("aria-label", "Diminuir " + sabor);
+    menos.onclick = () => alterarQuantidade(sabor, -1);
 
-          if (elementoQuantidade) {
-            elementoQuantidade.textContent = quantidade;
-          }
+    const numero = document.createElement("span");
+    numero.id = "qtd-" + idSeguro(sabor);
+    numero.textContent = quantidades[sabor];
 
-          if (quantidade > 0) {
-            const subtotal = quantidade * precos[sabor];
-            total += subtotal;
-            unidades += quantidade;
+    const mais = document.createElement("button");
+    mais.type = "button";
+    mais.textContent = "+";
+    mais.setAttribute("aria-label", "Adicionar " + sabor);
+    mais.onclick = () => alterarQuantidade(sabor, 1);
 
-            const linha = document.createElement("div");
-            linha.className = "linha-resumo";
+    controle.append(menos, numero, mais);
+    linha.append(info, controle);
+    container.appendChild(linha);
+  });
+}
 
-            const descricao = document.createElement("span");
-            descricao.textContent = sabor + " × " + quantidade;
+function idSeguro(texto) {
+  return texto.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]/g, "-");
+}
 
-            const valor = document.createElement("strong");
-            valor.textContent = formatarDinheiro(subtotal);
+function renderizarSabores() {
+  renderizarLista("normais", saboresNormais, false);
+  renderizarLista("especiais", saboresEspeciais, true);
+}
 
-            linha.appendChild(descricao);
-            linha.appendChild(valor);
-            itensResumo.appendChild(linha);
-          }
-        });
+function alterarQuantidade(sabor, mudanca) {
+  quantidades[sabor] = Math.max(0, quantidades[sabor] + mudanca);
 
-        if (unidades === 0) {
-          const mensagem = document.createElement("p");
-          mensagem.style.color = "#96678e";
-          mensagem.style.margin = "8px 0";
-          mensagem.textContent = "Nenhum sabor selecionado ainda.";
-          itensResumo.appendChild(mensagem);
-        }
+  const numero = document.getElementById("qtd-" + idSeguro(sabor));
+  if (numero) numero.textContent = quantidades[sabor];
 
-        quantidadeTotal.textContent = unidades;
-        valorTotal.textContent = formatarDinheiro(total);
-      }
+  atualizarResumo();
+}
 
-      function mostrarCategoria(categoria) {
-        document.querySelectorAll(".categoria").forEach(botao => {
-          botao.classList.toggle(
-            "ativa",
-            botao.dataset.categoria === categoria
-          );
-        });
+function itensEscolhidos(lista) {
+  return lista.filter(sabor => quantidades[sabor] > 0);
+}
 
-        document.querySelectorAll(".lista-sabores").forEach(secao => {
-          secao.classList.toggle("ativa", secao.id === categoria);
-        });
-      }
+function totalNormal() {
+  return saboresNormais.reduce((total, sabor) =>
+    total + quantidades[sabor] * PRECO_NORMAL, 0);
+}
 
-      botaoIniciar.addEventListener("click", () => {
-        // O toque também tenta iniciar a música.
-        tocarMusica();
+function atualizarResumo() {
+  const escolhidos = [...saboresNormais, ...saboresEspeciais]
+    .filter(sabor => quantidades[sabor] > 0);
 
-        telaInicial.classList.add("saindo");
+  const resumo = document.getElementById("resumo");
+  resumo.innerHTML = "";
 
-        window.setTimeout(() => {
-          telaInicial.style.display = "none";
-          telaPedido.classList.add("visivel");
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }, 250);
-      });
+  if (escolhidos.length === 0) {
+    resumo.textContent = "Você ainda não escolheu nenhum geladinho.";
+  } else {
+    escolhidos.forEach(sabor => {
+      const linha = document.createElement("div");
+      linha.className = "total-line";
 
-      document.querySelectorAll(".categoria").forEach(botao => {
-        botao.addEventListener("click", () => {
-          mostrarCategoria(botao.dataset.categoria);
-        });
-      });
+      const descricao = document.createElement("span");
+      descricao.textContent = quantidades[sabor] + " × " + sabor;
 
-      botaoLimpar.addEventListener("click", () => {
-        Object.keys(quantidades).forEach(sabor => {
-          quantidades[sabor] = 0;
-        });
-        atualizar();
-      });
+      const preco = document.createElement("strong");
+      preco.textContent = saboresNormais.includes(sabor)
+        ? dinheiro(quantidades[sabor] * PRECO_NORMAL)
+        : "Preço a confirmar";
 
-      botaoVoltar.addEventListener("click", () => {
-        telaPedido.classList.remove("visivel");
+      linha.append(descricao, preco);
+      resumo.appendChild(linha);
+    });
+  }
 
-        window.setTimeout(() => {
-          telaPedido.style.display = "none";
-          telaInicial.style.display = "flex";
-          telaInicial.classList.remove("saindo");
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }, 50);
-      });
+  document.getElementById("subtotalNormal").textContent = dinheiro(totalNormal());
 
-      criarListas();
-      atualizar();
-    })();
-  </script>
+  const qtdEspeciais = saboresEspeciais.reduce((soma, sabor) =>
+    soma + quantidades[sabor], 0);
 
+  document.getElementById("subtotalEspecial").textContent =
+    qtdEspeciais > 0 ? "A confirmar" : dinheiro(0);
+
+  document.getElementById("total").textContent = dinheiro(totalNormal());
+}
+
+function abrirCheckout() {
+  const escolhidos = [...saboresNormais, ...saboresEspeciais]
+    .filter(sabor => quantidades[sabor] > 0);
+
+  if (escolhidos.length === 0) {
+    alert("Escolha pelo menos um geladinho antes de finalizar!");
+    return;
+  }
+
+  const temEspecial = saboresEspeciais.some(sabor => quantidades[sabor] > 0);
+  document.getElementById("avisoEspecial").classList.toggle("hidden", !temEspecial);
+
+  mostrar("checkout");
+}
+
+document.querySelectorAll('input[name="pagamento"]').forEach(opcao => {
+  opcao.addEventListener("change", () => {
+    const dinheiroSelecionado = document.querySelector(
+      'input[name="pagamento"]:checked'
+    )?.value === "Cédulas (dinheiro)";
+
+    document.getElementById("trocoArea")
+      .classList.toggle("hidden", !dinheiroSelecionado);
+  });
+});
+
+document.getElementById("pedidoForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const nome = document.getElementById("nome").value.trim();
+  const endereco = document.getElementById("endereco").value.trim();
+  const pagamento = document.querySelector(
+    'input[name="pagamento"]:checked'
+  )?.value;
+
+  if (!nome || !endereco || !pagamento) {
+    alert("Preencha seu nome, endereço e forma de pagamento.");
+    return;
+  }
+
+  const escolhidos = [...saboresNormais, ...saboresEspeciais]
+    .filter(sabor => quantidades[sabor] > 0);
+
+  if (escolhidos.length === 0) {
+    alert("Seu pedido está vazio.");
+    mostrar("catalogo");
+    return;
+  }
+
+  const qtdEspeciais = saboresEspeciais.reduce((soma, sabor) =>
+    soma + quantidades[sabor], 0);
+
+  const linhasItens = escolhidos.map(sabor => {
+    const quantidade = quantidades[sabor];
+
+    if (saboresNormais.includes(sabor)) {
+      return `• ${sabor}: ${quantidade} × ${dinheiro(PRECO_NORMAL)} = ${dinheiro(quantidade * PRECO_NORMAL)}`;
+    }
+
+    return `• ${sabor}: ${quantidade} unidade(s) — preço a confirmar`;
+  });
+
+  const troco = document.getElementById("troco").value.trim();
+
+  let mensagem =
+`Olá! Gostaria de fazer um pedido no Geladinho das Meninas.
+
+*NOME:* ${nome}
+
+*ENDEREÇO DE ENTREGA:*
+${endereco}
+
+*PEDIDO:*
+${linhasItens.join("\n")}
+
+*TOTAL CONHECIDO:* ${dinheiro(totalNormal())}
+*PAGAMENTO:* ${pagamento}`;
+
+  if (pagamento === "Cédulas (dinheiro)" && troco) {
+    mensagem += `\n*TROCO:* ${troco}`;
+  }
+
+  if (qtdEspeciais > 0) {
+    mensagem += "\n\n*OBSERVAÇÃO:* O preço dos geladinhos especiais precisa ser confirmado pela loja.";
+  }
+
+  mensagem += "\n\nPor favor, confirmem o pedido e o valor final. Obrigado(a)!";
+
+  const url = "https://wa.me/" + WHATSAPP_RECEPTOR +
+    "?text=" + encodeURIComponent(mensagem);
+
+  // Abre o WhatsApp com a mensagem pronta para a loja.
+  window.location.href = url;
+});
+
+function limparPedido() {
+  const confirmar = confirm("Tem certeza de que deseja limpar o pedido?");
+  if (!confirmar) return;
+
+  Object.keys(quantidades).forEach(sabor => {
+    quantidades[sabor] = 0;
+  });
+
+  renderizarSabores();
+  atualizarResumo();
+}
+
+function alternarMusica() {
+  const musica = document.getElementById("musica");
+  const botao = document.getElementById("musicButton");
+
+  if (musica.paused) {
+    musica.volume = 0.25;
+    musica.play().then(() => {
+      botao.textContent = "Desligar música";
+    }).catch(() => {
+      alert("Não consegui tocar a música. Confira se o arquivo MP3 está na mesma pasta do index.html.");
+    });
+  } else {
+    musica.pause();
+    botao.textContent = "Ligar música";
+  }
+}
+</script>
 </body>
 </html>
