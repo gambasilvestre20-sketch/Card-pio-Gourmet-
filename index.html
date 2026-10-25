@@ -2,347 +2,895 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fff0f5">
-<title>Geladinho das Meninas 🍓</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff4f7">
+  <title>Geladinho das Meninas 🍓</title>
 
-<style>
-:root{--pink:#ed719d;--dark:#c84979;--text:#593b49;--muted:#987b88;--neon:#bd55ff}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:20px}
-body{font-family:"Trebuchet MS",Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,#fff8fa,#fffdfb 55%,#fff0f5);overflow-x:hidden}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer;-webkit-tap-highlight-color:transparent}
-.hidden{display:none!important}
+  <style>
+    :root {
+      --rosa: #f36b98;
+      --rosa-escuro: #d94678;
+      --rosa-claro: #fff0f5;
+      --roxo: #8b5bb5;
+      --texto: #493541;
+      --fundo: #fff8fa;
+      --branco: #ffffff;
+      --sombra: 0 8px 25px rgba(151, 76, 111, .12);
+    }
 
-.hero{min-height:100svh;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#5c3d40}
-.hero-photo{position:absolute;inset:0;z-index:-3;background-image:url("./SaveClip.App_629999614_18361855390163503_5129815402887603622_n.jpg.webp");background-size:cover;background-position:center;transform:scale(1.025)}
-.hero-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,#24151a22,#24151a10 55%,#fff8fa00 80%);pointer-events:none}
-.hero-bottom-fade{position:absolute;z-index:-1;pointer-events:none;height:35%;bottom:0;left:0;right:0;background:linear-gradient(to bottom,#fff8fa00,#fff8fa55 35%,#fff8fa 100%)}
-.hero-content{width:100%;min-height:100svh;padding:30px 22px 95px;display:flex;align-items:center;justify-content:center;text-align:center;transition:opacity .18s linear,transform .18s linear}
-.logo{width:min(83vw,440px);max-height:62svh;object-fit:contain;filter:drop-shadow(0 8px 24px #38202b65);animation:logoIn 1s .2s both}
-@keyframes logoIn{from{opacity:0;transform:translateY(15px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-.scroll-hint{position:absolute;bottom:25px;left:0;right:0;text-align:center;color:white;font-size:.82rem;text-shadow:0 2px 8px #39202a99;animation:float 1.8s infinite}
-.scroll-hint span{display:block;font-size:1.5rem}
-@keyframes float{50%{transform:translateY(6px)}}
+    * {
+      box-sizing: border-box;
+    }
 
-.intro,.section,.container,footer{width:100%}
-.intro{text-align:center;padding:55px 22px 30px;max-width:900px;margin:auto}
-.eyebrow{color:var(--dark);text-transform:uppercase;font-size:.75rem;font-weight:900;letter-spacing:1.7px;margin-bottom:10px}
-.intro h2,.section-heading h2{font-size:clamp(1.7rem,6vw,2.5rem);line-height:1.2;margin-bottom:12px}
-.intro h2 span{color:var(--dark)}
-.intro p,.section-heading p{color:var(--muted);line-height:1.65}
-.pill{display:inline-block;margin-top:18px;padding:10px 15px;border-radius:999px;background:#fff;border:1px solid #f7d5e1;color:var(--dark);font-size:.86rem;font-weight:700}
-.section{padding:35px 18px}
-.container{max-width:1100px;margin:auto}
-.section-heading{text-align:center;margin-bottom:25px}
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* Categorias */
-.category-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:14px;padding:5px 2px 18px;max-width:760px;margin:0 auto}
-.category-choice{position:relative;display:block;width:100%;min-width:0;aspect-ratio:3/4.2;overflow:hidden;padding:0;border:2px solid transparent;border-radius:22px;background:#fff;isolation:isolate;box-shadow:0 8px 24px #5d304018;transform:scale(.95);filter:grayscale(.78) brightness(.88);opacity:.78;transition:transform .28s ease,filter .28s ease,opacity .28s ease,border-color .28s ease,box-shadow .28s ease}
-.category-choice img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s ease}
-.category-choice::after{content:"";position:absolute;inset:0;z-index:1;background:transparent;pointer-events:none}
-.category-choice-label{position:absolute;z-index:2;left:7px;right:7px;bottom:16px;color:#fff;font-weight:900;line-height:1.2;font-size:clamp(.85rem,3.5vw,1.15rem);text-align:center;text-shadow:0 2px 9px #1b0b28aa;pointer-events:none}
-.category-choice-label small{display:block;margin-top:7px;font-size:.7rem;font-weight:700;letter-spacing:.7px;opacity:.95}
-.category-choice.active{transform:scale(1);filter:none;opacity:1;border-color:#c35aff;box-shadow:0 0 0 2px #a72eff55,0 0 12px #bd55ffdd,0 0 28px #bd55ff88,0 12px 28px #5d30402a}
-.category-choice.active img{transform:scale(1.025)}
-.category-choice:focus-visible{outline:3px solid #8f20d5;outline-offset:5px}
-.category-choice:active{transform:scale(.97)}
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: var(--texto);
+      background: var(--fundo);
+      overflow-x: hidden;
+    }
 
-.select-category-wrap{max-width:420px;margin:0 auto 30px}
-.select-category-button{display:block;width:100%;border:0;border-radius:15px;padding:15px 18px;background:linear-gradient(135deg,#bd55ff,#8e32d0);color:#fff;font-weight:900;font-size:1rem;box-shadow:0 7px 22px #bd55ff50;transition:transform .2s,box-shadow .2s}
-.select-category-button:active{transform:scale(.97)}
-.select-category-button:focus-visible{outline:3px solid #8e32d0;outline-offset:4px}
+    button,
+    input {
+      font: inherit;
+    }
 
-/* Produtos */
-.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;scroll-margin-top:20px}
-.product{background:#fff;border:1px solid #f5dce5;border-radius:20px;padding:16px 12px;text-align:center;box-shadow:0 8px 22px #5d30400b;min-width:0}
-.product-illustration{font-size:2.6rem;margin-bottom:8px;min-height:48px;display:grid;place-items:center}
-.product h3{font-size:1rem;margin-bottom:7px;overflow-wrap:anywhere}
-.product-description{color:var(--muted);font-size:.8rem;line-height:1.45;min-height:36px;margin-bottom:10px}
-.price{font-size:1.08rem;font-weight:900;color:var(--dark);margin-bottom:12px}
-.price small{display:block;font-size:.72rem;color:var(--muted);font-weight:500}
-.add-button,.primary-button{width:100%;border:0;border-radius:13px;padding:12px 10px;background:linear-gradient(135deg,#f19abb,#d95788);color:#fff;font-weight:900;box-shadow:0 6px 15px #d9578825}
-.add-button:active,.primary-button:active{transform:scale(.98)}
-.primary-button:disabled{opacity:.45;cursor:not-allowed}
-.secondary-button{width:100%;border:1px solid #efc4d4;border-radius:13px;padding:12px;background:#fff;color:var(--dark);font-weight:800;margin-top:10px}
+    button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-/* Carrinho e formulário */
-.cart-panel{background:#fff;border:1px solid #f4d8e3;border-radius:22px;padding:18px;box-shadow:0 8px 24px #5d30400b}
-.cart-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
-.cart-title h2{font-size:1.2rem}
-.cart-count{min-width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#fbe3ec;color:var(--dark);font-weight:900}
-.empty-cart{text-align:center;color:var(--muted);padding:24px 8px;line-height:1.7}
-.cart-items{display:grid;gap:12px}
-.cart-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #f7e6ed}
-.cart-item h3{font-size:.95rem;margin-bottom:4px}
-.cart-item small{color:var(--muted);font-size:.8rem}
-.quantity{display:flex;align-items:center;gap:10px}
-.quantity button{width:32px;height:32px;border:0;border-radius:10px;background:#fbe3ec;color:var(--dark);font-weight:900;font-size:1.1rem}
-.cart-summary{margin-top:18px}
-.summary-line{display:flex;justify-content:space-between;gap:12px;margin:10px 0;color:var(--muted);font-size:.9rem}
-.summary-line strong{color:var(--text);text-align:right}
-.summary-line.total{padding-top:12px;border-top:1px solid #f3dce5;color:var(--text);font-weight:900}
-.form-note{font-size:.8rem;color:var(--muted);line-height:1.5;margin:12px 0}
-.order-form{display:grid;gap:15px}
-.field{display:grid;gap:7px}
-.field label{font-weight:800;font-size:.9rem}
-.field input,.field textarea,.field select{width:100%;border:1px solid #e8cbd6;border-radius:12px;padding:13px;background:#fffafc;color:var(--text);outline:none}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--pink);box-shadow:0 0 0 3px #ed719d20}
-.field textarea{min-height:90px;resize:vertical}
-.special-note{padding:13px;border-radius:13px;background:#fff4f8;color:var(--text);font-size:.86rem;line-height:1.6}
+    img {
+      max-width: 100%;
+    }
 
-footer{text-align:center;padding:32px 18px 90px;color:var(--muted);font-size:.86rem;line-height:1.9}
-footer strong{color:var(--dark);font-size:1rem}
-.music-button{position:fixed;right:16px;bottom:16px;z-index:110;width:48px;height:48px;border:0;border-radius:50%;background:linear-gradient(135deg,#f19abb,#d95788);color:white;font-size:1.4rem;box-shadow:0 6px 20px #d9578840}
-.music-button.playing{animation:pulse 1.5s infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 8px #ed719d00}}
-.toast{position:fixed;z-index:120;left:50%;bottom:78px;transform:translate(-50%,15px);opacity:0;pointer-events:none;width:max-content;max-width:calc(100% - 30px);padding:12px 18px;border-radius:999px;background:#5b3949;color:white;text-align:center;font-size:.86rem;transition:opacity .25s,transform .25s}
-.toast.show{opacity:1;transform:translate(-50%,0)}
+    .hero {
+      position: relative;
+      min-height: 300px;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(255, 242, 247, .80),
+                        rgba(255, 242, 247, .88)),
+        url("./SaveClip.App_629999614_18361855390163503_5129815402887603622_n.jpg.webp")
+        center/cover;
+    }
 
-@media(min-width:600px){.products{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.product{padding:20px 15px}.cart-panel{padding:25px}.category-choices{gap:24px}.category-choice{aspect-ratio:3/4}.category-choice-label{font-size:1.2rem}}
-@media(min-width:900px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}.category-choice{max-width:270px;justify-self:center}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
-</style>
+    .logo {
+      width: min(210px, 58vw);
+      max-height: 155px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 5px 10px rgba(180, 80, 120, .12));
+    }
+
+    .hero h1 {
+      margin: 5px 0;
+      color: var(--rosa-escuro);
+      font-size: clamp(25px, 5vw, 38px);
+    }
+
+    .hero p {
+      max-width: 440px;
+      margin: 8px auto 0;
+      line-height: 1.6;
+    }
+
+    .hero-decoration {
+      margin-top: 14px;
+      font-size: 23px;
+      letter-spacing: 7px;
+    }
+
+    main {
+      width: min(100% - 28px, 1000px);
+      margin: 0 auto;
+      padding: 28px 0 55px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 8px 0 9px;
+      color: var(--rosa-escuro);
+      font-size: clamp(25px, 5vw, 32px);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #8c7482;
+      line-height: 1.5;
+      margin: 0 auto 24px;
+      max-width: 520px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .category-card {
+      position: relative;
+      min-width: 0;
+      min-height: 190px;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #f1d9e3;
+      border-radius: 21px;
+      background: white;
+      box-shadow: var(--sombra);
+      text-align: left;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .category-card:active {
+      transform: scale(.975);
+    }
+
+    .category-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 27px rgba(151, 76, 111, .17);
+    }
+
+    .category-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 15px 12px;
+      color: white;
+      background: linear-gradient(
+        to top,
+        rgba(45, 23, 39, .78),
+        rgba(45, 23, 39, .08) 80%
+      );
+    }
+
+    .category-name {
+      display: block;
+      font-size: clamp(17px, 3.6vw, 23px);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .category-description {
+      display: block;
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .category-arrow {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: var(--rosa-escuro);
+      background: rgba(255, 255, 255, .95);
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Painel de produtos: entra pelo lado da categoria escolhida. */
+    .menu-panel {
+      display: none;
+      position: relative;
+      width: 100%;
+      margin: 0 auto 28px;
+      padding: 20px 14px 22px;
+      border: 1px solid #f0dbe4;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+
+    .menu-panel.is-open {
+      display: block;
+      animation-duration: .48s;
+      animation-timing-function: cubic-bezier(.2, .75, .25, 1);
+      animation-fill-mode: both;
+    }
+
+    .menu-panel.from-left {
+      animation-name: enterFromLeft;
+    }
+
+    .menu-panel.from-right {
+      animation-name: enterFromRight;
+    }
+
+    @keyframes enterFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-75px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes enterFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(75px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .menu-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 2px 16px;
+    }
+
+    .menu-heading {
+      margin: 0;
+      color: var(--rosa-escuro);
+      font-size: clamp(22px, 4.5vw, 28px);
+    }
+
+    .menu-description {
+      margin: 6px 0 0;
+      color: #8c7482;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .close-menu {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 31px;
+      height: 31px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      color: #8c7482;
+      background: #fff0f5;
+      font-size: 23px;
+      line-height: 1;
+      transition: background .2s, transform .2s;
+    }
+
+    .close-menu:hover {
+      color: var(--rosa-escuro);
+      background: #fce0eb;
+      transform: rotate(90deg);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .product-card {
+      min-width: 0;
+      padding: 14px 12px;
+      border: 1px solid #f1e3e9;
+      border-radius: 17px;
+      background: #fffafb;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+      border-color: #efbfd1;
+    }
+
+    .product-emoji {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      margin-bottom: 10px;
+      border-radius: 14px;
+      background: #fff0f5;
+      font-size: 25px;
+    }
+
+    .product-card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .product-card p {
+      flex: 1;
+      margin: 0 0 12px;
+      color: #8c7482;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .product-bottom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .product-price {
+      color: var(--rosa-escuro);
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .add-button {
+      min-width: 36px;
+      min-height: 36px;
+      padding: 0 10px;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      background: var(--rosa);
+      font-size: 21px;
+      font-weight: bold;
+      transition: background .2s, transform .15s;
+    }
+
+    .add-button:hover {
+      background: var(--rosa-escuro);
+    }
+
+    .add-button:active {
+      transform: scale(.92);
+    }
+
+    .cart-section {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #f0dbe4;
+      border-radius: 22px;
+      background: white;
+      box-shadow: var(--sombra);
+    }
+
+    .cart-title {
+      margin: 0 0 14px;
+      color: var(--rosa-escuro);
+      font-size: 24px;
+    }
+
+    .cart-empty {
+      padding: 10px 0;
+      color: #8c7482;
+      line-height: 1.6;
+    }
+
+    .cart-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f4e8ee;
+    }
+
+    .cart-item-name {
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .cart-item-price {
+      margin-top: 4px;
+      color: #8c7482;
+      font-size: 13px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .quantity-controls button {
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      border: none;
+      border-radius: 9px;
+      color: var(--rosa-escuro);
+      background: #fff0f5;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .quantity-number {
+      min-width: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .cart-total {
+      color: var(--rosa-escuro);
+    }
+
+    .checkout-button {
+      width: 100%;
+      min-height: 50px;
+      padding: 13px 18px;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      background: #25a65a;
+      font-size: 16px;
+      font-weight: 800;
+      transition: background .2s, transform .2s;
+    }
+
+    .checkout-button:hover {
+      background: #198747;
+    }
+
+    .checkout-button:active {
+      transform: scale(.99);
+    }
+
+    .checkout-button:disabled {
+      cursor: not-allowed;
+      opacity: .5;
+    }
+
+    .cart-note {
+      margin: 12px 0 0;
+      text-align: center;
+      color: #8c7482;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 25px 18px;
+      text-align: center;
+      background: #ffedf3;
+      color: #8c6177;
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .music-button {
+      position: fixed;
+      right: 15px;
+      bottom: 15px;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid #f1d3df;
+      border-radius: 50%;
+      background: white;
+      color: var(--rosa-escuro);
+      box-shadow: 0 5px 20px rgba(120, 50, 80, .16);
+      font-size: 20px;
+    }
+
+    .music-button.playing {
+      animation: musicPulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes musicPulse {
+      50% {
+        box-shadow: 0 5px 23px rgba(217, 70, 120, .35);
+      }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (min-width: 650px) {
+      .category-grid {
+        gap: 22px;
+      }
+
+      .category-card {
+        min-height: 260px;
+      }
+
+      .menu-panel {
+        padding: 25px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+      }
+
+      .product-card {
+        padding: 17px;
+      }
+
+      .product-card h3 {
+        font-size: 17px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      main {
+        width: calc(100% - 20px);
+      }
+
+      .category-card {
+        min-height: 160px;
+        border-radius: 16px;
+      }
+
+      .category-overlay {
+        padding: 11px 9px;
+      }
+
+      .category-description {
+        font-size: 11px;
+      }
+
+      .product-grid {
+        gap: 8px;
+      }
+
+      .product-card {
+        padding: 11px 9px;
+      }
+
+      .product-card h3 {
+        font-size: 14px;
+      }
+
+      .product-price {
+        font-size: 13px;
+      }
+
+      .add-button {
+        min-width: 32px;
+        min-height: 32px;
+      }
+
+      .cart-section {
+        padding: 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<header class="hero" id="inicio">
-  <div class="hero-photo"></div>
-  <div class="hero-shade"></div>
-  <div class="hero-content" id="heroContent">
-    <img class="logo" src="./logo_20261025125818.png" alt="Geladinho das Meninas">
-  </div>
-  <div class="hero-bottom-fade"></div>
-  <div class="scroll-hint" id="scrollHint">Descubra nossos sabores<span>⌄</span></div>
-</header>
+  <header class="hero">
+    <img
+      class="logo"
+      src="./logo_20261025125818.png"
+      alt="Logo Geladinho das Meninas"
+      onerror="this.style.display='none'"
+    >
 
-<main>
-<section class="intro">
-  <div class="eyebrow">Feitos para refrescar seu dia</div>
-  <h2>Um pedacinho de <span>felicidade</span> 🍓</h2>
-  <p>Escolha seus sabores favoritos, monte seu pedido e envie tudo pra gente pelo WhatsApp!</p>
-  <div class="pill">❄️ Geladinhos feitos com carinho</div>
-</section>
+    <h1>Geladinho das Meninas 🍓</h1>
+    <p>Um carinho geladinho para deixar seu dia mais gostoso!</p>
+    <div class="hero-decoration" aria-hidden="true">🍓 💕 🍦</div>
+  </header>
 
-<section class="section" id="sabores">
-<div class="container">
-  <div class="section-heading">
-    <div class="eyebrow">Nosso cardápio</div>
-    <h2>Qual vai ser o seu? 💕</h2>
-    <p>Escolha sua categoria favorita.</p>
-  </div>
+  <main>
+    <section id="cardapio">
+      <h2 class="section-title">Nosso cardápio</h2>
+      <p class="section-subtitle">
+        Escolha sua categoria favorita e descubra os sabores disponíveis.
+        Você pode abrir as duas categorias e misturar seus pedidos!
+      </p>
 
-  <div class="category-choices">
-    <button class="category-choice" type="button" data-choice="tradicionais" aria-pressed="false">
-      <img src="./SaveClip.App_625053558_18080439110349849_5098441813790298616_n.jpg.webp" alt="Geladinhos tradicionais com abacaxi" loading="lazy">
-      <span class="category-choice-label">🍍 Tradicionais<small>R$ 5,00 cada</small></span>
-    </button>
+      <div class="category-grid" id="categoryGrid">
+        <button
+          class="category-card"
+          type="button"
+          data-category="tradicionais"
+          aria-label="Abrir cardápio de geladinhos tradicionais"
+        >
+          <img
+            src="./SaveClip.App_625053558_18080439110349849_5098441813790298616_n.jpg.webp"
+            alt=""
+            onerror="this.style.display='none'"
+          >
+          <span class="category-overlay">
+            <span class="category-name">🍓 Tradicionais</span>
+            <span class="category-description">
+              Sabores clássicos para refrescar seu dia.
+            </span>
+          </span>
+          <span class="category-arrow" aria-hidden="true">›</span>
+        </button>
 
-    <button class="category-choice" type="button" data-choice="especiais" aria-pressed="false">
-      <img src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp" alt="Geladinhos especiais" loading="lazy">
-      <span class="category-choice-label">🍫 Especiais<small>De R$ 6,00 a R$ 8,00</small></span>
-    </button>
-  </div>
+        <button
+          class="category-card"
+          type="button"
+          data-category="especiais"
+          aria-label="Abrir cardápio de geladinhos especiais"
+        >
+          <img
+            src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp"
+            alt=""
+            onerror="this.style.display='none'"
+          >
+          <span class="category-overlay">
+            <span class="category-name">✨ Especiais</span>
+            <span class="category-description">
+              Combinações especiais para surpreender.
+            </span>
+          </span>
+          <span class="category-arrow" aria-hidden="true">›</span>
+        </button>
+      </div>
 
-  <div class="select-category-wrap hidden" id="selectCategoryWrap">
-    <button class="select-category-button" id="selectCategoryButton" type="button">Selecionar</button>
-  </div>
+      <section
+        class="menu-panel"
+        id="menuPanel"
+        aria-label="Sabores disponíveis"
+        aria-live="polite"
+      >
+        <div class="menu-header">
+          <div>
+            <h2 class="menu-heading" id="menuHeading">🍓 Tradicionais</h2>
+            <p class="menu-description" id="menuDescription">
+              Escolha seus sabores favoritos.
+            </p>
+          </div>
 
-  <div id="productArea" class="hidden">
-    <div class="section-heading">
-      <h2 id="selectedCategoryTitle">Sabores tradicionais 🍍</h2>
-      <p>Toque em adicionar para montar seu pedido.</p>
-    </div>
-    <div class="products" id="products"></div>
-    <button class="secondary-button" id="changeCategoryButton" type="button">← Escolher outra categoria</button>
-  </div>
-</div>
-</section>
+          <button
+            class="close-menu"
+            id="closeMenu"
+            type="button"
+            aria-label="Fechar cardápio e escolher outra categoria"
+            title="Fechar cardápio"
+          >×</button>
+        </div>
 
-<section class="section" id="carrinho">
-<div class="container">
-  <div class="section-heading">
-    <div class="eyebrow">Seu pedido</div>
-    <h2>Sua sacolinha 🛍️</h2>
-    <p>Confira os sabores e as quantidades escolhidas.</p>
-  </div>
-  <div class="cart-panel">
-    <div class="cart-title"><h2>Minha sacolinha 💗</h2><span class="cart-count" id="cartCount">0</span></div>
-    <div id="cartItems" class="cart-items"></div>
-    <div id="emptyCart" class="empty-cart"><div style="font-size:2.6rem;margin-bottom:8px">🧺</div>Sua sacolinha ainda está vazia.<br>Escolha alguns sabores deliciosos!</div>
-    <div class="cart-summary">
-      <div class="summary-line"><span>Quantidade</span><strong id="summaryQuantity">0 unidades</strong></div>
-      <div class="summary-line total"><span>Total dos produtos</span><strong id="summaryTotal">R$ 0,00</strong></div>
-      <p class="form-note" id="priceNotice">Os geladinhos especiais custam entre R$ 6,00 e R$ 8,00, conforme o sabor.</p>
-      <button class="primary-button" id="checkoutButton" disabled>Continuar pedido 💌</button>
-      <button class="secondary-button" id="clearCartButton">Esvaziar carrinho</button>
-    </div>
-  </div>
-</div>
-</section>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+    </section>
 
-<section class="section hidden" id="checkout">
-<div class="container">
-  <div class="section-heading">
-    <div class="eyebrow">Só falta um pouquinho</div>
-    <h2>Onde entregamos? 💌</h2>
-    <p>Preencha seus dados para preparar a mensagem do pedido.</p>
-  </div>
-  <div class="cart-panel">
-    <form class="order-form" id="orderForm">
-      <div class="field"><label for="customerName">Seu nome *</label><input id="customerName" type="text" placeholder="Como podemos te chamar?" autocomplete="name" required></div>
-      <div class="field"><label for="customerPhone">Seu telefone (opcional)</label><input id="customerPhone" type="tel" placeholder="(34) 99999-9999" autocomplete="tel"></div>
-      <div class="field"><label for="deliveryType">Como você vai receber? *</label><select id="deliveryType" required><option value="">Selecione uma opção</option><option value="Entrega">Entrega</option><option value="Retirada">Retirada</option><option value="Combinar pelo WhatsApp">Combinar pelo WhatsApp</option></select></div>
-      <div class="field"><label for="customerAddress">Endereço ou referência</label><input id="customerAddress" type="text" placeholder="Rua, bairro ou ponto de referência" autocomplete="street-address"></div>
-      <div class="field"><label for="customerNotes">Observações (opcional)</label><textarea id="customerNotes" placeholder="Algum detalhe sobre seu pedido?"></textarea></div>
-      <div class="special-note">🍓 <strong>Geladinhos especiais:</strong> os preços variam de R$ 6,00 a R$ 8,00, conforme o sabor.</div>
-      <button class="primary-button" type="submit">Enviar pedido pelo WhatsApp 💚</button>
-      <button class="secondary-button" type="button" id="backToCart">Voltar ao carrinho</button>
-      <p class="form-note">O WhatsApp abrirá com sua mensagem pronta para você conferir e enviar.</p>
-    </form>
-  </div>
-</div>
-</section>
-</main>
+    <section class="cart-section" id="carrinho">
+      <h2 class="cart-title">🛒 Seu carrinho</h2>
+      <div id="cartContents">
+        <p class="cart-empty">
+          Seu carrinho está esperando pelos seus geladinhos! 💕
+        </p>
+      </div>
 
-<footer><strong>Geladinho das Meninas 🍓</strong><br>Feito com carinho para deixar seu dia mais gostoso!<br>❄️ Um saborzinho de felicidade ❄️</footer>
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span class="cart-total" id="cartTotal">R$ 0,00</span>
+      </div>
 
-<button class="music-button" id="musicButton" type="button" aria-label="Tocar música" title="Pausar ou tocar música">♫</button>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<audio id="backgroundMusic" loop preload="none"><source src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3" type="audio/mpeg"></audio>
-<audio id="popSound" preload="auto"><source src="./pop%201.mp3" type="audio/mpeg"></audio>
+      <button class="checkout-button" id="checkoutButton" type="button" disabled>
+        💬 Finalizar pedido pelo WhatsApp
+      </button>
 
-<script>
-"use strict";
+      <p class="cart-note">
+        Confira os sabores e as quantidades antes de enviar seu pedido.
+      </p>
+    </section>
+  </main>
 
-const WHATSAPP_NUMBER="5534991387357";
+  <footer>
+    <div>Feito com carinho pelas Meninas 💕</div>
+    <div>Geladinhos preparados para adoçar seu dia! 🍓</div>
+  </footer>
 
-const products=[
-{id:"morango",name:"Morango",emoji:"🍓",description:"Doce, delicado e refrescante.",price:5,category:"tradicionais"},
-{id:"abacaxi",name:"Abacaxi",emoji:"🍍",description:"Um toque tropical delicioso.",price:5,category:"tradicionais"},
-{id:"abacate",name:"Abacate",emoji:"🥑",description:"Cremoso e cheio de sabor.",price:5,category:"tradicionais"},
-{id:"milho",name:"Milho verde",emoji:"🌽",description:"Aquele sabor especial de milho.",price:5,category:"tradicionais"},
-{id:"chocolate",name:"Chocolate",emoji:"🍫",description:"Para quem ama chocolate.",price:5,category:"tradicionais"},
-{id:"coco-branco",name:"Coco branco",emoji:"🥥",description:"Um clássico suave e gostoso.",price:5,category:"tradicionais"},
-{id:"coco-queimado",name:"Coco queimado",emoji:"🥥",description:"Sabor marcante de coco.",price:5,category:"tradicionais"},
-{id:"uva",name:"Uva",emoji:"🍇",description:"Frutado e super refrescante.",price:5,category:"tradicionais"},
-{id:"blue-ice",name:"Blue Ice",emoji:"🩵",description:"Geladinho azul para refrescar.",price:5,category:"tradicionais"},
-{id:"limao",name:"Limão",emoji:"🍋",description:"Uma explosão cítrica refrescante.",price:5,category:"tradicionais"},
-{id:"chiclete",name:"Chiclete",emoji:"🩷",description:"Doce, divertido e colorido.",price:5,category:"tradicionais"},
-{id:"morango-nutella",name:"Morango com Nutella",emoji:"🍓",description:"Uma combinação especial.",price:8,category:"especiais"},
-{id:"maracuja-nutella",name:"Maracujá com Nutella",emoji:"💛",description:"Uma mistura para surpreender.",price:6,category:"especiais"}
-];
+  <button
+    class="music-button"
+    id="musicButton"
+    type="button"
+    aria-label="Ativar ou pausar música"
+    title="Música"
+  >♫</button>
 
-const cart=new Map();
-const $=id=>document.getElementById(id);
-let toastTimeout;
-let selectedCategory=null;
-let confirmedCategory=null;
+  <audio
+    id="backgroundMusic"
+    src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3"
+    loop
+    preload="none"
+  ></audio>
 
-function money(value){
-  return value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-}
+  <audio id="popSound" src="./pop%201.mp3" preload="auto"></audio>
 
-function showToast(message){
-  $("toast").textContent=message;
-  $("toast").classList.add("show");
-  clearTimeout(toastTimeout);
-  toastTimeout=setTimeout(()=>$("toast").classList.remove("show"),2400);
-}
+  <script>
+    const WHATSAPP_NUMBER = "5534991387357";
 
-function playPop(){
-  try{
-    $("popSound").currentTime=0;
-    const sound=$("popSound").play();
-    if(sound)sound.catch(()=>{});
-  }catch(_){}
-}
+    const products = [
+      {
+        id: "morango",
+        name: "Morango",
+        emoji: "🍓",
+        description: "Doce, delicado e refrescante.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "abacaxi",
+        name: "Abacaxi",
+        emoji: "🍍",
+        description: "Um toque tropical delicioso.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "abacate",
+        name: "Abacate",
+        emoji: "🥑",
+        description: "Cremoso e cheio de sabor.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "milho",
+        name: "Milho verde",
+        emoji: "🌽",
+        description: "Aquele sabor especial de milho.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "chocolate",
+        name: "Chocolate",
+        emoji: "🍫",
+        description: "Para quem ama chocolate.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "coco-branco",
+        name: "Coco branco",
+        emoji: "🥥",
+        description: "Um clássico suave e gostoso.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "coco-queimado",
+        name: "Coco queimado",
+        emoji: "🥥",
+        description: "Sabor marcante de coco.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "uva",
+        name: "Uva",
+        emoji: "🍇",
+        description: "Frutado e super refrescante.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "blue-ice",
+        name: "Blue Ice",
+        emoji: "🧊",
+        description: "Geladinho azul para refrescar.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "limao",
+        name: "Limão",
+        emoji: "🍋",
+        description: "Um toque cítrico e refrescante.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "chiclete",
+        name: "Chiclete",
+        emoji: "🩷",
+        description: "Um sabor divertido e docinho.",
+        price: 5,
+        category: "tradicionais"
+      },
+      {
+        id: "morango-nutella",
+        name: "Morango com Nutella",
+        emoji: "🍓",
+        description: "Uma combinação especial.",
+        price: 8,
+        category: "especiais"
+      },
+      {
+        id: "maracuja-nutella",
+        name: "Maracujá com Nutella",
+        emoji: "💛",
+        description: "Uma mistura para surpreender.",
+        price: 6,
+        category: "especiais"
+      }
+    ];
 
-function renderProducts(){
-  const shown=products.filter(p=>p.category===confirmedCategory);
+    // O carrinho é independente do cardápio aberto.
+    // Fechar ou trocar a categoria não apaga os produtos adicionados.
+    const cart = new Map();
 
-  $("products").innerHTML=shown.map(p=>`
-    <article class="product">
-      <div class="product-illustration" aria-hidden="true">${p.emoji}</div>
-      <h3>${p.name}</h3>
-      <p class="product-description">${p.description}</p>
-      <div class="price">${money(p.price)}<small>por unidade</small></div>
-      <button class="add-button" type="button" data-add="${p.id}">+ Adicionar</button>
-    </article>
-  `).join("");
-}
+    const categoryGrid = document.getElementById("categoryGrid");
+    const menuPanel = document.getElementById("menuPanel");
+    const menuHeading = document.getElementById("menuHeading");
+    const menuDescription = document.getElementById("menuDescription");
+    const productGrid = document.getElementById("productGrid");
+    const closeMenuButton = document.getElementById("closeMenu");
+    const cartContents = document.getElementById("cartContents");
+    const cartTotal = document.getElementById("cartTotal");
+    const checkoutButton = document.getElementById("checkoutButton");
+    const backgroundMusic = document.getElementById("backgroundMusic");
+    const musicButton = document.getElementById("musicButton");
+    const popSound = document.getElementById("popSound");
 
-function chooseCategory(category){
-  if(!["tradicionais","especiais"].includes(category))return;
+    let currentCategory = null;
 
-  selectedCategory=category;
-
-  document.querySelectorAll(".category-choice").forEach(button=>{
-    const active=button.dataset.choice===selectedCategory;
-    button.classList.toggle("active",active);
-    button.setAttribute("aria-pressed",String(active));
-  });
-
-  $("selectCategoryWrap").classList.remove("hidden");
-  playPop();
-}
-
-function confirmCategory(){
-  if(!selectedCategory){
-    showToast("Escolha uma categoria primeiro! 💗");
-    return;
-  }
-
-  confirmedCategory=selectedCategory;
-  renderProducts();
-
-  $("selectedCategoryTitle").textContent=
-    confirmedCategory==="tradicionais"
-      ?"Sabores tradicionais 🍍"
-      :"Sabores especiais 🍫";
-
-  $("productArea").classList.remove("hidden");
-  $("selectCategoryWrap").classList.add("hidden");
-
-  $("productArea").scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function addToCart(id){
-  const product=products.find(p=>p.id===id);
-  if(!product)return;
-
-  const item=cart.get(id);
-  if(item)item.quantity++;
-  else cart.set(id,{product,quantity:1});
-
-  playPop();
-  renderCart();
-  showToast(`${product.name} adicionado à sacolinha! 💗`);
-}
-
-function changeQuantity(id,amount){
-  const item=cart.get(id);
-  if(!item)return;
-
-  item.quantity+=amount;
-  if(item.quantity<=0)cart.delete(id);
-
-  playPop();
-  renderCart();
-}
-
-function renderCart(){
-  const entries=Array.from(cart.entries());
-  const qty=entries.reduce((sum,[,item])=>sum+item.quantity,0);
-  const total=entries.reduce((sum,[,item])=>sum+item.product.price*item.quantity,0);
-
-  $("cartCount").textContent=qty;
-  $("summaryQuantity").textContent=`${qty} ${qty===1?"unidade":"unidades"}`;
-  $("summaryTotal").textContent=money(total);
-  $("priceNotice").textContent="Os preços das especiais já estão incluídos no total.";
-
-  $("emptyCart").classList.toggle("hidden",entries.length>0);
-  $("cartItems").classList.toggle("hidden",entries.length===0);
-  $("checko
+    function formatPrice(value) {
+      return value.toLocaleString("pt-BR"
