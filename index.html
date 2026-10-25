@@ -6,28 +6,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fff0f5">
 <title>Geladinho das Meninas 🍓</title>
+
 <style>
-:root{--pink:#ed719d;--dark:#c84979;--text:#593b49;--muted:#987b88;--cream:#fff8fa;--neon:#bd55ff}
+:root{--pink:#ed719d;--dark:#c84979;--text:#593b49;--muted:#987b88;--neon:#bd55ff}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:20px}
 body{font-family:"Trebuchet MS",Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,#fff8fa,#fffdfb 55%,#fff0f5);overflow-x:hidden}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .hidden{display:none!important}
+
 .hero{min-height:100svh;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#5c3d40}
-.hero-photo{position:absolute;inset:0;z-index:-3;background-image:url("./SaveClip.App_629999614_18361855390163503_5129815402887603622_n.jpg.webp");background-size:cover;background-position:center;transform:scale(1.025);transition:filter 1s ease,transform 1.4s ease}
+.hero-photo{position:absolute;inset:0;z-index:-3;background-image:url("./SaveClip.App_629999614_18361855390163503_5129815402887603622_n.jpg.webp");background-size:cover;background-position:center;transform:scale(1.025)}
 .hero-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,#24151a22,#24151a10 55%,#fff8fa00 80%);pointer-events:none}
 .hero-bottom-fade{position:absolute;z-index:-1;pointer-events:none;height:35%;bottom:0;left:0;right:0;background:linear-gradient(to bottom,#fff8fa00,#fff8fa55 35%,#fff8fa 100%)}
-.hero-content{width:100%;min-height:100svh;padding:30px 22px 95px;display:flex;align-items:center;justify-content:center;text-align:center;transition:opacity .18s linear,transform .18s linear;will-change:opacity,transform}
+.hero-content{width:100%;min-height:100svh;padding:30px 22px 95px;display:flex;align-items:center;justify-content:center;text-align:center;transition:opacity .18s linear,transform .18s linear}
 .logo{width:min(83vw,440px);max-height:62svh;object-fit:contain;filter:drop-shadow(0 8px 24px #38202b65);animation:logoIn 1s .2s both}
 @keyframes logoIn{from{opacity:0;transform:translateY(15px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .scroll-hint{position:absolute;bottom:25px;left:0;right:0;text-align:center;color:white;font-size:.82rem;text-shadow:0 2px 8px #39202a99;animation:float 1.8s infinite}
 .scroll-hint span{display:block;font-size:1.5rem}
 @keyframes float{50%{transform:translateY(6px)}}
-.music-button.playing{animation:pulse 1.5s infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 8px #ed719d00}}
-.toast{position:fixed;z-index:120;left:50%;bottom:78px;transform:translate(-50%,15px);opacity:0;pointer-events:none;width:max-content;max-width:calc(100% - 30px);padding:12px 18px;border-radius:999px;background:#5b3949;color:white;text-align:center;font-size:.86rem;transition:opacity .25s,transform .25s}
-.toast.show{opacity:1;transform:translate(-50%,0)}
+
 .intro,.section,.container,footer{width:100%}
 .intro{text-align:center;padding:55px 22px 30px;max-width:900px;margin:auto}
 .eyebrow{color:var(--dark);text-transform:uppercase;font-size:.75rem;font-weight:900;letter-spacing:1.7px;margin-bottom:10px}
@@ -39,9 +38,9 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .container{max-width:1100px;margin:auto}
 .section-heading{text-align:center;margin-bottom:25px}
 
-/* Seletor grande de categorias dentro do cardápio */
-.category-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:14px;padding:5px 2px 25px;max-width:760px;margin:0 auto}
-.category-choice{position:relative;display:block;width:100%;min-width:0;aspect-ratio:3/4.2;overflow:hidden;padding:0;border:2px solid transparent;border-radius:22px;background:#fff;isolation:isolate;box-shadow:0 8px 24px #5d304018;transform:scale(.94);filter:grayscale(.78) brightness(.88);opacity:.84;transition:transform .28s ease,filter .28s ease,opacity .28s ease,border-color .28s ease,box-shadow .28s ease}
+/* Categorias */
+.category-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:14px;padding:5px 2px 18px;max-width:760px;margin:0 auto}
+.category-choice{position:relative;display:block;width:100%;min-width:0;aspect-ratio:3/4.2;overflow:hidden;padding:0;border:2px solid transparent;border-radius:22px;background:#fff;isolation:isolate;box-shadow:0 8px 24px #5d304018;transform:scale(.95);filter:grayscale(.78) brightness(.88);opacity:.78;transition:transform .28s ease,filter .28s ease,opacity .28s ease,border-color .28s ease,box-shadow .28s ease}
 .category-choice img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s ease}
 .category-choice::after{content:"";position:absolute;inset:0;z-index:1;background:transparent;pointer-events:none}
 .category-choice-label{position:absolute;z-index:2;left:7px;right:7px;bottom:16px;color:#fff;font-weight:900;line-height:1.2;font-size:clamp(.85rem,3.5vw,1.15rem);text-align:center;text-shadow:0 2px 9px #1b0b28aa}
@@ -50,9 +49,14 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .category-choice.active img{transform:scale(1.025)}
 .category-choice:focus-visible{outline:3px solid #8f20d5;outline-offset:5px}
 .category-choice:active{transform:scale(.97)}
-.category-choice-hint{text-align:center;font-size:.82rem;line-height:1.5;color:var(--muted);margin:-10px 0 22px}
 
-.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.select-category-wrap{max-width:420px;margin:0 auto 30px}
+.select-category-button{display:block;width:100%;border:0;border-radius:15px;padding:15px 18px;background:linear-gradient(135deg,#bd55ff,#8e32d0);color:#fff;font-weight:900;font-size:1rem;box-shadow:0 7px 22px #bd55ff50;transition:transform .2s,box-shadow .2s}
+.select-category-button:active{transform:scale(.97)}
+.select-category-button:focus-visible{outline:3px solid #8e32d0;outline-offset:4px}
+
+/* Produtos */
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;scroll-margin-top:20px}
 .product{background:#fff;border:1px solid #f5dce5;border-radius:20px;padding:16px 12px;text-align:center;box-shadow:0 8px 22px #5d30400b;min-width:0}
 .product-illustration{font-size:2.6rem;margin-bottom:8px;min-height:48px;display:grid;place-items:center}
 .product h3{font-size:1rem;margin-bottom:7px;overflow-wrap:anywhere}
@@ -63,6 +67,8 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .add-button:active,.primary-button:active{transform:scale(.98)}
 .primary-button:disabled{opacity:.45;cursor:not-allowed}
 .secondary-button{width:100%;border:1px solid #efc4d4;border-radius:13px;padding:12px;background:#fff;color:var(--dark);font-weight:800;margin-top:10px}
+
+/* Carrinho e formulário */
 .cart-panel{background:#fff;border:1px solid #f4d8e3;border-radius:22px;padding:18px;box-shadow:0 8px 24px #5d30400b}
 .cart-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
 .cart-title h2{font-size:1.2rem}
@@ -86,14 +92,21 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--pink);box-shadow:0 0 0 3px #ed719d20}
 .field textarea{min-height:90px;resize:vertical}
 .special-note{padding:13px;border-radius:13px;background:#fff4f8;color:var(--text);font-size:.86rem;line-height:1.6}
+
 footer{text-align:center;padding:32px 18px 90px;color:var(--muted);font-size:.86rem;line-height:1.9}
 footer strong{color:var(--dark);font-size:1rem}
 .music-button{position:fixed;right:16px;bottom:16px;z-index:110;width:48px;height:48px;border:0;border-radius:50%;background:linear-gradient(135deg,#f19abb,#d95788);color:white;font-size:1.4rem;box-shadow:0 6px 20px #d9578840}
+.music-button.playing{animation:pulse 1.5s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px #ed719d00}}
+.toast{position:fixed;z-index:120;left:50%;bottom:78px;transform:translate(-50%,15px);opacity:0;pointer-events:none;width:max-content;max-width:calc(100% - 30px);padding:12px 18px;border-radius:999px;background:#5b3949;color:white;text-align:center;font-size:.86rem;transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
 @media(min-width:600px){.products{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.product{padding:20px 15px}.cart-panel{padding:25px}.category-choices{gap:24px}.category-choice{aspect-ratio:3/4}.category-choice-label{font-size:1.2rem}}
 @media(min-width:900px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}.category-choice{max-width:270px;justify-self:center}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
+
 <body>
 <header class="hero" id="inicio">
   <div class="hero-photo"></div>
@@ -118,23 +131,33 @@ footer strong{color:var(--dark);font-size:1rem}
   <div class="section-heading">
     <div class="eyebrow">Nosso cardápio</div>
     <h2>Qual vai ser o seu? 💕</h2>
-    <p>Escolha uma categoria para ver os sabores disponíveis.</p>
+    <p>Escolha sua categoria favorita.</p>
   </div>
 
-  <!-- Seletor de categorias com fotos -->
   <div class="category-choices">
-    <button class="category-choice active" type="button" data-choice="tradicionais" aria-pressed="true">
+    <button class="category-choice" type="button" data-choice="tradicionais" aria-pressed="false">
       <img src="./SaveClip.App_625053558_18080439110349849_5098441813790298616_n.jpg.webp" alt="Geladinhos tradicionais com abacaxi" loading="lazy">
       <span class="category-choice-label">🍍 Tradicionais<small>R$ 5,00 cada</small></span>
     </button>
+
     <button class="category-choice" type="button" data-choice="especiais" aria-pressed="false">
       <img src="./SaveClip.App_630425897_18395152951183091_876499372022789309_n.jpg.webp" alt="Geladinhos especiais de Chocomalte" loading="lazy">
       <span class="category-choice-label">🍫 Especiais<small>Preço a consultar</small></span>
     </button>
   </div>
-  <p class="category-choice-hint">Toque em uma opção. A selecionada ganha destaque neon roxo ✨</p>
 
-  <div class="products" id="products"></div>
+  <div class="select-category-wrap hidden" id="selectCategoryWrap">
+    <button class="select-category-button" id="selectCategoryButton" type="button">Selecionar</button>
+  </div>
+
+  <div id="productArea" class="hidden">
+    <div class="section-heading">
+      <h2 id="selectedCategoryTitle">Sabores tradicionais 🍍</h2>
+      <p>Toque em adicionar para montar seu pedido.</p>
+    </div>
+    <div class="products" id="products"></div>
+    <button class="secondary-button" id="changeCategoryButton" type="button">← Escolher outra categoria</button>
+  </div>
 </div>
 </section>
 
@@ -172,7 +195,7 @@ footer strong{color:var(--dark);font-size:1rem}
       <div class="field"><label for="customerName">Seu nome *</label><input id="customerName" type="text" placeholder="Como podemos te chamar?" autocomplete="name" required></div>
       <div class="field"><label for="customerPhone">Seu telefone (opcional)</label><input id="customerPhone" type="tel" placeholder="(34) 99999-9999" autocomplete="tel"></div>
       <div class="field"><label for="deliveryType">Como você vai receber? *</label><select id="deliveryType" required><option value="">Selecione uma opção</option><option value="Entrega">Entrega</option><option value="Retirada">Retirada</option><option value="Combinar pelo WhatsApp">Combinar pelo WhatsApp</option></select></div>
-      <div class="field" id="addressField"><label for="customerAddress">Endereço ou referência</label><input id="customerAddress" type="text" placeholder="Rua, bairro ou ponto de referência" autocomplete="street-address"></div>
+      <div class="field"><label for="customerAddress">Endereço ou referência</label><input id="customerAddress" type="text" placeholder="Rua, bairro ou ponto de referência" autocomplete="street-address"></div>
       <div class="field"><label for="customerNotes">Observações (opcional)</label><textarea id="customerNotes" placeholder="Algum detalhe sobre seu pedido?"></textarea></div>
       <div class="special-note">🍓 <strong>Geladinhos especiais:</strong> os valores de Morango com Nutella e Maracujá com Nutella ainda precisam ser confirmados.</div>
       <button class="primary-button" type="submit">Enviar pedido pelo WhatsApp 💚</button>
@@ -185,14 +208,17 @@ footer strong{color:var(--dark);font-size:1rem}
 </main>
 
 <footer><strong>Geladinho das Meninas 🍓</strong><br>Feito com carinho para deixar seu dia mais gostoso!<br>❄️ Um saborzinho de felicidade ❄️</footer>
-<button class="music-button" id="musicButton" type="button" aria-label="Pausar música" title="Pausar ou tocar música">♫</button>
+
+<button class="music-button" id="musicButton" type="button" aria-label="Tocar música" title="Pausar ou tocar música">♫</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <audio id="backgroundMusic" loop preload="none"><source src="./1%20Minute%20Coffee%20break%20with%20Jazz(MP3_160K).mp3" type="audio/mpeg"></audio>
 <audio id="popSound" preload="auto"><source src="./pop%201.mp3" type="audio/mpeg"></audio>
 
 <script>
 "use strict";
+
 const WHATSAPP_NUMBER="5534991387357";
+
 const products=[
 {id:"morango",name:"Morango",emoji:"🍓",description:"Doce, delicado e refrescante.",price:5,category:"tradicionais"},
 {id:"abacaxi",name:"Abacaxi",emoji:"🍍",description:"Um toque tropical delicioso.",price:5,category:"tradicionais"},
@@ -208,18 +234,34 @@ const products=[
 {id:"morango-nutella",name:"Morango com Nutella",emoji:"🍓",description:"Uma combinação especial.",price:null,category:"especiais"},
 {id:"maracuja-nutella",name:"Maracujá com Nutella",emoji:"💛",description:"Uma mistura para surpreender.",price:null,category:"especiais"}
 ];
+
 const cart=new Map();
 const $=id=>document.getElementById(id);
 let toastTimeout;
-let currentCategory="tradicionais";
-let entered=true;
+let selectedCategory=null;
+let confirmedCategory=null;
 
-function money(value){return value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
-function showToast(message){$("toast").textContent=message;$("toast").classList.add("show");clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>$("toast").classList.remove("show"),2400);}
-function playPop(){if(!entered)return;try{$("popSound").currentTime=0;const p=$("popSound").play();if(p)p.catch(()=>{});}catch(_){}}
+function money(value){
+  return value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+}
+
+function showToast(message){
+  $("toast").textContent=message;
+  $("toast").classList.add("show");
+  clearTimeout(toastTimeout);
+  toastTimeout=setTimeout(()=>$("toast").classList.remove("show"),2400);
+}
+
+function playPop(){
+  try{
+    $("popSound").currentTime=0;
+    const sound=$("popSound").play();
+    if(sound)sound.catch(()=>{});
+  }catch(_){}
+}
 
 function renderProducts(){
-  const shown=products.filter(p=>p.category===currentCategory);
+  const shown=products.filter(p=>p.category===confirmedCategory);
   $("products").innerHTML=shown.map(p=>`
     <article class="product">
       <div class="product-illustration" aria-hidden="true">${p.emoji}</div>
@@ -227,54 +269,73 @@ function renderProducts(){
       <p class="product-description">${p.description}</p>
       <div class="price">${p.price===null?"A consultar":money(p.price)}${p.price!==null?"<small>por unidade</small>":""}</div>
       <button class="add-button" type="button" data-add="${p.id}">+ Adicionar</button>
-    </article>`).join("");
+    </article>
+  `).join("");
 }
 
-function addToCart(id){
-  const product=products.find(p=>p.id===id);if(!product)return;
-  const item=cart.get(id);if(item)item.quantity++;else cart.set(id,{product,quantity:1});
-  playPop();renderCart();showToast(`${product.name} adicionado à sacolinha! 💗`);
-}
-function changeQuantity(id,amount){
-  const item=cart.get(id);if(!item)return;
-  item.quantity+=amount;if(item.quantity<=0)cart.delete(id);
-  playPop();renderCart();
-}
-function renderCart(){
-  const entries=Array.from(cart.entries());
-  const qty=entries.reduce((s,[,i])=>s+i.quantity,0);
-  const total=entries.reduce((s,[,i])=>s+(i.product.price===null?0:i.product.price*i.quantity),0);
-  const hasUnpriced=entries.some(([,i])=>i.product.price===null);
-  $("cartCount").textContent=qty;
-  $("summaryQuantity").textContent=`${qty} ${qty===1?"unidade":"unidades"}`;
-  $("summaryTotal").textContent=money(total);
-  $("priceNotice").textContent=hasUnpriced?"O total não inclui os geladinhos especiais, pois os preços precisam ser confirmados pelo WhatsApp.":"Total dos itens com preço definido.";
-  $("emptyCart").classList.toggle("hidden",entries.length>0);
-  $("cartItems").classList.toggle("hidden",entries.length===0);
-  $("checkoutButton").disabled=entries.length===0;
-  $("cartItems").innerHTML=entries.map(([id,item])=>{
-    const unit=item.product.price===null?"Preço a consultar":`${money(item.product.price)} cada`;
-    const line=item.product.price===null?"A consultar":money(item.product.price*item.quantity);
-    return `<div class="cart-item"><div><h3>${item.product.emoji} ${item.product.name}</h3><small>${unit} · ${line}</small></div><div class="quantity"><button type="button" data-change="${id}" data-amount="-1" aria-label="Diminuir">−</button><strong>${item.quantity}</strong><button type="button" data-change="${id}" data-amount="1" aria-label="Aumentar">+</button></div></div>`;
-  }).join("");
-}
+function chooseCategory(category){
+  selectedCategory=category;
 
-function selectCategory(category,scrollToMenu=false){
-  currentCategory=category;
   document.querySelectorAll("[data-choice]").forEach(button=>{
     const active=button.dataset.choice===category;
     button.classList.toggle("active",active);
     button.setAttribute("aria-pressed",String(active));
   });
-  renderProducts();
-  if(scrollToMenu)$("sabores").scrollIntoView({behavior:"smooth",block:"start"});
+
+  $("selectCategoryWrap").classList.remove("hidden");
+  playPop();
 }
 
-document.querySelectorAll("[data-choice]").forEach(button=>{
-  button.addEventListener("click",()=>{
-    selectCategory(button.dataset.choice);
-    playPop();
-  });
-});
-$("products").addEventListener("click",event=>{
-  const button=event.target.closest("[data-add]");if(button)addToC
+function confirmCategory(){
+  if(!selectedCategory)return;
+
+  confirmedCategory=selectedCategory;
+  renderProducts();
+
+  $("selectedCategoryTitle").textContent=
+    confirmedCategory==="tradicionais"
+      ?"Sabores tradicionais 🍍"
+      :"Sabores especiais 🍫";
+
+  $("productArea").classList.remove("hidden");
+  $("selectCategoryWrap").classList.add("hidden");
+
+  $("productArea").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function addToCart(id){
+  const product=products.find(p=>p.id===id);
+  if(!product)return;
+
+  const item=cart.get(id);
+  if(item)item.quantity++;
+  else cart.set(id,{product,quantity:1});
+
+  playPop();
+  renderCart();
+  showToast(`${product.name} adicionado à sacolinha! 💗`);
+}
+
+function changeQuantity(id,amount){
+  const item=cart.get(id);
+  if(!item)return;
+
+  item.quantity+=amount;
+  if(item.quantity<=0)cart.delete(id);
+
+  playPop();
+  renderCart();
+}
+
+function renderCart(){
+  const entries=Array.from(cart.entries());
+  const qty=entries.reduce((sum,[,item])=>sum+item.quantity,0);
+  const total=entries.reduce((sum,[,item])=>sum+(item.product.price===null?0:item.product.price*item.quantity),0);
+  const hasUnpriced=entries.some(([,item])=>item.product.price===null);
+
+  $("cartCount").textContent=qty;
+  $("summaryQuantity").textContent=`${qty} ${qty===1?"unidade":"unidades"}`;
+  $("summaryTotal").textContent=money(total);
+  $("priceNotice").textContent=hasUnpriced
+    ?"O total não inclui os geladinhos especiais, pois os preços precisam ser confirmados pelo WhatsApp."
+    :"Total dos itens com preço defi
