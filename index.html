@@ -7,13 +7,9 @@
   <title>Geladinho das Meninas</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -115,10 +111,7 @@
     }
 
     @keyframes aparecer {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .cabecalho-pedido {
@@ -163,9 +156,7 @@
       box-shadow: 0 6px 16px #b64f9d35;
     }
 
-    .lista-sabores {
-      display: none;
-    }
+    .lista-sabores { display: none; }
 
     .lista-sabores.ativa {
       display: block;
@@ -229,9 +220,7 @@
       font-weight: bold;
     }
 
-    .controles button:active {
-      transform: scale(.94);
-    }
+    .controles button:active { transform: scale(.94); }
 
     .quantidade {
       min-width: 18px;
@@ -297,33 +286,69 @@
       font-size: .85rem;
     }
 
+    /* Botão flutuante da música */
+    .botao-musica {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border: 1px solid #f0b8dc;
+      border-radius: 30px;
+      background: rgba(255,255,255,.94);
+      color: #a23c82;
+      font-weight: 800;
+      box-shadow: 0 5px 20px #81356b30;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .botao-musica:active { transform: scale(.96); }
+
+    .botao-musica.tocando {
+      background: linear-gradient(135deg, #ec579f, #b04fd0);
+      color: white;
+      border-color: transparent;
+    }
+
+    .botao-musica .indicador {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
     @media (max-width: 390px) {
-      .sabor {
-        gap: 7px;
-        padding: 12px 9px;
-      }
-
-      .nome-sabor {
-        font-size: .92rem;
-      }
-
-      .controles {
-        gap: 7px;
-      }
-
-      .controles button {
-        width: 32px;
-        height: 32px;
-      }
+      .sabor { gap: 7px; padding: 12px 9px; }
+      .nome-sabor { font-size: .92rem; }
+      .controles { gap: 7px; }
+      .controles button { width: 32px; height: 32px; }
+      .botao-musica { right: 10px; bottom: 10px; }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- Áudio: o nome deve corresponder exatamente ao arquivo no GitHub -->
+  <audio id="musicaCafe" preload="auto">
+    <source src="1%20Minute%20Coffee%20break%20with%20Jazz%28MP3_160K%29.mp3" type="audio/mpeg">
+  </audio>
+
+  <button
+    type="button"
+    class="botao-musica"
+    id="botaoMusica"
+    aria-label="Ligar música de cafeteria"
+    aria-pressed="false">
+    <span class="indicador"></span>
+    <span id="textoMusica">Ligar música</span>
+  </button>
+
   <section class="inicio" id="telaInicial">
     <h1 class="marca">Geladinho<br>das Meninas</h1>
-
     <p class="slogan">— Desde 2021, trazendo mais alegria ao seu dia —</p>
 
     <svg class="ilustracao" viewBox="0 0 240 310" role="img" aria-label="Ilustração de um geladinho de morango dentro de um saquinho transparente">
@@ -333,7 +358,7 @@
           <stop offset="45%" stop-color="#f35b9d"/>
           <stop offset="100%" stop-color="#cf2878"/>
         </linearGradient>
-        <linearGradient id="plástico" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id="plastico" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="#ffffff" stop-opacity=".75"/>
           <stop offset="30%" stop-color="#ffffff" stop-opacity=".15"/>
           <stop offset="65%" stop-color="#ffffff" stop-opacity=".35"/>
@@ -343,46 +368,25 @@
 
       <ellipse cx="120" cy="285" rx="65" ry="10" fill="#9e579a" opacity=".15"/>
 
-      <!-- Saquinho com quatro pontas finas na parte superior -->
-      <path d="M78 49
-               L88 20 L96 48
-               L112 14 L120 48
-               L138 20 L142 49
-               L158 29 L160 54
-               L169 70
-               L164 244
-               Q163 267 144 274
-               Q120 283 96 273
-               Q76 265 75 244
-               L70 70 Z"
-            fill="url(#plástico)" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M78 49 L88 20 L96 48 L112 14 L120 48 L138 20 L142 49 L158 29 L160 54 L169 70 L164 244 Q163 267 144 274 Q120 283 96 273 Q76 265 75 244 L70 70 Z"
+        fill="url(#plastico)" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
 
-      <!-- Conteúdo do geladinho -->
-      <path d="M79 82
-               Q119 91 161 82
-               L157 239
-               Q157 257 140 264
-               Q119 272 99 263
-               Q82 256 81 239 Z"
-            fill="url(#geladinho)"/>
+      <path d="M79 82 Q119 91 161 82 L157 239 Q157 257 140 264 Q119 272 99 263 Q82 256 81 239 Z"
+        fill="url(#geladinho)"/>
 
-      <!-- Reflexos do plástico -->
       <path d="M85 83 L89 236 Q90 251 101 256"
-            fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".65"/>
+        fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".65"/>
       <path d="M153 91 L150 228"
-            fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+        fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
 
-      <!-- Rosto simpático -->
       <ellipse cx="105" cy="163" rx="4" ry="6" fill="#74305e"/>
       <ellipse cx="136" cy="163" rx="4" ry="6" fill="#74305e"/>
       <path d="M110 179 Q120 190 132 178"
-            fill="none" stroke="#74305e" stroke-width="3.5" stroke-linecap="round"/>
+        fill="none" stroke="#74305e" stroke-width="3.5" stroke-linecap="round"/>
       <ellipse cx="95" cy="176" rx="7" ry="4" fill="#ffb3ce" opacity=".85"/>
       <ellipse cx="146" cy="176" rx="7" ry="4" fill="#ffb3ce" opacity=".85"/>
-
-      <!-- Amarração inferior do saquinho -->
       <path d="M91 268 Q120 279 149 268"
-            fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+        fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
     </svg>
 
     <p class="descricao">
@@ -402,12 +406,8 @@
     </header>
 
     <div class="categorias">
-      <button type="button" class="categoria ativa" data-categoria="normais">
-        Normais
-      </button>
-      <button type="button" class="categoria" data-categoria="especiais">
-        Especiais
-      </button>
+      <button type="button" class="categoria ativa" data-categoria="normais">Normais</button>
+      <button type="button" class="categoria" data-categoria="especiais">Especiais</button>
     </div>
 
     <section class="lista-sabores ativa" id="normais">
@@ -439,12 +439,8 @@
       </div>
 
       <div class="botoes-resumo">
-        <button type="button" class="botao-secundario" id="botaoVoltar">
-          Voltar ao início
-        </button>
-        <button type="button" class="botao-secundario" id="botaoLimpar">
-          Limpar pedido
-        </button>
+        <button type="button" class="botao-secundario" id="botaoVoltar">Voltar ao início</button>
+        <button type="button" class="botao-secundario" id="botaoLimpar">Limpar pedido</button>
       </div>
     </section>
 
@@ -458,22 +454,12 @@
       "use strict";
 
       const saboresNormais = [
-        "Morango",
-        "Abacaxi",
-        "Abacate",
-        "Milho verde",
-        "Chocolate",
-        "Coco branco",
-        "Coco queimado",
-        "Uva",
-        "Blue Ice",
-        "Limão",
-        "Chiclete"
+        "Morango", "Abacaxi", "Abacate", "Milho verde", "Chocolate",
+        "Coco branco", "Coco queimado", "Uva", "Blue Ice", "Limão", "Chiclete"
       ];
 
       const saboresEspeciais = [
-        "Morango com Nutella",
-        "Maracujá com Nutella"
+        "Morango com Nutella", "Maracujá com Nutella"
       ];
 
       const precos = {};
@@ -500,6 +486,49 @@
       const quantidadeTotal = document.getElementById("quantidadeTotal");
       const valorTotal = document.getElementById("valorTotal");
 
+      const musica = document.getElementById("musicaCafe");
+      const botaoMusica = document.getElementById("botaoMusica");
+      const textoMusica = document.getElementById("textoMusica");
+
+      musica.volume = 0.25;
+
+      function atualizarBotaoMusica(tocando) {
+        botaoMusica.classList.toggle("tocando", tocando);
+        botaoMusica.setAttribute("aria-pressed", String(tocando));
+        botaoMusica.setAttribute(
+          "aria-label",
+          tocando ? "Desligar música de cafeteria" : "Ligar música de cafeteria"
+        );
+        textoMusica.textContent = tocando ? "Música ligada" : "Ligar música";
+      }
+
+      async function tocarMusica() {
+        try {
+          await musica.play();
+          atualizarBotaoMusica(true);
+        } catch (erro) {
+          atualizarBotaoMusica(false);
+          textoMusica.textContent = "Tocar música";
+        }
+      }
+
+      function pausarMusica() {
+        musica.pause();
+        atualizarBotaoMusica(false);
+      }
+
+      botaoMusica.addEventListener("click", () => {
+        if (musica.paused) {
+          tocarMusica();
+        } else {
+          pausarMusica();
+        }
+      });
+
+      musica.addEventListener("play", () => atualizarBotaoMusica(true));
+      musica.addEventListener("pause", () => atualizarBotaoMusica(false));
+      musica.addEventListener("ended", () => atualizarBotaoMusica(false));
+
       function formatarDinheiro(valor) {
         return valor.toLocaleString("pt-BR", {
           style: "currency",
@@ -507,12 +536,18 @@
         });
       }
 
+      function slug(texto) {
+        return texto.normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-");
+      }
+
       function criarSabor(sabor, destino) {
         const cartao = document.createElement("div");
         cartao.className = "sabor";
 
         const informacoes = document.createElement("div");
-
         const nome = document.createElement("div");
         nome.className = "nome-sabor";
         nome.textContent = sabor;
@@ -555,18 +590,9 @@
         controles.appendChild(diminuir);
         controles.appendChild(numero);
         controles.appendChild(aumentar);
-
         cartao.appendChild(informacoes);
         cartao.appendChild(controles);
         destino.appendChild(cartao);
-      }
-
-      function slug(texto) {
-        return texto
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-");
       }
 
       function criarListas() {
@@ -634,8 +660,10 @@
         });
       }
 
-      // Entrada do pedido: o evento é ligado diretamente ao botão.
       botaoIniciar.addEventListener("click", () => {
+        // O toque também tenta iniciar a música.
+        tocarMusica();
+
         telaInicial.classList.add("saindo");
 
         window.setTimeout(() => {
@@ -676,4 +704,3 @@
 
 </body>
 </html>
-
