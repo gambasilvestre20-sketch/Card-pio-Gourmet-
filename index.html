@@ -3,681 +3,984 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5e5ff">
 <title>Geladinho das Meninas</title>
 
 <style>
+:root {
+  --purple: #8738a8;
+  --deep: #612477;
+  --pink: #e85cae;
+  --lavender: #ead6ff;
+  --pale: #fff7ff;
+  --text: #57245f;
+  --muted: #986ca2;
+  --shadow: 0 12px 32px #7b388b1a;
+}
+
 * { box-sizing: border-box; }
 
-body {
+html, body {
+  width: 100%;
+  height: 100%;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ffe0f0, #e9d5ff, #fff0f7);
-  color: #57245f;
-  min-height: 100vh;
 }
 
-header {
-  text-align: center;
-  padding: 25px 15px 10px;
+body {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: var(--text);
+  background: #f8eaff;
+  overflow: hidden;
 }
+
+button, input, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #bb75e0;
+  outline-offset: 3px;
+}
+
+button:active { transform: scale(.97); }
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 10% 12%, #fff 0, transparent 33%),
+    radial-gradient(ellipse at 90% 82%, #f9d9f1 0, transparent 36%),
+    linear-gradient(145deg, #f4e4ff, #fff2fa 58%, #e7d9ff);
+}
+
+.bg-decoration {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .55;
+  filter: blur(1px);
+}
+
+.decoration-one {
+  width: 170px;
+  height: 170px;
+  background: #edcaff;
+  top: -75px;
+  right: -60px;
+}
+
+.decoration-two {
+  width: 130px;
+  height: 130px;
+  background: #ffd6ed;
+  bottom: 5%;
+  left: -75px;
+}
+
+#track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  transform: translateX(0);
+  transition: transform .62s cubic-bezier(.22,.8,.25,1);
+  will-change: transform;
+}
+
+.screen {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  padding:
+    max(18px, env(safe-area-inset-top))
+    19px
+    max(108px, calc(env(safe-area-inset-bottom) + 96px));
+}
+
+.screen::-webkit-scrollbar { display: none; }
+
+.screen-inner {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.mini-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  font-weight: 900;
+  color: var(--deep);
+  font-size: 13px;
+}
+
+.mini-brand img {
+  width: 43px;
+  height: 43px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.pill {
+  background: #ffffffb8;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  padding: 8px 11px;
+  font-size: 11px;
+  color: var(--purple);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+h1, h2, h3, p { margin-top: 0; }
 
 h1 {
-  color: #a52b88;
-  margin-bottom: 8px;
-  font-size: 2rem;
-}
-
-.slogan {
-  font-size: 14px;
-  color: #85518b;
-}
-
-main {
-  width: min(700px, 94%);
-  margin: 15px auto 40px;
-}
-
-.panel {
-  background: rgba(255,255,255,.91);
-  border-radius: 22px;
-  padding: 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 6px 20px #9d58a51c;
+  font-size: clamp(29px, 8vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  color: var(--deep);
+  margin-bottom: 12px;
 }
 
 h2 {
-  color: #a52b88;
-  margin-top: 0;
+  font-size: 26px;
+  letter-spacing: -.6px;
+  color: var(--deep);
+  margin-bottom: 8px;
 }
 
-p { line-height: 1.5; }
+h3 {
+  font-size: 16px;
+  color: var(--deep);
+  margin-bottom: 6px;
+}
 
-button {
-  border: none;
-  border-radius: 13px;
-  padding: 13px 18px;
-  font-size: 15px;
-  font-weight: bold;
+p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.eyebrow {
+  color: var(--pink);
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 1.7px;
+  margin-bottom: 9px;
+}
+
+.hero {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 410px;
+  margin: auto;
+  padding: 12px 0 28px;
+  animation: fadeUp .75s both;
+}
+
+.hero-logo {
+  display: block;
+  width: min(73%, 280px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin: 0 auto 16px;
+  filter: drop-shadow(0 13px 15px #7e3d8b22);
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+.hero p {
+  max-width: 290px;
+  margin: 0 auto 24px;
+  font-size: 14px;
+}
+
+.button {
+  border: 0;
+  border-radius: 17px;
+  padding: 15px 18px;
+  min-height: 51px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, filter .2s;
+}
+
+.button:active { transform: scale(.96); }
+
+.primary {
+  color: white;
+  background: linear-gradient(110deg, #b34bd0, #e858ad);
+  box-shadow: 0 9px 20px #b54dbd35;
+}
+
+.primary:hover { filter: brightness(1.04); }
+
+.secondary {
+  color: var(--purple);
+  background: #ffffffc9;
+  border: 1px solid #e9d1f4;
+}
+
+.full { width: 100%; }
+
+.start-button {
+  width: 100%;
+  max-width: 310px;
+  position: relative;
+  overflow: hidden;
+  animation: buttonBob 2.4s ease-in-out infinite;
+}
+
+.start-button::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -70%;
+  width: 35%;
+  height: 220%;
+  transform: rotate(25deg);
+  background: #ffffff35;
+  animation: shine 3.6s infinite;
+}
+
+.hero-hint {
+  margin-top: 17px;
+  font-size: 11px;
+  color: #a77db0;
+}
+
+.bottom-dock {
+  position: fixed;
+  z-index: 20;
+  left: 50%;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(92%, 470px);
+  background: #ffffffdf;
+  backdrop-filter: blur(18px);
+  border: 1px solid #ffffff;
+  border-radius: 22px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 30px #6630781b;
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.bottom-dock.visible { display: flex; }
+
+.dock-back {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 14px;
+  color: var(--purple);
+  background: #f1e1fa;
+  font-size: 22px;
   cursor: pointer;
 }
 
-.primary {
-  background: linear-gradient(100deg, #d84eaa, #9556d9);
-  color: white;
+.dock-main { flex: 1; min-width: 0; }
+
+.dock-main .button {
   width: 100%;
-  margin-top: 12px;
+  min-height: 44px;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 13px;
 }
 
-.secondary {
-  background: #f3e3f8;
-  color: #773d86;
+.dock-total {
+  font-size: 10px;
+  text-align: center;
+  color: var(--muted);
+  margin-top: 5px;
 }
 
-.start-illustration {
-  width: 130px;
-  height: 150px;
-  margin: 10px auto 20px;
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 15px 0 8px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: #d9b7e8;
+  transition: width .3s, background .3s;
+}
+
+.dot.active {
+  width: 23px;
+  background: var(--pink);
+}
+
+.section-heading { margin-bottom: 20px; }
+
+.section-heading p { margin-bottom: 0; font-size: 13px; }
+
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.category-card {
   position: relative;
+  overflow: hidden;
+  border: 1px solid #ffffff;
+  border-radius: 25px;
+  padding: 20px;
+  min-height: 180px;
+  text-align: left;
+  color: var(--deep);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .3s, box-shadow .3s;
 }
 
-.popsicle {
-  position: absolute;
-  width: 72px;
-  height: 115px;
-  left: 29px;
-  top: 8px;
-  border-radius: 25px 25px 18px 18px;
-  background: linear-gradient(150deg, #ff85bf, #e9449b);
-  transform: rotate(-8deg);
-  box-shadow: inset -8px -5px 0 #c92f871a;
+.category-card:hover { transform: translateY(-3px); }
+
+.category-card.normal {
+  background: linear-gradient(135deg, #ead9ff, #f8e9ff);
 }
 
-.popsicle:before {
+.category-card.special {
+  background: linear-gradient(135deg, #ffdced, #f9e7ff);
+}
+
+.category-card::after {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 48px;
-  left: 26px;
-  top: 105px;
-  border-radius: 0 0 8px 8px;
-  background: #d8a16e;
-}
-
-.popsicle:after {
-  content: "";
-  position: absolute;
-  width: 42px;
-  height: 6px;
-  left: 14px;
-  top: 22px;
+  width: 140px;
+  height: 140px;
+  right: -28px;
+  bottom: -47px;
   border-radius: 50%;
-  background: #ffffff80;
+  background: #ffffff62;
+}
+
+.category-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 57px;
+  height: 57px;
+  border-radius: 19px;
+  background: #ffffffa6;
+  font-size: 30px;
+  margin-bottom: 14px;
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+.category-card strong {
+  display: block;
+  font-size: 21px;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.category-card small {
+  font-size: 12px;
+  color: #90639e;
+  position: relative;
+  z-index: 1;
+}
+
+.category-arrow {
+  position: absolute;
+  right: 18px;
+  top: 20px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffffb8;
+  font-size: 21px;
+  z-index: 1;
+}
+
+.panel {
+  background: #ffffffd9;
+  border: 1px solid #ffffff;
+  border-radius: 23px;
+  padding: 17px;
+  box-shadow: var(--shadow);
+}
+
+.flavor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .flavor {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid #f0e1f2;
-  padding: 13px 0;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 17px;
+  background: #fffaff;
+  border: 1px solid #f1e1f5;
+  animation: fadeUp .35s both;
 }
 
-.flavor:last-child { border-bottom: none; }
+.flavor-info { flex: 1; min-width: 0; }
 
 .flavor-name {
-  font-weight: bold;
-  line-height: 1.4;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--deep);
 }
 
-.price {
-  font-size: 13px;
-  color: #96619c;
+.flavor-price {
+  font-size: 11px;
   margin-top: 4px;
+  color: var(--muted);
 }
 
-.quantity {
+.counter {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
-.quantity button {
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  background: #f0dcfa;
-  color: #823c9b;
-  font-size: 21px;
+.counter button {
+  width: 33px;
+  height: 33px;
+  border: 0;
+  border-radius: 12px;
+  background: #efdef9;
+  color: var(--purple);
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .18s, background .18s;
 }
 
-.quantity span {
-  min-width: 18px;
+.counter button.plus {
+  background: linear-gradient(135deg, #d68bea, #ed91c7);
+  color: white;
+}
+
+.counter button:active { transform: scale(.82); }
+
+.counter .count {
+  min-width: 16px;
   text-align: center;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: 900;
 }
 
-.total {
-  background: #fae9f8;
-  border-radius: 15px;
-  padding: 16px;
+.price-warning {
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #865b30;
+  background: #fff1d9;
+  margin: 14px 0;
+}
+
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 14px 0;
+}
+
+.cart-line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #f1e3f5;
+  font-size: 13px;
+}
+
+.cart-line strong { color: var(--deep); }
+.cart-line small { display: block; color: var(--muted); margin-top: 3px; }
+
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+}
+
+.cart-qty button {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 9px;
+  background: #efdef9;
+  color: var(--purple);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cart-qty span { font-weight: 900; }
+
+.total-box {
+  background: linear-gradient(135deg, #f3e4ff, #ffebf6);
+  border-radius: 17px;
+  padding: 15px;
   margin-top: 16px;
 }
 
-.total-line {
+.total-row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin: 6px 0;
+  gap: 10px;
+  margin: 7px 0;
+  font-size: 13px;
 }
 
-.grand-total {
-  font-size: 21px;
-  font-weight: bold;
-  color: #a52b88;
-  border-top: 1px solid #e8c9e8;
+.total-row.final {
+  border-top: 1px solid #ddc4e8;
   padding-top: 12px;
   margin-top: 12px;
+  color: var(--deep);
+  font-size: 19px;
+  font-weight: 900;
 }
 
-label {
+.field { margin-top: 15px; }
+
+.field label {
   display: block;
-  font-weight: bold;
-  margin: 15px 0 7px;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 7px;
+  color: var(--deep);
 }
 
-input, textarea {
+.field input, .field textarea {
   width: 100%;
-  padding: 13px;
-  border: 1px solid #dfc4e4;
-  border-radius: 11px;
+  border: 1px solid #e7d1ef;
   background: #fffaff;
-  color: #57245f;
-  font: inherit;
+  color: var(--text);
+  border-radius: 13px;
+  padding: 13px;
+  font-size: 14px;
 }
 
-textarea {
-  min-height: 85px;
-  resize: vertical;
+.field textarea { min-height: 90px; resize: vertical; }
+
+.payment-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
 }
 
 .payment-option {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px;
-  border: 1px solid #ead7ef;
-  border-radius: 12px;
-  margin-top: 9px;
+  padding: 13px;
+  border-radius: 14px;
+  border: 1px solid #e9d8f0;
+  background: #fffaff;
   cursor: pointer;
-  font-weight: normal;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.payment-option:has(input:checked) {
+  border-color: #c77bdd;
+  background: #f5e6ff;
 }
 
 .payment-option input {
-  width: auto;
-  accent-color: #a52b88;
+  accent-color: var(--purple);
+  width: 17px;
+  height: 17px;
 }
 
-.notice {
-  background: #fff3d8;
-  color: #78531a;
-  padding: 12px;
-  border-radius: 12px;
-  font-size: 13px;
-  margin-top: 12px;
+.empty {
+  text-align: center;
+  padding: 25px 10px;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
-.hidden { display: none !important; }
+.empty-icon {
+  font-size: 38px;
+  display: block;
+  margin-bottom: 9px;
+}
 
 .music-button {
   position: fixed;
-  bottom: 15px;
-  right: 15px;
-  width: auto;
-  z-index: 5;
-  background: #fff;
-  color: #963b9d;
-  border: 1px solid #ebc9f1;
-  box-shadow: 0 3px 12px #00000012;
+  z-index: 24;
+  top: max(12px, env(safe-area-inset-top));
+  right: 13px;
+  background: #ffffffd9;
+  color: var(--purple);
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 900;
+  box-shadow: 0 5px 18px #68327b14;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
 }
 
-footer {
+.footer-note {
   text-align: center;
-  color: #91689a;
-  padding: 5px 15px 75px;
-  font-size: 12px;
+  color: #ad86b5;
+  font-size: 10px;
+  margin-top: auto;
+  padding: 24px 0 5px;
 }
 
-@media (max-width: 430px) {
-  h1 { font-size: 1.65rem; }
-  .panel { padding: 17px; }
-  .flavor { gap: 7px; }
-  .quantity { gap: 7px; }
+.toast {
+  position: fixed;
+  z-index: 70;
+  left: 50%;
+  bottom: 100px;
+  transform: translate(-50%, 20px);
+  background: #612477;
+  color: white;
+  padding: 12px 17px;
+  border-radius: 14px;
+  font-size: 12px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  width: max-content;
+  max-width: 85%;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Transição de gelo */
+#iceTransition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+}
+
+#iceTransition.active { display: block; }
+
+.ice-cube {
+  position: absolute;
+  top: -130px;
+  width: var(--size);
+  height: var(--size);
+  left: var(--left);
+  border-radius: 22%;
+  background:
+    linear-gradient(135deg, #ffffffed 0%, #d9f7ffcc 18%, #a4d9f2a6 43%, #ffffffc9 55%, #8ac6e5c9 100%);
+  border: 2px solid #ffffffd9;
+  box-shadow:
+    inset 5px 5px 10px #ffffffc9,
+    inset -6px -7px 12px #5dadd070,
+    0 6px 14px #4d8ba33d;
+  opacity: 0;
+  transform: rotate(var(--rotation));
+  animation: iceFall var(--duration) cubic-bezier(.28,.72,.43,1) forwards;
+  animation-delay: var(--delay);
+}
+
+.ice-cube::before {
+  content: "";
+  position: absolute;
+  top: 18%;
+  left: 18%;
+  width: 32%;
+  height: 13%;
+  border-radius: 50%;
+  background: #ffffffed;
+  transform: rotate(-35deg);
+}
+
+.ice-cube::after {
+  content: "";
+  position: absolute;
+  right: 18%;
+  bottom: 17%;
+  width: 27%;
+  height: 40%;
+  border-radius: 50%;
+  background: #ffffff5c;
+  transform: rotate(25deg);
+}
+
+#iceCrack {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#iceCrack path {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1300;
+  stroke-dashoffset: 1300;
+  filter: drop-shadow(0 0 3px #65b5d8);
+}
+
+#iceTransition.cracking #iceCrack {
+  opacity: 1;
+}
+
+#iceTransition.cracking #iceCrack path {
+  animation: drawCrack .55s ease-out forwards;
+}
+
+#iceTransition.cracking .ice-cube {
+  animation: iceShatter .85s ease-in forwards;
+  animation-delay: var(--shatter-delay, 0s);
+}
+
+@keyframes iceFall {
+  0% { opacity: 0; transform: translateY(-10vh) rotate(var(--rotation)); }
+  12% { opacity: .98; }
+  80% { opacity: 1; }
+  100% {
+    opacity: 1;
+    top: var(--bottom);
+    transform: rotate(calc(var(--rotation) + 90deg));
+  }
+}
+
+@keyframes iceShatter {
+  0% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift-x), 120vh) rotate(430deg) scale(.55);
+  }
+}
+
+@keyframes drawCrack { to { stroke-dashoffset: 0; } }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
+}
+
+@keyframes buttonBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-5px) rotate(3deg); }
+}
+
+@keyframes shine {
+  0%, 55% { left: -70%; }
+  100% { left: 140%; }
+}
+
+@media (min-width: 560px) {
+  .screen { padding-left: 28px; padding-right: 28px; }
+  .category-grid { grid-template-columns: 1fr 1fr; }
+  .category-card { min-height: 220px; }
+}
+
+@media (max-height: 690px) {
+  .hero-logo { width: min(48%, 190px); margin-bottom: 8px; }
+  .hero h1 { font-size: 29px; }
+  .hero p { margin-bottom: 15px; }
+  .category-card { min-height: 150px; padding: 15px; }
+  .category-icon { width: 46px; height: 46px; margin-bottom: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  #track { transition-duration: .01ms; }
 }
 </style>
 </head>
 
 <body>
-<header>
-  <h1>Geladinho das Meninas</h1>
-  <div class="slogan">— Desde 2021, trazendo mais alegria ao seu dia —</div>
-</header>
+<div id="app">
+  <div class="bg-decoration decoration-one"></div>
+  <div class="bg-decoration decoration-two"></div>
 
-<main>
-  <section id="home" class="panel" style="text-align:center">
-    <div class="start-illustration">
-      <div class="popsicle"></div>
-    </div>
-    <h2>Um geladinho para alegrar seu dia!</h2>
-    <p>Escolha seus sabores favoritos e prepare seu pedido com carinho.</p>
-    <button class="primary" onclick="iniciarPedido()">Iniciar pedido</button>
-  </section>
+  <button id="musicButton" class="music-button" type="button"
+    onclick="toggleMusic()">♫ Ligar música</button>
 
-  <section id="catalogo" class="hidden">
-    <div class="panel">
-      <h2>Geladinhos normais</h2>
-      <p>R$ 5,00 cada</p>
-      <div id="normais"></div>
-    </div>
+  <main id="track">
 
-    <div class="panel">
-      <h2>Geladinhos especiais</h2>
-      <p>Os preços dos especiais ainda serão confirmados.</p>
-      <div id="especiais"></div>
-      <div class="notice">
-        Os especiais podem ser escolhidos, mas o preço precisará ser confirmado antes de fechar o pedido.
+    <!-- TELA 1: INÍCIO -->
+    <section class="screen hero" data-screen="0">
+      <div class="screen-inner hero-content">
+        <img src="logo.png" class="hero-logo"
+          alt="Logo Geladinho das Meninas"
+          onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block'">
+
+        <div id="logoFallback" style="display:none;font-size:62px;margin-bottom:15px">❄</div>
+
+        <div class="eyebrow">Feito com carinho desde 2021</div>
+        <h1>Um carinho<br>bem geladinho!</h1>
+        <p>Escolha seus sabores favoritos e deixe seu dia mais gostoso.</p>
+
+        <button class="button primary start-button" type="button"
+          onclick="startExperience()">Iniciar pedido <span aria-hidden="true"> ✦</span></button>
+
+        <div class="hero-hint">Uma explosão de sabor espera por você</div>
       </div>
-    </div>
+    </section>
 
-    <div class="panel">
-      <h2>Resumo do pedido</h2>
-      <div id="resumo"></div>
-      <div class="total">
-        <div class="total-line">
-          <span>Geladinhos normais</span>
-          <strong id="subtotalNormal">R$ 0,00</strong>
+    <!-- TELA 2: CATEGORIAS -->
+    <section class="screen" data-screen="1">
+      <div class="screen-inner">
+        <div class="topline">
+          <div class="mini-brand">
+            <img src="logo.png" alt="" onerror="this.style.display='none'">
+            <span>Geladinho das Meninas</span>
+          </div>
+          <span class="pill">01 / 04</span>
         </div>
-        <div class="total-line">
-          <span>Geladinhos especiais</span>
-          <strong id="subtotalEspecial">A confirmar</strong>
+
+        <div class="section-heading">
+          <div class="eyebrow">Escolha sua aventura</div>
+          <h1>Nossos<br>geladinhos</h1>
+          <p>Qual vai ser o seu favorito hoje?</p>
         </div>
-        <div class="total-line grand-total">
-          <span>Total conhecido</span>
-          <span id="total">R$ 0,00</span>
+
+        <div class="category-grid">
+          <button class="category-card normal" type="button"
+            onclick="openCategory('normal')">
+            <span class="category-arrow">↗</span>
+            <span class="category-icon">🍓</span>
+            <strong>Normais</strong>
+            <small>11 sabores · R$ 5,00 cada</small>
+          </button>
+
+          <button class="category-card special" type="button"
+            onclick="openCategory('special')">
+            <span class="category-arrow">↗</span>
+            <span class="category-icon">💗</span>
+            <strong>Especiais</strong>
+            <small>Combinações irresistíveis</small>
+          </button>
         </div>
+
+        <div class="panel" style="margin-top:17px">
+          <h3>Um toque de felicidade</h3>
+          <p style="font-size:12px;margin-bottom:0">
+            Escolha seus sabores, ajuste as quantidades e confira seu pedido antes de enviar.
+          </p>
+        </div>
+
+        <div class="footer-note">Arraste para os lados para navegar</div>
       </div>
+    </section>
 
-      <button class="primary" onclick="abrirCheckout()">Finalizar pedido</button>
-      <button class="secondary" style="width:100%;margin-top:10px"
-        onclick="limparPedido()">Limpar pedido</button>
-      <button class="secondary" style="width:100%;margin-top:10px"
-        onclick="voltarInicio()">Voltar ao início</button>
-    </div>
-  </section>
-
-  <section id="checkout" class="hidden">
-    <div class="panel">
-      <h2>Seus dados para entrega</h2>
-      <p>Preencha seus dados para preparar a mensagem do pedido.</p>
-
-      <form id="pedidoForm">
-        <label for="nome">Seu nome</label>
-        <input id="nome" name="nome" type="text"
-          placeholder="Digite seu nome" autocomplete="name" required>
-
-        <label for="endereco">Endereço completo</label>
-        <textarea id="endereco" name="endereco"
-          placeholder="Rua, número, bairro e ponto de referência"
-          autocomplete="street-address" required></textarea>
-
-        <label>Forma de pagamento</label>
-
-        <label class="payment-option">
-          <input type="radio" name="pagamento" value="Cédulas (dinheiro)" required>
-          Cédulas (dinheiro)
-        </label>
-
-        <label class="payment-option">
-          <input type="radio" name="pagamento" value="Cartão" required>
-          Cartão
-        </label>
-
-        <label class="payment-option">
-          <input type="radio" name="pagamento" value="Pix" required>
-          Pix
-        </label>
-
-        <div id="trocoArea" class="hidden">
-          <label for="troco">Precisa de troco? Para qual valor?</label>
-          <input id="troco" type="text"
-            placeholder="Ex.: vou pagar com R$ 50,00">
+    <!-- TELA 3: SABORES -->
+    <section class="screen" data-screen="2">
+      <div class="screen-inner">
+        <div class="topline">
+          <button class="pill" type="button" onclick="goTo(1)">← Categorias</button>
+          <span class="pill" id="categoryBadge">Sabores</span>
         </div>
 
-        <div id="avisoEspecial" class="notice hidden">
-          Você escolheu geladinho especial. O preço ainda precisa ser confirmado.
-          O pedido será enviado com essa observação para a loja.
+        <div class="section-heading">
+          <div class="eyebrow">Monte seu pedido</div>
+          <h1 id="flavorHeading">Escolha seus sabores</h1>
+          <p id="flavorSubtitle">Toque no + para adicionar.</p>
         </div>
 
-        <button class="primary" type="submit">Enviar pedido pelo WhatsApp</button>
-        <button class="secondary" type="button" style="width:100%;margin-top:10px"
-          onclick="voltarCatalogo()">Voltar aos sabores</button>
-      </form>
-    </div>
-  </section>
-</main>
-
-<footer>
-  Geladinho das Meninas · Feito com carinho
-</footer>
-
-<button class="music-button" id="musicButton" onclick="alternarMusica()">
-  Ligar música
-</button>
-
-<audio id="musica" loop preload="none">
-  <source src="1%20Minute%20Coffee%20break%20with%20Jazz%28MP3_160K%29.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-const WHATSAPP_RECEPTOR = "5534991387357";
-const PRECO_NORMAL = 5;
-
-const saboresNormais = [
-  "Morango",
-  "Abacaxi",
-  "Abacate",
-  "Milho verde",
-  "Chocolate",
-  "Coco branco",
-  "Coco queimado",
-  "Uva",
-  "Blue Ice",
-  "Limão",
-  "Chiclete"
-];
-
-const saboresEspeciais = [
-  "Morango com Nutella",
-  "Maracujá com Nutella"
-];
-
-const quantidades = {};
-
-[...saboresNormais, ...saboresEspeciais].forEach(sabor => {
-  quantidades[sabor] = 0;
-});
-
-const dinheiro = valor => valor.toLocaleString("pt-BR", {
-  style: "currency",
-  currency: "BRL"
-});
-
-function iniciarPedido() {
-  mostrar("catalogo");
-  renderizarSabores();
-  atualizarResumo();
-
-  const musica = document.getElementById("musica");
-  if (musica.paused) {
-    musica.volume = 0.25;
-    musica.play().then(() => {
-      document.getElementById("musicButton").textContent = "Desligar música";
-    }).catch(() => {});
-  }
-}
-
-function mostrar(idVisivel) {
-  ["home", "catalogo", "checkout"].forEach(id => {
-    document.getElementById(id).classList.toggle("hidden", id !== idVisivel);
-  });
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function voltarInicio() {
-  mostrar("home");
-}
-
-function voltarCatalogo() {
-  mostrar("catalogo");
-}
-
-function renderizarLista(id, lista, especial) {
-  const container = document.getElementById(id);
-  container.innerHTML = "";
-
-  lista.forEach(sabor => {
-    const linha = document.createElement("div");
-    linha.className = "flavor";
-
-    const info = document.createElement("div");
-    const nome = document.createElement("div");
-    nome.className = "flavor-name";
-    nome.textContent = sabor;
-
-    const preco = document.createElement("div");
-    preco.className = "price";
-    preco.textContent = especial ? "Preço a confirmar" : dinheiro(PRECO_NORMAL);
-
-    info.appendChild(nome);
-    info.appendChild(preco);
-
-    const controle = document.createElement("div");
-    controle.className = "quantity";
-
-    const menos = document.createElement("button");
-    menos.type = "button";
-    menos.textContent = "−";
-    menos.setAttribute("aria-label", "Diminuir " + sabor);
-    menos.onclick = () => alterarQuantidade(sabor, -1);
-
-    const numero = document.createElement("span");
-    numero.id = "qtd-" + idSeguro(sabor);
-    numero.textContent = quantidades[sabor];
-
-    const mais = document.createElement("button");
-    mais.type = "button";
-    mais.textContent = "+";
-    mais.setAttribute("aria-label", "Adicionar " + sabor);
-    mais.onclick = () => alterarQuantidade(sabor, 1);
-
-    controle.append(menos, numero, mais);
-    linha.append(info, controle);
-    container.appendChild(linha);
-  });
-}
-
-function idSeguro(texto) {
-  return texto.normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]/g, "-");
-}
-
-function renderizarSabores() {
-  renderizarLista("normais", saboresNormais, false);
-  renderizarLista("especiais", saboresEspeciais, true);
-}
-
-function alterarQuantidade(sabor, mudanca) {
-  quantidades[sabor] = Math.max(0, quantidades[sabor] + mudanca);
-
-  const numero = document.getElementById("qtd-" + idSeguro(sabor));
-  if (numero) numero.textContent = quantidades[sabor];
-
-  atualizarResumo();
-}
-
-function itensEscolhidos(lista) {
-  return lista.filter(sabor => quantidades[sabor] > 0);
-}
-
-function totalNormal() {
-  return saboresNormais.reduce((total, sabor) =>
-    total + quantidades[sabor] * PRECO_NORMAL, 0);
-}
-
-function atualizarResumo() {
-  const escolhidos = [...saboresNormais, ...saboresEspeciais]
-    .filter(sabor => quantidades[sabor] > 0);
-
-  const resumo = document.getElementById("resumo");
-  resumo.innerHTML = "";
-
-  if (escolhidos.length === 0) {
-    resumo.textContent = "Você ainda não escolheu nenhum geladinho.";
-  } else {
-    escolhidos.forEach(sabor => {
-      const linha = document.createElement("div");
-      linha.className = "total-line";
-
-      const descricao = document.createElement("span");
-      descricao.textContent = quantidades[sabor] + " × " + sabor;
-
-      const preco = document.createElement("strong");
-      preco.textContent = saboresNormais.includes(sabor)
-        ? dinheiro(quantidades[sabor] * PRECO_NORMAL)
-        : "Preço a confirmar";
-
-      linha.append(descricao, preco);
-      resumo.appendChild(linha);
-    });
-  }
-
-  document.getElementById("subtotalNormal").textContent = dinheiro(totalNormal());
-
-  const qtdEspeciais = saboresEspeciais.reduce((soma, sabor) =>
-    soma + quantidades[sabor], 0);
-
-  document.getElementById("subtotalEspecial").textContent =
-    qtdEspeciais > 0 ? "A confirmar" : dinheiro(0);
-
-  document.getElementById("total").textContent = dinheiro(totalNormal());
-}
-
-function abrirCheckout() {
-  const escolhidos = [...saboresNormais, ...saboresEspeciais]
-    .filter(sabor => quantidades[sabor] > 0);
-
-  if (escolhidos.length === 0) {
-    alert("Escolha pelo menos um geladinho antes de finalizar!");
-    return;
-  }
-
-  const temEspecial = saboresEspeciais.some(sabor => quantidades[sabor] > 0);
-  document.getElementById("avisoEspecial").classList.toggle("hidden", !temEspecial);
-
-  mostrar("checkout");
-}
-
-document.querySelectorAll('input[name="pagamento"]').forEach(opcao => {
-  opcao.addEventListener("change", () => {
-    const dinheiroSelecionado = document.querySelector(
-      'input[name="pagamento"]:checked'
-    )?.value === "Cédulas (dinheiro)";
-
-    document.getElementById("trocoArea")
-      .classList.toggle("hidden", !dinheiroSelecionado);
-  });
-});
-
-document.getElementById("pedidoForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const nome = document.getElementById("nome").value.trim();
-  const endereco = document.getElementById("endereco").value.trim();
-  const pagamento = document.querySelector(
-    'input[name="pagamento"]:checked'
-  )?.value;
-
-  if (!nome || !endereco || !pagamento) {
-    alert("Preencha seu nome, endereço e forma de pagamento.");
-    return;
-  }
-
-  const escolhidos = [...saboresNormais, ...saboresEspeciais]
-    .filter(sabor => quantidades[sabor] > 0);
-
-  if (escolhidos.length === 0) {
-    alert("Seu pedido está vazio.");
-    mostrar("catalogo");
-    return;
-  }
-
-  const qtdEspeciais = saboresEspeciais.reduce((soma, sabor) =>
-    soma + quantidades[sabor], 0);
-
-  const linhasItens = escolhidos.map(sabor => {
-    const quantidade = quantidades[sabor];
-
-    if (saboresNormais.includes(sabor)) {
-      return `• ${sabor}: ${quantidade} × ${dinheiro(PRECO_NORMAL)} = ${dinheiro(quantidade * PRECO_NORMAL)}`;
-    }
-
-    return `• ${sabor}: ${quantidade} unidade(s) — preço a confirmar`;
-  });
-
-  const troco = document.getElementById("troco").value.trim();
-
-  let mensagem =
-`Olá! Gostaria de fazer um pedido no Geladinho das Meninas.
-
-*NOME:* ${nome}
-
-*ENDEREÇO DE ENTREGA:*
-${endereco}
-
-*PEDIDO:*
-${linhasItens.join("\n")}
-
-*TOTAL CONHECIDO:* ${dinheiro(totalNormal())}
-*PAGAMENTO:* ${pagamento}`;
-
-  if (pagamento === "Cédulas (dinheiro)" && troco) {
-    mensagem += `\n*TROCO:* ${troco}`;
-  }
-
-  if (qtdEspeciais > 0) {
-    mensagem += "\n\n*OBSERVAÇÃO:* O preço dos geladinhos especiais precisa ser confirmado pela loja.";
-  }
-
-  mensagem += "\n\nPor favor, confirmem o pedido e o valor final. Obrigado(a)!";
-
-  const url = "https://wa.me/" + WHATSAPP_RECEPTOR +
-    "?text=" + encodeURIComponent(mensagem);
-
-  // Abre o WhatsApp com a mensagem pronta para a loja.
-  window.location.href = url;
-});
-
-function limparPedido() {
-  const confirmar = confirm("Tem certeza de que deseja limpar o pedido?");
-  if (!confirmar) return;
-
-  Object.keys(quantidades).forEach(sabor => {
-    quantidades[sabor] = 0;
-  });
-
-  renderizarSabores();
-  atualizarResumo();
-}
-
-function alternarMusica() {
-  const musica = document.getElementById("musica");
-  const botao = document.getElementById("musicButton");
-
-  if (musica.paused) {
-    musica.volume = 0.25;
-    musica.play().then(() => {
-      botao.textContent = "Desligar música";
-    }).catch(() => {
-      alert("Não consegui tocar a música. Confira se o arquivo MP3 está na mesma pasta do index.html.");
-    });
-  } else {
-    musica.pause();
-    botao.textContent = "Ligar música";
-  }
-}
-</script>
-</body>
-</html>
+        <div class="panel">
+          <div id="flavorList" class="flavor-list"></div>
+          <div id="specialWarning" class="price-warning hidden">
+            O preço dos geladinhos especiais será confirmado pela loja antes de fechar o pedido.
+          </div>
+        </div>
+
+        <div class="footer-note">Você pode mudar as quantidades quando quiser</div>
+      </div>
+    </section>
+
+    <!-- TELA 4: CARRINHO -->
+    <section class="screen" data-screen="3">
+      <div class="screen-inner">
+        <div class="topline">
+          <button class="pill" type="button" onclick="goTo(1)">← Categorias</button>
+          <span class="pill">Seu carrinho</span>
+        </div>
+
+        <div class="section-heading">
+          <div class="eyebrow">Quase lá!</div>
+          <h1>Seu pedido</h1>
+          <p>Confira seus sabores e quantidades.</p>
+        </div>
+
+        <div class="panel">
+          <div id="cartItems" class="cart-list"></div>
+
+          <div id="cartEmpty" class="empty">
+            <span class="empty-icon">🛍️</span>
+            <strong>Seu carrinho está esperando!</strong>
+            <p>Volte aos sabores e escolha seus ge
