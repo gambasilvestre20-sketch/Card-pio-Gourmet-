@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7b5dc">
+  <title>Geladinho das Meninas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(
+        145deg,
+        #ffb7dc 0%,
+        #ee8fd0 35%,
+        #c28af5 70%,
+        #8e62e8 100%
+      );
+    }
+
+    .pagina {
+      width: min(100% - 32px, 900px);
+      margin: 0 auto;
+      padding-bottom: 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 25px 0;
+      font-size: .85rem;
+      letter-spacing: .06em;
+      font-weight: 600;
+    }
+
+    .tag {
+      border: 1px solid #ffffff80;
+      border-radius: 999px;
+      padding: 8px 13px;
+      background: #ffffff20;
+      font-size: .7rem;
+      white-space: nowrap;
+    }
+
+    .hero {
+      min-height: 82vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 18px 60px;
+      animation: entrar 1s ease both;
+    }
+
+    .ilustracao {
+      width: min(72vw, 270px);
+      margin-bottom: 22px;
+      filter: drop-shadow(0 18px 24px #652b8240);
+      animation: flutuar 4s ease-in-out infinite;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.7rem, 10vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.25;
+      text-shadow: 0 6px 20px #6c2a8640;
+    }
+
+    .linha {
+      width: 94px;
+      height: 4px;
+      margin: 25px auto 22px;
+      border-radius: 99px;
+      background: linear-gradient(
+        90deg,
+        #ffffff80,
+        white,
+        #ffffff80
+      );
+    }
+
+    .slogan {
+      max-width: 470px;
+      font-size: clamp(1rem, 3.5vw, 1.25rem);
+      line-height: 1.9;
+      font-weight: 300;
+      text-shadow: 0 2px 12px #6c2a8630;
+    }
+
+    .rolar {
+      margin-top: 45px;
+      color: white;
+      text-decoration: none;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .rolar span {
+      display: block;
+      margin-top: 8px;
+      font-size: 1.5rem;
+      animation: descer 1.5s ease-in-out infinite;
+    }
+
+    .sobre {
+      margin-top: 20px;
+      padding: clamp(28px, 6vw, 55px);
+      border: 1px solid #ffffff65;
+      border-radius: 30px;
+      background: #ffffff1c;
+      text-align: center;
+      box-shadow: 0 18px 50px #632c8520;
+    }
+
+    .sobre h2 {
+      margin-bottom: 16px;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 400;
+    }
+
+    .sobre p {
+      max-width: 590px;
+      margin: 0 auto;
+      line-height: 1.9;
+      font-size: .98rem;
+      font-weight: 300;
+    }
+
+    .detalhes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .detalhe {
+      padding: 20px 10px;
+      border-radius: 20px;
+      background: #ffffff20;
+      border: 1px solid #ffffff45;
+    }
+
+    .detalhe strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .95rem;
+    }
+
+    .detalhe small {
+      display: block;
+      font-size: .75rem;
+      line-height: 1.6;
+    }
+
+    .mensagem {
+      margin-top: 28px;
+      padding: 30px 20px;
+      border-radius: 25px;
+      background: linear-gradient(
+        135deg,
+        #ffffff28,
+        #ffffff10
+      );
+      text-align: center;
+    }
+
+    .mensagem p {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 35px 10px 0;
+      text-align: center;
+      font-size: .78rem;
+      opacity: .9;
+      line-height: 1.8;
+    }
+
+    @keyframes entrar {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes flutuar {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-9px);
+      }
+    }
+
+    @keyframes descer {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(6px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding: 20px 0;
+        font-size: .72rem;
+      }
+
+      .tag {
+        font-size: .58rem;
+        padding: 7px 9px;
+      }
+
+      .hero {
+        min-height: 82vh;
+      }
+
+      .detalhes {
+        grid-template-columns: 1fr;
+      }
+
+      .detalhe {
+        padding: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pagina">
+
+    <header>
+      <div>Geladinho das Meninas</div>
+      <div class="tag">Feito com carinho</div>
+    </header>
+
+    <main>
+      <section class="hero">
+
+        <svg class="ilustracao"
+          viewBox="0 0 300 300"
+          role="img"
+          aria-label="Desenho de um geladinho de laranja">
+
+          <defs>
+            <linearGradient id="geladinho"
+              x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fff4a8"/>
+              <stop offset="45%" stop-color="#ffb347"/>
+              <stop offset="100%" stop-color="#ff7b91"/>
+            </linearGradient>
+          </defs>
+
+          <ellipse cx="150" cy="262" rx="75" ry="15"
+            fill="#6b287d" opacity=".16"/>
+
+          <path d="M118 38 Q150 28 182 38
+            L198 210 Q200 231 180 240
+            Q150 251 120 240 Q100 231 102 210 Z"
+            fill="url(#geladinho)"
+            stroke="#fff" stroke-width="5"
+            stroke-linejoin="round"/>
+
+          <path d="M118 39 Q150 49 182 39"
+            fill="none" stroke="#fff"
+            stroke-width="5" stroke-linecap="round"/>
+
+          <path d="M126 58 Q119 112 128 177"
+            fill="none" stroke="#fff"
+            stroke-width="8" stroke-linecap="round"
+            opacity=".48"/>
+
+          <path d="M173 66 Q183 111 178 143"
+            fill="none" stroke="#fff"
+            stroke-width="4" stroke-linecap="round"
+            opacity=".35"/>
+
+          <circle cx="144" cy="145" r="3.5" fill="#9c4b68"/>
+          <circle cx="163" cy="145" r="3.5" fill="#9c4b68"/>
+
+          <path d="M143 160 Q153 171 164 160"
+            fill="none" stroke="#9c4b68"
+            stroke-width="3.5" stroke-linecap="round"/>
+
+          <ellipse cx="132" cy="155" rx="7" ry="4"
+            fill="#ff779a" opacity=".8"/>
+          <ellipse cx="175" cy="155" rx="7" ry="4"
+            fill="#ff779a" opacity=".8"/>
+
+          <path d="M147 35 Q139 17 151 10
+            Q163 22 156 37"
+            fill="#77c96f" stroke="#fff" stroke-width="3"/>
+
+          <path d="M151 36 Q167 15 184 22
+            Q174 39 151 41"
+            fill="#53b96c" stroke="#fff" stroke-width="3"/>
+
+          <path d="M151 37 Q138 29 127 35
+            Q136 46 151 42"
+            fill="#8ddc7b" stroke="#fff" stroke-width="3"/>
+
+          <path d="M94 91 L80 82 M205 99 L219 89
+            M94 184 L77 188 M205 177 L222 183"
+            stroke="#fff" stroke-width="5"
+            stroke-linecap="round"/>
+
+          <path d="M218 45 L222 56 L233 60
+            L222 64 L218 75 L214 64
+            L203 60 L214 56 Z"
+            fill="#fff" opacity=".9"/>
+
+          <path d="M76 126 L79 134 L87 137
+            L79 140 L76 148 L73 140
+            L65 137 L73 134 Z"
+            fill="#fff" opacity=".8"/>
+        </svg>
+
+        <h1>Geladinho<br>das Meninas</h1>
+
+        <div class="linha"></div>
+
+        <p class="slogan">
+          Um pedacinho de felicidade<br>
+          para refrescar o seu dia.
+        </p>
+
+        <a class="rolar" href="#sobre">
+          Descubra nossa doçura
+          <span aria-hidden="true">⌄</span>
+        </a>
+
+      </section>
+
+      <section class="sobre" id="sobre">
+        <h2>Feito para adoçar seus momentos</h2>
+
+        <p>
+          Uma pausa refrescante, um sabor especial
+          e aquele carinho que deixa qualquer dia
+          mais leve. Que cada geladinho traga um
+          motivo a mais para sorrir.
+        </p>
+
+        <div class="detalhes">
+          <div class="detalhe">
+            <strong>Mais sabor</strong>
+            <small>Uma delícia para aproveitar cada momento.</small>
+          </div>
+
+          <div class="detalhe">
+            <strong>Mais carinho</strong>
+            <small>Preparado com atenção em cada detalhe.</small>
+          </div>
+
+          <div class="detalhe">
+            <strong>Mais alegria</strong>
+            <small>Pequenos momentos que ficam na memória.</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="mensagem">
+        <p>
+          Um carinho geladinho<br>
+          em cada pedacinho do seu dia.
+        </p>
+      </section>
+
+    </main>
+
+    <footer>
+      Geladinho das Meninas<br>
+      Um carinho em forma de geladinho.
+    </footer>
+
+  </div>
+</body>
+  </html>
+  
